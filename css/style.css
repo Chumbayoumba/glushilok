@@ -1,0 +1,994 @@
+/* ═══════════════════════════════════════════════════════════
+   ГЛУШИЛОК.NET — style.css
+   Web 1.0 эстетика + полный адаптив моб/ПК
+   ═══════════════════════════════════════════════════════════ */
+
+/* ---------- RESET / БАЗА ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", "Times New Roman", Verdana, sans-serif;
+  /* КАНОН Web 1.0: звёздное небо на тёмном космическом градиенте */
+  background-color: #05010f;
+  color: #00ff00;
+  text-align: center;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  position: relative;
+}
+
+/* ===== STARFIELD: три слоя звёзд через box-shadow + мерцание ===== */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+/* базовый космический градиент + диагональная плитка */
+body::before {
+  background-color: #05010f;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,0,255,0.05) 0 12px, transparent 12px 24px),
+    radial-gradient(circle at 50% 0%, #2a0a4a 0%, #100225 45%, #05010f 100%);
+}
+/* слой звёзд (мерцает) */
+body::after {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 80px, #fff, transparent),
+    radial-gradient(2px 2px at 160px 50px, #aef, transparent),
+    radial-gradient(1px 1px at 230px 120px, #fff, transparent),
+    radial-gradient(1px 1px at 300px 20px, #ffd, transparent),
+    radial-gradient(2px 2px at 60px 160px, #fff, transparent),
+    radial-gradient(1px 1px at 200px 200px, #adf, transparent),
+    radial-gradient(1px 1px at 350px 180px, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 380px 240px;
+  animation: twinkle 3s ease-in-out infinite;
+  opacity: 0.85;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.35; }
+}
+
+a { text-decoration: none; }
+
+/* ---------- ОСНОВНОЙ КОНТЕЙНЕР (табличный, как в 2000-х) ---------- */
+.layout {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: #000000;
+  border: 4px ridge #ff00ff;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,255,0,0.03) 0 2px, transparent 2px 4px);
+}
+.layout > tbody > tr > td { padding: 8px 10px; }
+
+/* ---------- БЕГУЩАЯ СТРОКА ---------- */
+.top-marquee {
+  background: #ff0000;
+  color: #ffff00;
+  font-weight: bold;
+  font-size: clamp(11px, 3vw, 15px);
+  padding: 5px 0;
+  border-bottom: 3px dashed #ffff00;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* ---------- ШАПКА ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  flex-wrap: nowrap;
+}
+.hdr-torch { flex: 0 0 auto; }
+.hdr-center { flex: 1 1 auto; min-width: 0; }
+
+.logo {
+  font-size: clamp(28px, 9vw, 64px);
+  margin: 0;
+  font-weight: bold;
+  color: #ffff00;
+  text-shadow: 3px 3px 0 #ff0000, -2px -2px 0 #00ffff, 0 0 12px #ffff00;
+  letter-spacing: 1px;
+  line-height: 1.05;
+}
+.logo .dotnet { color: #00ff00; text-shadow: 2px 2px 0 #ff00ff; }
+
+.tagline {
+  font-size: clamp(12px, 3.6vw, 20px);
+  font-weight: bold;
+  margin: 6px 0;
+}
+.flag { vertical-align: middle; margin: 0 4px; }
+
+/* строка флаг-firewall-флаг — центрируем как группу, разрешаем перенос */
+.hdr-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.hdr-badges img { max-width: 100%; height: auto; }
+
+/* ===== ЗАЩИТНОЕ ЦЕНТРИРОВАНИЕ (фикс "съезда влево") ===== */
+.header { width: 100%; }
+.hdr-center { text-align: center; }
+.hero-txt { text-align: center; }
+.cta-wrap { text-align: center; }
+.block { text-align: center; }
+.block-urgency, .block-urgency * { text-align: center; }
+.block-proxy, .block-vpn, .block-proof, .block-guestbook { text-align: center; }
+/* намеренно левые внутри блоков — возвращаем влево только им */
+.faq, .gb-entries, .review { text-align: left; }
+
+/* ---------- РАЗДЕЛИТЕЛИ ---------- */
+.divider {
+  width: 95%;
+  max-width: 600px;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+}
+
+/* ---------- HERO ---------- */
+.hero { padding: 6px 0; }
+.hero-tbl { width: 100%; margin: 0 auto; table-layout: fixed; }
+/* боковые ячейки одинаковой ширины → текст строго по центру, без перекоса */
+.hero-fire { width: 90px; text-align: center; vertical-align: middle; }
+.hero-fire img { max-width: 76px; height: auto; }
+.hero-txt { vertical-align: middle; text-align: center; }
+
+/* центрируем основную колонку при ЛЮБОЙ ширине (фикс "съезда влево") */
+.page-main { margin-left: auto; margin-right: auto; }
+
+.big-red {
+  font-size: clamp(20px, 6.5vw, 38px);
+  color: #ff0000;
+  font-weight: bold;
+  margin: 4px 0;
+  text-shadow: 2px 2px 0 #ffff00, 0 0 10px #ff0000;
+}
+.h2-yellow {
+  font-size: clamp(14px, 4vw, 22px);
+  color: #ffff00;
+  font-weight: bold;
+  margin: 6px 0;
+}
+.lead {
+  font-size: clamp(13px, 3.6vw, 19px);
+  color: #00ffff;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+.lead u { color: #ff00ff; }
+
+/* ---------- БЛОКИ ---------- */
+.block {
+  border: 3px ridge #00ffff;
+  margin: 10px 4px;
+  padding: 12px 10px;
+  background: rgba(0,0,40,0.7);
+}
+.block-proxy { border-color: #00ff00; background: rgba(0,40,0,0.6); }
+.block-vpn   { border-color: #ff00ff; background: rgba(40,0,40,0.6); }
+.block-urgency { border-color: #ff0000; background: rgba(40,0,0,0.6); }
+.block-proof { border-color: #ffff00; }
+
+.block-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.block-title {
+  font-size: clamp(14px, 4.2vw, 24px);
+  font-weight: bold;
+  color: #ffff00;
+  text-shadow: 2px 2px 0 #ff0000;
+}
+.block-text {
+  font-size: clamp(13px, 3.6vw, 18px);
+  color: #ffffff;
+  line-height: 1.55;
+  margin: 8px 0;
+}
+.block-text small { color: #aaaaff; font-size: 0.8em; }
+.block-note {
+  font-size: clamp(12px, 3.4vw, 17px);
+  color: #00ffff;
+  margin: 8px 0 0;
+}
+
+/* ---------- МЕГА-КНОПКИ (главный CTA) ---------- */
+.cta-wrap { margin: 14px 0; }
+.megabtn {
+  display: inline-block;
+  font-size: clamp(15px, 4.4vw, 24px);
+  font-weight: bold;
+  padding: 14px 12px;
+  border: 4px outset #fff;
+  border-radius: 6px;
+  color: #000;
+  text-shadow: 1px 1px 0 #fff;
+  box-shadow: 0 0 18px #fff, inset 0 0 8px rgba(255,255,255,0.6);
+  animation: pulse 0.9s infinite alternate;
+  max-width: 100%;
+  width: auto;
+  box-sizing: border-box;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.megabtn img { vertical-align: middle; }
+.megabtn-proxy {
+  background: linear-gradient(180deg, #aaffaa, #00cc00 60%, #009900);
+}
+.megabtn-bot {
+  background: linear-gradient(180deg, #ffccff, #ff00ff 60%, #cc00cc);
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+.megabtn:active { border-style: inset; }
+
+@keyframes pulse {
+  from { transform: scale(1); box-shadow: 0 0 12px #fff; }
+  to   { transform: scale(1.06); box-shadow: 0 0 28px #ffff00, 0 0 12px #fff; }
+}
+
+/* ---------- СОЦ. ДОКАЗАТЕЛЬСТВО ---------- */
+.proof-tbl { margin: 0 auto; width: 100%; }
+.proof-tbl td {
+  background: #000;
+  border: 2px solid #ffff00;
+  vertical-align: middle;
+}
+.proof-num {
+  font-size: clamp(18px, 6vw, 32px);
+  font-weight: bold;
+  color: #00ff00;
+  text-shadow: 0 0 8px #00ff00;
+}
+.proof-lbl { font-size: clamp(9px, 2.6vw, 12px); color: #ffff00; }
+
+.reviews { margin-top: 10px; }
+.review {
+  background: #ffffcc;
+  color: #000;
+  border: 2px dashed #ff0000;
+  padding: 8px;
+  margin: 8px 0;
+  font-size: clamp(12px, 3.4vw, 16px);
+  text-align: left;
+  line-height: 1.45;
+}
+.review b { color: #000080; }
+
+/* ---------- URGENCY / ТАЙМЕР ---------- */
+.urgency-head {
+  font-size: clamp(16px, 5vw, 26px);
+  color: #ff0000;
+  font-weight: bold;
+  margin: 4px 0;
+  text-shadow: 0 0 8px #ff0000;
+}
+.urgency-text { font-size: clamp(14px, 4vw, 20px); color: #ffff00; margin: 8px 0; }
+.promo-code {
+  background: #ffff00;
+  color: #ff0000;
+  padding: 1px 8px;
+  border: 2px dotted #ff0000;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+}
+.big-red.green-glow, .green-glow {
+  color: #00ff00 !important;
+  text-shadow: 0 0 8px #00ff00;
+}
+.timer-box {
+  background: #000;
+  border: 3px ridge #ff0000;
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 10px auto;
+}
+.timer-lbl { display: block; font-size: clamp(10px, 3vw, 14px); color: #ffff00; }
+.timer {
+  font-family: "Courier New", monospace;
+  font-size: clamp(28px, 9vw, 48px);
+  font-weight: bold;
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000;
+  letter-spacing: 2px;
+}
+.seats {
+  font-size: clamp(14px, 4vw, 20px);
+  color: #ff0000;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+/* ---------- ТАБЛИЦА ФИЧ ---------- */
+.feat-tbl { margin: 10px auto; width: 100%; }
+.feat-tbl td {
+  font-size: clamp(11px, 3.2vw, 15px);
+  color: #00ff00;
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px dotted #00ffff;
+}
+
+/* ---------- FAQ ---------- */
+.faq { text-align: left; max-width: 600px; margin: 0 auto; }
+.faq dt {
+  font-weight: bold;
+  color: #ffff00;
+  font-size: clamp(13px, 3.6vw, 17px);
+  margin-top: 10px;
+}
+.faq dd {
+  color: #ffffff;
+  font-size: clamp(12px, 3.4vw, 15px);
+  margin: 4px 0 0 12px;
+  line-height: 1.45;
+}
+
+/* ---------- ПОДВАЛ ---------- */
+.footer {
+  border-top: 3px double #ff00ff;
+  margin-top: 14px;
+  padding: 12px 6px;
+  font-size: clamp(11px, 3.2vw, 15px);
+  color: #00ffff;
+}
+.counter {
+  font-family: "Courier New", monospace;
+  background: #000;
+  color: #00ff00;
+  border: 2px inset #888;
+  padding: 2px 6px;
+  letter-spacing: 3px;
+}
+.footer-best { color: #ffff00; margin: 8px 0; line-height: 1.5; }
+.webring { margin: 10px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.btn8831 {
+  display: inline-block;
+  background: #c0c0c0;
+  color: #000080;
+  border: 2px outset #fff;
+  padding: 4px 8px;
+  font-size: clamp(10px, 3vw, 13px);
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+}
+.btn8831:hover { background: #ffff00; }
+
+/* каноничные бейджи 88x31 */
+.badges8831 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px auto;
+  max-width: 100%;
+}
+.badge88 {
+  width: 88px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: bold;
+  line-height: 1.05;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #1a1a8a, #000040);
+  color: #00ffcc;
+  box-shadow: inset 1px 1px 0 #5555ff, inset -1px -1px 0 #000;
+}
+.badge-ns { background: linear-gradient(180deg, #006, #00a); color: #fff; }
+.badge-ie { background: linear-gradient(180deg, #0af, #006); color: #ffff00; }
+.badge-valid { background: linear-gradient(180deg, #080, #020); color: #aff; }
+.badge-800 { background: linear-gradient(180deg, #555, #111); color: #fff; font-size: 12px; }
+.badge-noms { background: linear-gradient(180deg, #a00, #400); color: #ffff00; }
+.footer-copy { color: #ff00ff; margin: 10px 0; font-weight: bold; line-height: 1.5; }
+.footer-disclaimer { color: #6666aa; font-size: clamp(9px, 2.6vw, 12px); margin-top: 8px; }
+
+/* ---------- ПЛАВАЮЩАЯ МОБ. КНОПКА ---------- */
+.sticky-mobile {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(180deg, #ff0000, #aa0000);
+  color: #ffff00;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  padding: 14px 0;
+  border-top: 3px solid #ffff00;
+  z-index: 200;
+  text-shadow: 1px 1px 0 #000;
+  animation: pulse 0.9s infinite alternate;
+}
+
+/* ═══════════ АНИМАЦИИ ТЕКСТА ═══════════ */
+/* мигание = пульсация яркости (текст НЕ пропадает полностью, остаётся читаемым) */
+.blink { animation: blink 1s ease-in-out infinite; }
+.blink-slow { animation: blink 1.6s ease-in-out infinite; }
+.blink-red { color: #ff0000; animation: blinkglow 1s ease-in-out infinite; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@keyframes blinkglow {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px #ff0000; }
+  50% { opacity: 0.65; text-shadow: 0 0 2px #ff0000; }
+}
+
+/* радужный анимированный текст */
+.rainbow {
+  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff0000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: rainbow-move 3s linear infinite;
+}
+@keyframes rainbow-move { to { background-position: 200% center; } }
+
+/* уважение к prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .blink, .blink-slow, .blink-red, .megabtn, .sticky-mobile, .rainbow { animation: none; }
+  .rainbow { -webkit-text-fill-color: #ffff00; color: #ffff00; }
+  body::after { animation: none; opacity: 0.7; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   АДАПТИВ — МОБИЛЬНЫЕ (≤640px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .layout { border-width: 2px; }
+  .layout > tbody > tr > td { padding: 6px 5px; }
+
+  /* шапка: факелы меньше */
+  .hdr-torch { width: 36px !important; height: auto; }
+
+  /* hero — складываем в колонку */
+  .hero-tbl, .hero-tbl tbody, .hero-tbl tr { display: block; width: 100%; }
+  .hero-fire, .hero-txt { display: block; width: 100%; text-align: center; }
+  .hero-fire img { max-width: 60px; }
+
+  /* proof — числа компактнее, остаётся в ряд */
+  .proof-tbl td { padding: 4px 2px; }
+
+  /* feat-tbl в одну колонку */
+  .feat-tbl td { display: block; width: 100%; }
+
+  /* показываем плавающую кнопку, добавляем отступ снизу */
+  .sticky-mobile { display: block; }
+  body { padding-bottom: 60px; }
+
+  /* у мегакнопок отключаем scale чтоб не вылезали за экран */
+  .megabtn { animation: pulse-soft 0.9s infinite alternate; }
+  @keyframes pulse-soft {
+    from { box-shadow: 0 0 10px #fff; }
+    to   { box-shadow: 0 0 22px #ffff00; }
+  }
+}
+
+/* очень узкие экраны (≤360px) */
+@media (max-width: 360px) {
+  .logo { font-size: 26px; }
+  .top-marquee { font-size: 10px; }
+  .hdr-torch { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3-КОЛОНОЧНАЯ ОБОЛОЧКА
+   На мобильных сайдбары скрыты, на ПК — слева/справа от контента
+   ═══════════════════════════════════════════════════════════ */
+.page-shell { width: 100%; }
+.page-main { width: 100%; }
+
+/* САЙДБАРЫ — по умолчанию скрыты (моб) */
+.side { display: none; }
+.side-box {
+  border: 3px ridge #00ffff;
+  background: rgba(0,0,40,0.85);
+  margin-bottom: 12px;
+  padding: 8px 6px;
+  text-align: center;
+}
+.side-head {
+  font-weight: bold;
+  color: #ffff00;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #ff0000;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #ff00ff;
+  padding-bottom: 4px;
+}
+.side-link {
+  display: block;
+  color: #00ffff;
+  font-size: 13px;
+  padding: 5px 4px;
+  border-bottom: 1px dotted #444;
+  font-weight: bold;
+}
+.side-link:hover { background: #ffff00; color: #ff0000; }
+.side-status { font-size: 12px; color: #00ff00; margin: 4px 0; }
+.side-status b { color: #ffff00; }
+.side-price { font-size: 20px; margin: 4px 0; }
+.side-promo { font-size: 11px; color: #00ffff; margin: 4px 0; }
+.side-counter {
+  font-family: "Courier New", monospace;
+  background: #000;
+  color: #00ff00;
+  border: 2px inset #888;
+  padding: 3px 4px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  display: inline-block;
+}
+.side-cta {
+  display: inline-block;
+  background: linear-gradient(180deg, #ffcc00, #ff6600);
+  color: #000;
+  font-weight: bold;
+  padding: 6px 14px;
+  border: 3px outset #fff;
+  margin-top: 6px;
+  font-size: 14px;
+  animation: pulse 0.9s infinite alternate;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ГОСТЕВАЯ КНИГА
+   ═══════════════════════════════════════════════════════════ */
+.block-guestbook { border-color: #00ffff; }
+.gb-form { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 10px 0; }
+.gb-input {
+  font-family: "Comic Sans MS", sans-serif;
+  padding: 6px 8px;
+  border: 2px inset #888;
+  background: #ffffcc;
+  color: #000;
+  font-size: 14px;
+}
+.gb-msg { flex: 1 1 200px; min-width: 0; }
+.gb-btn {
+  background: linear-gradient(180deg, #aaffaa, #00cc00);
+  border: 3px outset #fff;
+  font-weight: bold;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #000;
+}
+.gb-btn:active { border-style: inset; }
+.gb-entries { text-align: left; max-width: 600px; margin: 10px auto 0; }
+.gb-entry {
+  background: #000;
+  border-left: 4px solid #ff00ff;
+  padding: 6px 10px;
+  margin: 6px 0;
+  font-size: 13px;
+  color: #fff;
+}
+.gb-entry .gb-author { color: #00ffff; font-weight: bold; }
+.gb-entry .gb-date { color: #888; font-size: 11px; float: right; }
+
+/* ═══════════════════════════════════════════════════════════
+   ПОП-АП "ВЫ N-Й ПОСЕТИТЕЛЬ"
+   ═══════════════════════════════════════════════════════════ */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.popup-box {
+  background: linear-gradient(135deg, #000080, #4b0082);
+  border: 5px ridge #ffff00;
+  padding: 18px 16px;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 0 40px #ffff00;
+}
+.popup-title { font-size: 26px; color: #ffff00; font-weight: bold; text-shadow: 2px 2px 0 #ff0000; }
+.popup-text { font-size: 16px; color: #fff; line-height: 1.5; margin: 10px 0; }
+.popup-text b { color: #ffff00; }
+.popup-btn {
+  display: inline-block;
+  background: linear-gradient(180deg, #aaffaa, #00cc00);
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 12px 22px;
+  border: 4px outset #fff;
+  margin: 8px 0;
+  text-shadow: 1px 1px 0 #fff;
+}
+.popup-close {
+  display: block;
+  margin: 8px auto 0;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ИСКРЫ ОТ КУРСОРА (sparkle trail)
+   ═══════════════════════════════════════════════════════════ */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 14px;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   АДАПТИВ — ПЛАНШЕТ (768–1099px): сайдбары ещё скрыты, шире контент
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .layout { max-width: 700px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   АДАПТИВ — ПК / ШИРОКИЕ (≥1100px): 3 КОЛОНКИ
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1100px) {
+  body {
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,0,255,0.08) 0 14px, transparent 14px 28px),
+      linear-gradient(135deg, #000080 0%, #4b0082 50%, #000080 100%);
+  }
+
+  /* оболочка: flex 3 колонки, центрируется */
+  .page-shell {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 14px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px;
+  }
+  .side {
+    display: block;
+    flex: 0 0 180px;
+    position: sticky;
+    top: 36px;
+  }
+  .page-main { flex: 0 1 800px; min-width: 0; }
+  .layout {
+    max-width: 100%;
+    box-shadow: 0 0 30px #ff00ff, 0 0 60px rgba(0,255,255,0.4);
+  }
+
+  /* на ПК прячем плавающую моб. кнопку всегда */
+  .sticky-mobile { display: none !important; }
+}
+
+/* очень широкие экраны (≥1500px) — чуть крупнее центр */
+@media (min-width: 1500px) {
+  .page-main { flex-basis: 880px; }
+  .side { flex-basis: 200px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   КАНОНЫ Web 1.0 v3 — ENTER, панель, снег, what's new, awards,
+   одометр, webring P/R/N, ICQ/email, гостевая Sign/View
+   ═══════════════════════════════════════════════════════════ */
+
+/* ---------- ENTER SPLASH ---------- */
+.enter-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: radial-gradient(circle at 50% 40%, #1a0030 0%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+}
+.enter-inner { max-width: 560px; }
+.enter-skull { margin-bottom: 8px; }
+.enter-welcome {
+  font-size: clamp(22px, 7vw, 46px);
+  font-weight: bold;
+  margin: 10px 0;
+  letter-spacing: 1px;
+}
+.enter-sub {
+  color: #ffff00;
+  font-size: clamp(12px, 3.6vw, 18px);
+  font-weight: bold;
+  margin: 8px 0;
+}
+.enter-fires {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+.enter-btn {
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: clamp(18px, 5.5vw, 30px);
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(180deg, #ff0000, #800000);
+  border: 5px outset #ff5555;
+  padding: 14px 34px;
+  cursor: pointer;
+  text-shadow: 2px 2px 0 #000;
+  box-shadow: 0 0 24px #ff0000;
+  max-width: 100%;
+}
+.enter-btn:active { border-style: inset; }
+.enter-note { color: #00ffff; font-size: 12px; margin-top: 16px; }
+body.entered .enter-splash { display: none; }
+
+/* ---------- ПАНЕЛЬ УПРАВЛЕНИЯ ---------- */
+.ctl-panel {
+  position: fixed;
+  top: 4px;
+  right: 4px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ctl-btn {
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: bold;
+  background: #000;
+  color: #00ff00;
+  border: 2px outset #0a0;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.ctl-btn:active { border-style: inset; }
+.ctl-btn.on { color: #ffff00; border-color: #ff0; }
+
+/* ---------- ПАДАЮЩИЙ СНЕГ ---------- */
+.snow-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  overflow: hidden;
+}
+.snow-flake {
+  position: absolute;
+  top: -20px;
+  color: #fff;
+  user-select: none;
+  will-change: transform;
+}
+
+/* ---------- ПРЕДУПРЕЖДЕНИЕ ПРО ГРАФИКУ ---------- */
+.graphics-warn {
+  background: #ffff00;
+  color: #aa0000;
+  font-weight: bold;
+  font-size: clamp(10px, 3vw, 13px);
+  text-align: center;
+  padding: 5px 8px;
+  border-bottom: 2px solid #aa0000;
+  line-height: 1.4;
+}
+
+/* ---------- WHAT'S NEW ---------- */
+.block-whatsnew { border-color: #00ff00; }
+.whatsnew-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px auto;
+  max-width: 560px;
+  text-align: left;
+}
+.whatsnew-list li {
+  color: #fff;
+  font-size: clamp(12px, 3.4vw, 16px);
+  padding: 5px 0;
+  border-bottom: 1px dotted #0a0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.whatsnew-list b { color: #ffff00; }
+
+/* ---------- AWARDS ---------- */
+.block-awards { border-color: #ffaa00; }
+.awards-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.award {
+  background: linear-gradient(180deg, #2a2a00, #000);
+  border: 2px ridge #ffaa00;
+  color: #ffff00;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 6px;
+  width: 110px;
+  line-height: 1.3;
+}
+
+/* ---------- HIT COUNTER ОДОМЕТР ---------- */
+.odometer {
+  display: inline-flex;
+  gap: 2px;
+  margin: 6px auto;
+  padding: 4px;
+  background: #000;
+  border: 3px inset #888;
+}
+.odo-digit {
+  font-family: "Courier New", monospace;
+  font-size: 22px;
+  font-weight: bold;
+  color: #00ff00;
+  background: #001000;
+  border: 1px solid #0a0;
+  width: 18px;
+  text-align: center;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+/* ---------- WEBRING P/R/N ---------- */
+.webring-pn {
+  margin: 12px auto;
+  padding: 8px;
+  border: 2px ridge #00ffff;
+  background: rgba(0,0,40,0.6);
+  max-width: 360px;
+}
+.webring-title { color: #ff00ff; font-weight: bold; font-size: 13px; }
+.ring-link {
+  display: inline-block;
+  color: #00ffff;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 4px 8px;
+  margin: 4px 2px;
+  border: 1px solid #0aa;
+}
+.ring-link:hover { background: #ffff00; color: #ff0000; }
+
+/* ---------- ICQ + EMAIL ---------- */
+.contacts-row {
+  margin: 12px auto;
+  font-size: clamp(12px, 3.4vw, 15px);
+}
+.icq-status { display: block; color: #00ffff; margin: 6px 0; }
+.icq-status b { color: #ffff00; }
+.email-me {
+  display: inline-block;
+  color: #00ffff;
+  font-weight: bold;
+  margin-top: 6px;
+}
+.email-me img { vertical-align: middle; }
+.email-me:hover { color: #ffff00; }
+
+/* ---------- ГОСТЕВАЯ Sign/View ---------- */
+.gb-tabs { display: flex; justify-content: center; gap: 4px; margin: 8px 0; }
+.gb-tab {
+  font-family: "Comic Sans MS", sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  color: #000080;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.gb-tab-active { background: #ffff00; border-style: inset; }
+
+/* доп. бейджи Made with */
+.badge-fp { background: linear-gradient(180deg, #0a0, #050); color: #fff; }
+.badge-dw { background: linear-gradient(180deg, #c0c, #606); color: #fff; }
+.badge-winamp { background: linear-gradient(180deg, #f80, #840); color: #ff0; }
+
+/* падающий снег и ENTER не мешают reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .enter-btn { animation: none; }
+}
+
+/* на мобильных панель управления компактнее */
+@media (max-width: 640px) {
+  .ctl-btn { font-size: 9px; padding: 3px 4px; }
+  .award { width: 90px; font-size: 9px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   v4 — больше гифок: ENTER-приманка, указатели у кнопок,
+   ICQ-попап, urgency-гифки
+   ═══════════════════════════════════════════════════════════ */
+
+/* ENTER приманка */
+.enter-toprow,
+.enter-btnrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.enter-promise {
+  background: #ffff00;
+  color: #cc0000;
+  font-weight: bold;
+  font-size: clamp(13px, 4vw, 19px);
+  padding: 8px 12px;
+  border: 3px dashed #cc0000;
+  display: inline-block;
+  margin: 10px auto;
+  animation: blink 1s ease-in-out infinite;
+}
+.enter-point { animation: pulse 0.7s infinite alternate; }
+
+/* указатели-руки у мегакнопок */
+.cta-point { vertical-align: middle; margin: 0 4px; }
+
+/* гифки в urgency */
+.urgency-gifs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+/* пляшущие гифки в попапах */
+.popup-dance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* ICQ кликабельный — выглядит как ссылка-кнопка */
+a.icq-status { cursor: pointer; text-decoration: none; }
+a.icq-status:hover { background: rgba(255,255,0,0.15); }
+a.icq-status img { vertical-align: middle; }
