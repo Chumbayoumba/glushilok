@@ -962,12 +962,17 @@ body.entered .enter-splash { display: none; }
   font-size: clamp(12px, 3.4vw, 18px);
   padding: 8px 12px;
   border: 3px dashed #cc0000;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin: 10px auto;
   max-width: 94%;
   line-height: 1.35;
   animation: blink 1s ease-in-out infinite;
 }
+.enter-promise .gift { flex: 0 0 auto; }
+.enter-promise .gift-text { flex: 1 1 auto; }
 .enter-point { animation: pulse 0.7s infinite alternate; }
 
 /* указатели-руки у мегакнопок */
@@ -1021,3 +1026,34 @@ a.icq-status img { vertical-align: middle; }
   margin: 6px 0;
 }
 .seo-text b { color: #00ff88; }
+
+/* ═══════════ ПАГИНАЦИЯ ГОСТЕВОЙ ═══════════ */
+.gb-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 10px;
+}
+.gb-page-btn {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 30px;
+  padding: 5px 8px;
+  background: #c0c0c0;
+  color: #000080;
+  border: 2px outset #fff;
+  cursor: pointer;
+}
+.gb-page-btn:hover:not(:disabled) { background: #ffff00; color: #ff0000; }
+.gb-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.gb-page-active { background: #ffff00 !important; color: #ff0000 !important; border-style: inset; }
+.gb-page-info {
+  flex-basis: 100%;
+  text-align: center;
+  color: #00ffff;
+  font-size: 12px;
+  margin-top: 6px;
+}

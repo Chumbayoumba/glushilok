@@ -143,15 +143,17 @@
     var nameI = document.getElementById("gbName");
     var msgI = document.getElementById("gbMsg");
     var btn = document.getElementById("gbSubmit");
+    var pager = document.getElementById("gbPager");
 
     // === JsonBin (общая книга для всех посетителей) ===
     var BIN = "6a2eeccdf5f4af5e29f12746";
     var ACCESS = "$2a$10$c1065UtawSnFftpe5SIJ3uC/lsLZ1G66P/EsYrVn1J.JgWD/qfbNG";
     var READ_URL = "https://api.jsonbin.io/v3/b/" + BIN + "/latest";
     var WRITE_URL = "https://api.jsonbin.io/v3/b/" + BIN;
-    var MAX = 200;
+    var MAX = 500;       // макс. записей в книге
+    var PER_PAGE = 10;   // записей на страницу
+    var page = 1;
 
-    // затравочные записи (показываем, если книга пустая)
     var seed = [
       { n: "Серёга_2003", m: "Прокси спас когда инет глушили на МТС! Респектище!!!", d: "13.07.2026" },
       { n: "kat_msk", m: "залетела с телефона, всё работает, спасибо!!! :)", d: "11.07.2026" },
@@ -165,56 +167,97 @@
         return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
       });
     }
-    function render(list) {
+
+    function renderPage() {
+      var data = (current && current.length) ? current : seed;
+      var pages = Math.max(1, Math.ceil(data.length / PER_PAGE));
+      if (page > pages) page = pages;
+      if (page < 1) page = 1;
+      var start = (page - 1) * PER_PAGE;
+      var slice = data.slice(start, start + PER_PAGE);
+
       box.innerHTML = "";
-      var data = (list && list.length) ? list : seed;
-      data.forEach(function (e) {
+      slice.forEach(function (e) {
         var div = document.createElement("div");
         div.className = "gb-entry";
         div.innerHTML = '<span class="gb-date">' + esc(e.d || "") + '</span>' +
           '<span class="gb-author">' + esc(e.n || "Аноним") + ':</span> ' + esc(e.m || "");
         box.appendChild(div);
       });
+
+      // пагинация
+      if (!pager) return;
+      pager.innerHTML = "";
+      if (pages <= 1) return;
+      function mkBtn(label, p, disabled, active) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "gb-page-btn" + (active ? " gb-page-active" : "");
+        b.textContent = label; b.disabled = !!disabled;
+        b.addEventListener("click", function () { page = p; renderPage(); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+        return b;
+      }
+      pager.appendChild(mkBtn("«", page - 1, page === 1, false));
+      // окно номеров (макс 7 кнопок)
+      var from = Math.max(1, page - 3), to = Math.min(pages, from + 6);
+      from = Math.max(1, to - 6);
+      for (var p = from; p <= to; p++) pager.appendChild(mkBtn(String(p), p, false, p === page));
+      pager.appendChild(mkBtn("»", page + 1, page === pages, false));
+      var info = document.createElement("div");
+      info.className = "gb-page-info";
+      info.textContent = "стр. " + page + " из " + pages + " · всего записей: " + data.length;
+      pager.appendChild(info);
     }
+
+    function loadInto(cb) {
+      fetch(READ_URL, { headers: { "X-Bin-Meta": "false" }, cache: "no-store" })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { cb((j && j.entries) ? j.entries : []); })
+        .catch(function () { cb(null); });
+    }
+
     function fetchEntries() {
       box.innerHTML = '<div class="gb-entry" style="color:#0ff">Загрузка записей...</div>';
-      fetch(READ_URL, { headers: { "X-Bin-Meta": "false" } })
-        .then(function (r) { return r.json(); })
-        .then(function (j) {
-          current = (j && j.entries) ? j.entries : [];
-          render(current);
-        })
-        .catch(function () { render(seed); });
+      loadInto(function (list) {
+        current = list || [];
+        page = 1;
+        renderPage();
+      });
     }
+
     function add() {
       var n = (nameI.value || "Аноним").trim().slice(0, 24) || "Аноним";
       var m = (msgI.value || "").trim().slice(0, 200);
       if (!m) { msgI.focus(); return; }
       var today = new Date().toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
       var entry = { n: n, m: m, d: today };
-      // оптимистично показываем сразу
-      current.unshift(entry);
-      if (current.length > MAX) current = current.slice(0, MAX);
-      render(current);
       nameI.value = ""; msgI.value = "";
       if (btn) { btn.disabled = true; btn.textContent = "Отправка..."; }
-      // сохраняем в общую книгу
-      fetch(WRITE_URL, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", "X-Access-Key": ACCESS },
-        body: JSON.stringify({ entries: current })
-      }).then(function (r) {
-        if (!r.ok) throw new Error("write failed");
-      }).catch(function () {
-        // не вышло — оставляем в UI, но предупреждаем
-        var w = document.createElement("div");
-        w.className = "gb-entry"; w.style.color = "#ff0";
-        w.textContent = "⚠ запись пока не сохранилась на сервер, попробуй ещё раз";
-        box.insertBefore(w, box.firstChild);
-      }).then(function () {
-        if (btn) { btn.disabled = false; btn.textContent = "✍ ПОДПИСАТЬ"; }
+
+      // перечитываем СВЕЖИЕ данные, добавляем свою запись (чтобы не затереть чужие), пишем
+      loadInto(function (fresh) {
+        var list = (fresh && fresh.length) ? fresh.slice() : [];
+        list.unshift(entry);
+        if (list.length > MAX) list = list.slice(0, MAX);
+        fetch(WRITE_URL, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", "X-Access-Key": ACCESS },
+          body: JSON.stringify({ entries: list })
+        }).then(function (r) {
+          if (!r.ok) throw new Error("write failed");
+          current = list; page = 1; renderPage();
+        }).catch(function () {
+          // показываем локально, предупреждаем
+          current.unshift(entry); page = 1; renderPage();
+          var w = document.createElement("div");
+          w.className = "gb-entry"; w.style.color = "#ff0";
+          w.textContent = "⚠ не удалось сохранить на сервер — проверь интернет и попробуй ещё раз";
+          box.insertBefore(w, box.firstChild);
+        }).then(function () {
+          if (btn) { btn.disabled = false; btn.textContent = "✍ ПОДПИСАТЬ"; }
+        });
       });
     }
+
     if (btn) btn.addEventListener("click", add);
     if (msgI) msgI.addEventListener("keydown", function (e) { if (e.key === "Enter") add(); });
     fetchEntries();
