@@ -304,139 +304,24 @@
   /* ---------- 14. MIDI-МУЗЫКА (Web Audio чиптюн, без autoplay) ---------- */
   function initMusic() {
     var btn = document.getElementById("musicBtn");
-    if (!btn) return;
-    var ctx = null, master = null, playing = false, stopTimer = null;
-
-    var F = {
-      "F2":87.31,"G2":98.0,"A2":110.0,"D2":73.42,"E2":82.41,"C3":130.81,
-      "E3":164.81,"F3":174.61,"G3":196.0,"A3":220.0,"B3":246.94,
-      "C4":261.63,"D4":293.66,"E4":329.63,"F4":349.23,"G4":392.0,
-      "A4":440.0,"B4":493.88,"C5":523.25,"D5":587.33,"E5":659.25
-    };
-
-    // ===== ВОКАЛЬНАЯ МЕЛОДИЯ (d = доли: 1=четверть, 0.5=восьмая) =====
-    var verseMelody = [
-      // Вместо тепла зелень стекла
-      {n:"E4",d:1},{n:"E4",d:1},{n:"E4",d:1},{n:"E4",d:0.5},{n:"D4",d:0.5},{n:"C4",d:0.5},{n:"D4",d:1.5},{n:"E4",d:2},
-      // Вместо огня дым
-      {n:"E4",d:1},{n:"E4",d:1},{n:"D4",d:0.5},{n:"C4",d:0.5},{n:"D4",d:1},{n:"B3",d:4},
-      // Из сетки календаря выхвачен день
-      {n:"C4",d:1},{n:"C4",d:1},{n:"C4",d:1},{n:"C4",d:0.5},{n:"B3",d:0.5},{n:"A3",d:0.5},{n:"B3",d:1.5},{n:"C4",d:2},
-      // Красное солнце сгорает дотла
-      {n:"C4",d:1},{n:"C4",d:1},{n:"C4",d:1},{n:"C4",d:0.5},{n:"B3",d:0.5},{n:"A3",d:0.5},{n:"B3",d:1.5},{n:"C4",d:2},
-      // День догорает с ним
-      {n:"C4",d:1},{n:"C4",d:1},{n:"B3",d:0.5},{n:"A3",d:0.5},{n:"B3",d:1},{n:"G3",d:4},
-      // На пылающий город падает тень
-      {n:"A3",d:1},{n:"A3",d:1},{n:"A3",d:1},{n:"A3",d:0.5},{n:"G3",d:0.5},{n:"F3",d:0.5},{n:"G3",d:1.5},{n:"A3",d:2},
-      {n:null,d:8}
-    ];
-    var chorusMelody = [
-      {n:"E5",d:1},{n:"E5",d:1},{n:"E5",d:2}, // Перемен!
-      {n:"A4",d:0.5},{n:"B4",d:0.5},{n:"C5",d:0.5},{n:"C5",d:0.5},{n:"C5",d:0.5},{n:"B4",d:0.5},{n:"A4",d:1},{n:null,d:2}, // требуют наши сердца
-      {n:"E5",d:1},{n:"E5",d:1},{n:"E5",d:2},
-      {n:"A4",d:0.5},{n:"B4",d:0.5},{n:"C5",d:0.5},{n:"C5",d:0.5},{n:"C5",d:0.5},{n:"B4",d:0.5},{n:"A4",d:1},{n:null,d:2}, // требуют наши глаза
-      {n:"A4",d:0.5},{n:"A4",d:0.5},{n:"A4",d:0.5},{n:"G4",d:0.5},{n:"F4",d:0.5},{n:"G4",d:0.5},{n:"A4",d:1}, // В нашем смехе и в наших слезах
-      {n:"C5",d:1},{n:"C5",d:0.5},{n:"C5",d:0.5},{n:"B4",d:0.5},{n:"A4",d:0.5},{n:"B4",d:1},{n:null,d:2}, // И в пульсации вен
-      {n:"E5",d:1},{n:"E5",d:1},{n:"E5",d:2}, // Перемен!
-      {n:"C5",d:1},{n:"B4",d:1},{n:"A4",d:2},{n:null,d:4} // Мы ждём перемен!
-    ];
-    var introMelody = [{n:null,d:32}];
-
-    function genBass(note, beats){ var r=[]; for(var i=0;i<beats*2;i++) r.push({n:note,d:0.5}); return r; }
-    var verseBass = [].concat(
-      genBass("A2",8),genBass("G2",8),genBass("D2",8),genBass("A2",8),
-      genBass("A2",8),genBass("G2",8),genBass("D2",8),genBass("A2",8));
-    var chorusBass = [].concat(
-      genBass("F2",4),genBass("G2",4),genBass("A2",8),
-      genBass("F2",4),genBass("G2",4),genBass("A2",8),
-      genBass("F2",4),genBass("G2",4),genBass("A2",8),
-      genBass("F2",4),genBass("G2",4),genBass("A2",8));
-    var introBass = [].concat(
-      genBass("F2",4),genBass("G2",4),genBass("A2",8),
-      genBass("F2",4),genBass("G2",4),genBass("A2",8));
-
-    var fullMelody = [].concat(introMelody, verseMelody, chorusMelody, verseMelody, chorusMelody);
-    var fullBass   = [].concat(introBass,   verseBass,   chorusBass,   verseBass,   chorusBass);
-
-    function noiseBuf(){
-      var len=ctx.sampleRate*0.15, b=ctx.createBuffer(1,len,ctx.sampleRate), d=b.getChannelData(0);
-      for(var i=0;i<len;i++) d[i]=Math.random()*2-1; return b;
-    }
-    function playTone(freq,type,time,dur,vol){
-      if(!freq) return;
-      var o=ctx.createOscillator(), g=ctx.createGain();
-      o.type=type; o.frequency.value=freq;
-      g.gain.setValueAtTime(0,time);
-      g.gain.linearRampToValueAtTime(vol,time+0.02);
-      g.gain.setValueAtTime(vol*0.8,time+dur-0.05>time?time+dur-0.05:time);
-      g.gain.linearRampToValueAtTime(0,time+dur);
-      o.connect(g); g.connect(master); o.start(time); o.stop(time+dur);
-    }
-    function kick(time){
-      var o=ctx.createOscillator(), g=ctx.createGain();
-      o.type="sine"; o.frequency.setValueAtTime(150,time);
-      o.frequency.exponentialRampToValueAtTime(45,time+0.12);
-      g.gain.setValueAtTime(0.55,time); g.gain.exponentialRampToValueAtTime(0.0001,time+0.18);
-      o.connect(g); g.connect(master); o.start(time); o.stop(time+0.2);
-    }
-    function snare(time){
-      var s=ctx.createBufferSource(); s.buffer=noiseBuf();
-      var f=ctx.createBiquadFilter(); f.type="highpass"; f.frequency.value=1800;
-      var g=ctx.createGain(); g.gain.setValueAtTime(0.35,time);
-      g.gain.exponentialRampToValueAtTime(0.0001,time+0.12);
-      s.connect(f); f.connect(g); g.connect(master); s.start(time); s.stop(time+0.13);
-    }
-
-    function schedule() {
-      var bpm = 132, beat = 60/bpm;
-      var t0 = ctx.currentTime + 0.3;
-      // мелодия (square, staccato)
-      var mt = t0, total = 0;
-      fullMelody.forEach(function(nt){
-        var dur = nt.d*beat;
-        if(nt.n){ playTone(F[nt.n],"square",mt,dur*0.85,0.18); playTone(F[nt.n]*2,"square",mt,dur*0.85,0.04); }
-        mt += dur; total += dur;
-      });
-      // бас (sawtooth + sub)
-      var bt = t0;
-      fullBass.forEach(function(nt){
-        var dur = nt.d*beat;
-        if(nt.n){ playTone(F[nt.n],"sawtooth",bt,dur*0.95,0.14); playTone(F[nt.n]/2,"sine",bt,dur*0.95,0.12); }
-        bt += dur;
-      });
-      // ударные: kick на 1 и 3, snare на 2 и 4, по всей длине трека
-      var dt = t0, four = beat; // четверть
-      for(var b=0; t0 + b*four < t0 + total; b++){
-        var time = t0 + b*four;
-        if(b % 2 === 0) kick(time); else snare(time);
+    var audio = document.getElementById("bgAudio");
+    if (!btn || !audio) return;
+    audio.volume = 0.55;
+    audio.loop = true;
+    btn.addEventListener("click", function () {
+      if (audio.paused) {
+        var p = audio.play();
+        if (p && p.catch) p.catch(function(){});
+        btn.textContent = "🔊 ХОЧУ ПЕРЕМЕН: ВКЛ"; btn.classList.add("on");
+      } else {
+        audio.pause();
+        btn.textContent = "🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ"; btn.classList.remove("on");
       }
-      return total;
-    }
-
-    function play(){
-      ctx = ctx || new (window.AudioContext||window.webkitAudioContext)();
-      if(ctx.state==="suspended") ctx.resume();
-      if(!master){
-        var comp=ctx.createDynamicsCompressor();
-        master=ctx.createGain(); master.gain.value=0.55;
-        master.connect(comp); comp.connect(ctx.destination);
-      }
-      playing=true;
-      btn.textContent="🔊 ХОЧУ ПЕРЕМЕН: ВКЛ"; btn.classList.add("on");
-      function loop(){
-        if(!playing) return;
-        var dur = schedule();
-        stopTimer = setTimeout(loop, dur*1000); // зацикливаем по окончании трека
-      }
-      loop();
-    }
-    function stop(){
-      playing=false;
-      if(stopTimer) clearTimeout(stopTimer);
-      if(ctx){ try{ ctx.close(); }catch(e){} ctx=null; master=null; }
-      btn.textContent="🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ"; btn.classList.remove("on");
-    }
-    btn.addEventListener("click", function(){ playing ? stop() : play(); });
+    });
+    // если трек кончился (на случай если loop не сработал) — перезапускаем
+    audio.addEventListener("ended", function () {
+      if (btn.classList.contains("on")) { audio.currentTime = 0; audio.play().catch(function(){}); }
+    });
   }
 
   /* ---------- 15. ГОСТЕВАЯ Sign/View табы ---------- */
