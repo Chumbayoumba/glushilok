@@ -472,18 +472,46 @@ a { text-decoration: none; }
   .layout > tbody > tr > td { padding: 6px 5px; }
 
   /* шапка: факелы меньше */
-  .hdr-torch { width: 36px !important; height: auto; }
+  .hdr-torch { width: 30px !important; height: auto; }
 
-  /* hero — складываем в колонку */
-  .hero-tbl, .hero-tbl tbody, .hero-tbl tr { display: block; width: 100%; }
-  .hero-fire, .hero-txt { display: block; width: 100%; text-align: center; }
-  .hero-fire img { max-width: 60px; }
+  /* HERO: НЕ складываем в колонку — остаётся таблицей, гифки по бокам */
+  .hero-fire { width: 46px; }
+  .hero-fire img { max-width: 42px; }
+  .big-red { font-size: clamp(15px, 4.6vw, 26px); }
+
+  /* флаги+firewall: всё в один ряд, без переноса, ужимаем */
+  .hdr-badges { flex-wrap: nowrap; gap: 3px; }
+  .hdr-badges .flag { width: 30px; height: auto; }
+  .hdr-badges img[alt="firewall"] { max-width: 52vw; height: auto; }
 
   /* proof — числа компактнее, остаётся в ряд */
   .proof-tbl td { padding: 4px 2px; }
 
   /* feat-tbl в одну колонку */
   .feat-tbl td { display: block; width: 100%; }
+
+  /* ===== CTA: гифка | кнопка | гифка в ОДНОЙ строке (grid) ===== */
+  .cta-wrap {
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+    align-items: center;
+    justify-items: center;
+    gap: 4px;
+  }
+  .cta-wrap .cta-point { width: 30px; height: auto; }
+  .cta-wrap .megabtn { width: 100%; }
+
+  /* ENTER: пальчики по бокам кнопки в одну строку */
+  .enter-btnrow { flex-wrap: nowrap; gap: 6px; }
+  .enter-point { width: 34px !important; height: auto; }
+  .enter-btnrow .enter-btn { flex: 0 1 auto; }
+  /* ряды гифок в ENTER не переносим, ужимаем */
+  .enter-fires { flex-wrap: nowrap; gap: 6px; }
+  .enter-fires img { max-width: 13vw; height: auto; }
+
+  /* urgency гифки в ряд */
+  .urgency-gifs { flex-wrap: nowrap; gap: 6px; }
+  .urgency-gifs img { max-width: 14vw; height: auto; }
 
   /* показываем плавающую кнопку, добавляем отступ снизу */
   .sticky-mobile { display: block; }
@@ -502,6 +530,20 @@ a { text-decoration: none; }
   .logo { font-size: 26px; }
   .top-marquee { font-size: 10px; }
   .hdr-torch { display: none; }
+  /* блок-заголовки: гифки меньше, заголовок не давит */
+  .block-head { gap: 4px; }
+  .block-head img { max-width: 36px; height: auto; }
+  .block-title { font-size: 13px; }
+  /* hero-гифки ещё меньше */
+  .hero-fire { width: 38px; }
+  .hero-fire img { max-width: 34px; }
+  .big-red { font-size: 14px; }
+  /* cta пальчики совсем мелкие */
+  .cta-wrap .cta-point { width: 22px; }
+  .enter-point { width: 26px !important; }
+  /* кнопки компактнее по тексту */
+  .megabtn { font-size: 14px; padding: 12px 8px; }
+  .enter-btn { font-size: 16px; padding: 12px 16px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
