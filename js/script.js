@@ -143,50 +143,81 @@
     var nameI = document.getElementById("gbName");
     var msgI = document.getElementById("gbMsg");
     var btn = document.getElementById("gbSubmit");
-    var KEY = "glsh_guestbook";
 
-    // дефолтные "затравочные" записи (соц.доказательство)
+    // === JsonBin (общая книга для всех посетителей) ===
+    var BIN = "6a2eeccdf5f4af5e29f12746";
+    var ACCESS = "$2a$10$c1065UtawSnFftpe5SIJ3uC/lsLZ1G66P/EsYrVn1J.JgWD/qfbNG";
+    var READ_URL = "https://api.jsonbin.io/v3/b/" + BIN + "/latest";
+    var WRITE_URL = "https://api.jsonbin.io/v3/b/" + BIN;
+    var MAX = 200;
+
+    // затравочные записи (показываем, если книга пустая)
     var seed = [
       { n: "Серёга_2003", m: "Прокси спас когда инет глушили на МТС! Респектище!!!", d: "13.07.2026" },
       { n: "kat_msk", m: "залетела с телефона, всё работает, спасибо!!! :)", d: "11.07.2026" },
-      { n: "ВованДеревня", m: "думал развод, а реально бесплатно. вернул ютуб. ICQ мне 228337", d: "09.07.2026" },
+      { n: "ВованДеревня", m: "думал развод, а реально бесплатно. вернул ютуб!", d: "09.07.2026" },
       { n: "xXx_HaCkEr_xXx", m: "Cool site!!! заходи на мой тоже =))) Netscape rulez", d: "05.07.2026" }
     ];
+    var current = [];
 
-    function load() {
-      try { return JSON.parse(localStorage.getItem(KEY) || "null") || seed.slice(); }
-      catch (e) { return seed.slice(); }
-    }
     function esc(s) {
       return String(s).replace(/[&<>"']/g, function (c) {
         return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
       });
     }
-    function render() {
-      var list = load();
+    function render(list) {
       box.innerHTML = "";
-      list.forEach(function (e) {
+      var data = (list && list.length) ? list : seed;
+      data.forEach(function (e) {
         var div = document.createElement("div");
         div.className = "gb-entry";
-        div.innerHTML = '<span class="gb-date">' + esc(e.d) + '</span>' +
-          '<span class="gb-author">' + esc(e.n) + ':</span> ' + esc(e.m);
+        div.innerHTML = '<span class="gb-date">' + esc(e.d || "") + '</span>' +
+          '<span class="gb-author">' + esc(e.n || "Аноним") + ':</span> ' + esc(e.m || "");
         box.appendChild(div);
       });
     }
+    function fetchEntries() {
+      box.innerHTML = '<div class="gb-entry" style="color:#0ff">Загрузка записей...</div>';
+      fetch(READ_URL, { headers: { "X-Bin-Meta": "false" } })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          current = (j && j.entries) ? j.entries : [];
+          render(current);
+        })
+        .catch(function () { render(seed); });
+    }
     function add() {
-      var n = (nameI.value || "Аноним").trim().slice(0, 20);
-      var m = (msgI.value || "").trim().slice(0, 120);
+      var n = (nameI.value || "Аноним").trim().slice(0, 24) || "Аноним";
+      var m = (msgI.value || "").trim().slice(0, 200);
       if (!m) { msgI.focus(); return; }
-      var list = load();
       var today = new Date().toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
-      list.unshift({ n: n, m: m, d: today });
-      localStorage.setItem(KEY, JSON.stringify(list.slice(0, 50)));
+      var entry = { n: n, m: m, d: today };
+      // оптимистично показываем сразу
+      current.unshift(entry);
+      if (current.length > MAX) current = current.slice(0, MAX);
+      render(current);
       nameI.value = ""; msgI.value = "";
-      render();
+      if (btn) { btn.disabled = true; btn.textContent = "Отправка..."; }
+      // сохраняем в общую книгу
+      fetch(WRITE_URL, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", "X-Access-Key": ACCESS },
+        body: JSON.stringify({ entries: current })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("write failed");
+      }).catch(function () {
+        // не вышло — оставляем в UI, но предупреждаем
+        var w = document.createElement("div");
+        w.className = "gb-entry"; w.style.color = "#ff0";
+        w.textContent = "⚠ запись пока не сохранилась на сервер, попробуй ещё раз";
+        box.insertBefore(w, box.firstChild);
+      }).then(function () {
+        if (btn) { btn.disabled = false; btn.textContent = "✍ ПОДПИСАТЬ"; }
+      });
     }
     if (btn) btn.addEventListener("click", add);
     if (msgI) msgI.addEventListener("keydown", function (e) { if (e.key === "Enter") add(); });
-    render();
+    fetchEntries();
   }
 
   /* ---------- 9. ИСКРЫ ОТ КУРСОРА (sparkle trail, только ПК) ---------- */
