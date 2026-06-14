@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Поисковые роботы РФ и мир
+User-agent: Yandex
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Host: https://glushilok.net
+Sitemap: https://glushilok.net/sitemap.xml

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#000080"/>
+      <stop offset="50%" stop-color="#4b0082"/>
+      <stop offset="100%" stop-color="#05010f"/>
+    </linearGradient>
+    <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff0000"/>
+      <stop offset="25%" stop-color="#ffff00"/>
+      <stop offset="50%" stop-color="#00ff00"/>
+      <stop offset="75%" stop-color="#00ffff"/>
+      <stop offset="100%" stop-color="#ff00ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#ffffff" opacity="0.7">
+    <circle cx="120" cy="90" r="2"/><circle cx="300" cy="160" r="2"/><circle cx="520" cy="70" r="2"/>
+    <circle cx="760" cy="130" r="2"/><circle cx="980" cy="80" r="2"/><circle cx="1080" cy="200" r="2"/>
+    <circle cx="200" cy="520" r="2"/><circle cx="450" cy="560" r="2"/><circle cx="850" cy="540" r="2"/>
+    <circle cx="1050" cy="500" r="2"/><circle cx="640" cy="500" r="2"/>
+  </g>
+  <text x="600" y="220" font-family="Arial Black, sans-serif" font-size="120" font-weight="bold"
+        text-anchor="middle" fill="#ffff00" stroke="#ff0000" stroke-width="3">ГЛУШИЛОК<tspan fill="#00ff00">.NET</tspan></text>
+  <text x="600" y="320" font-family="Arial, sans-serif" font-size="46" font-weight="bold"
+        text-anchor="middle" fill="url(#rb)">★ ГЛУШАТ ИНТЕРНЕТ? У НАС ГЛУШИЛОК НЕТ! ★</text>
+  <text x="600" y="410" font-family="Arial, sans-serif" font-size="38" text-anchor="middle" fill="#00ffff">
+    Бесплатный прокси для Telegram + VPN от 239 ₽</text>
+  <text x="600" y="470" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="#ffffff">
+    Обход глушилок и белых списков · МТС МегаФон Tele2 Билайн Yota</text>
+  <rect x="380" y="520" width="440" height="70" rx="8" fill="#00cc00" stroke="#ffffff" stroke-width="4"/>
+  <text x="600" y="567" font-family="Arial Black, sans-serif" font-size="38" font-weight="bold"
+        text-anchor="middle" fill="#000000">🔥 ВЕРНУТЬ ИНТЕРНЕТ 🔥</text>
+</svg>

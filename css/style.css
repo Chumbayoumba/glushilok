@@ -992,3 +992,29 @@ body.entered .enter-splash { display: none; }
 a.icq-status { cursor: pointer; text-decoration: none; }
 a.icq-status:hover { background: rgba(255,255,0,0.15); }
 a.icq-status img { vertical-align: middle; }
+
+/* ═══════════════════════════════════════════════════════════
+   SEO-блок и подзаголовок (читаемы, в стиле сайта)
+   ═══════════════════════════════════════════════════════════ */
+.seo-subtitle {
+  font-size: clamp(11px, 3vw, 15px);
+  color: #00ffff;
+  margin: 6px auto 0;
+  max-width: 600px;
+  line-height: 1.4;
+}
+.block-seo { border-color: #00ffff; text-align: left; }
+.block-seo .block-title { display: block; text-align: center; margin-bottom: 10px; font-size: clamp(15px,4.5vw,22px); }
+.seo-h3 {
+  color: #ffff00;
+  font-size: clamp(14px, 4vw, 19px);
+  margin: 14px 0 4px;
+  text-shadow: 1px 1px 0 #ff0000;
+}
+.seo-text {
+  color: #fff;
+  font-size: clamp(13px, 3.5vw, 16px);
+  line-height: 1.6;
+  margin: 6px 0;
+}
+.seo-text b { color: #00ff88; }

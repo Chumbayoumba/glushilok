@@ -1,0 +1,17 @@
+{
+  "name": "ГЛУШИЛОК.NET — прокси и VPN",
+  "short_name": "ГЛУШИЛОК",
+  "description": "Бесплатный прокси для Telegram и VPN для обхода глушилок интернета и белых списков",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05010f",
+  "theme_color": "#000080",
+  "icons": [
+    {
+      "src": "assets/gif/cellphone_blink.gif",
+      "sizes": "any",
+      "type": "image/gif"
+    }
+  ]
+}

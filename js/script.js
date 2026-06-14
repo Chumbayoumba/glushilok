@@ -306,26 +306,114 @@
     var btn = document.getElementById("musicBtn");
     if (!btn) return;
     var ctx = null, playing = false, timer = null, step = 0;
-    // простая зацикленная чиптюн-мелодия (ноты в Гц)
-    var melody = [330, 392, 494, 392, 330, 294, 330, 392, 262, 294, 330, 392, 440, 392, 330, 294];
-    function note() {
-      if (!ctx) return;
+    var master = null;
+
+    // === ПАРТИИ (16 шагов на цикл, темп ~ драм-н-бэйс/денс) ===
+    // мелодия (square, ведущая)
+    var melody = [659,0,587,523,0,587,659,784,659,587,523,0,587,523,494,0];
+    // басовая линия (низкие ноты, мощный саб)
+    var bass   = [82,82,82,98,65,65,65,73,82,82,82,98,110,98,82,73];
+    // паттерн бочки (kick) и хэта
+    var kick   = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0];
+    var hat    = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1];
+
+    function makeNoiseBuffer() {
+      var len = ctx.sampleRate * 0.2;
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      return buf;
+    }
+
+    // мелодический голос
+    function voice(freq, type, t, dur, vol, filterFreq) {
+      if (!freq) return;
       var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.type = "square";
-      osc.frequency.value = melody[step % melody.length];
-      gain.gain.setValueAtTime(0.06, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.start(); osc.stop(ctx.currentTime + 0.22);
+      var g = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      var node = osc;
+      if (filterFreq) {
+        var f = ctx.createBiquadFilter();
+        f.type = "lowpass";
+        f.frequency.value = filterFreq;
+        f.Q.value = 8;
+        osc.connect(f); node = f;
+      }
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.015);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      node.connect(g); g.connect(master);
+      osc.start(t); osc.stop(t + dur + 0.02);
+    }
+
+    // мощный саб-бас (saw через lowpass + лёгкий саб-осциллятор)
+    function bassNote(freq, t, dur) {
+      if (!freq) return;
+      voice(freq, "sawtooth", t, dur, 0.22, 420); // тело баса
+      // суб-октава синусом — даёт "бас"
+      var sub = ctx.createOscillator();
+      var sg = ctx.createGain();
+      sub.type = "sine";
+      sub.frequency.value = freq / 2;
+      sg.gain.setValueAtTime(0.0001, t);
+      sg.gain.exponentialRampToValueAtTime(0.32, t + 0.02);
+      sg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      sub.connect(sg); sg.connect(master);
+      sub.start(t); sub.stop(t + dur + 0.02);
+    }
+
+    // бочка (kick) — синус с питч-спадом
+    function kickHit(t) {
+      var osc = ctx.createOscillator();
+      var g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(150, t);
+      osc.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+      g.gain.setValueAtTime(0.6, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+      osc.connect(g); g.connect(master);
+      osc.start(t); osc.stop(t + 0.2);
+    }
+
+    // хэт — шум через хайпасс
+    function hatHit(t) {
+      var src = ctx.createBufferSource();
+      src.buffer = makeNoiseBuffer();
+      var f = ctx.createBiquadFilter();
+      f.type = "highpass"; f.frequency.value = 7000;
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+      src.connect(f); f.connect(g); g.connect(master);
+      src.start(t); src.stop(t + 0.06);
+    }
+
+    function tick() {
+      if (!ctx) return;
+      var t = ctx.currentTime + 0.02;
+      var i = step % 16;
+      voice(melody[i], "square", t, 0.18, 0.10, null);
+      bassNote(bass[i], t, 0.22);
+      if (kick[i]) kickHit(t);
+      if (hat[i]) hatHit(t);
       step++;
     }
+
     function play() {
       ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
       if (ctx.state === "suspended") ctx.resume();
+      if (!master) {
+        // мастер: компрессор + общий гейн (чтобы басы не перегружали)
+        var comp = ctx.createDynamicsCompressor();
+        master = ctx.createGain();
+        master.gain.value = 0.5;
+        master.connect(comp);
+        comp.connect(ctx.destination);
+      }
       playing = true; step = 0;
-      note();
-      timer = setInterval(note, 250);
+      tick();
+      timer = setInterval(tick, 150); // ~100 BPM в 16-х
       btn.textContent = "🔊 МУЗЫКА: ВКЛ"; btn.classList.add("on");
     }
     function stop() {
