@@ -18,7 +18,7 @@ body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  font-family: Tahoma, Verdana, "Geneva", "DejaVu Sans", sans-serif;
+  font-family: "Comic Sans MS", "Comic Sans", "Times New Roman", Tahoma, Verdana, sans-serif;
   /* КАНОН Web 1.0: звёздное небо на тёмном космическом градиенте */
   background-color: #05010f;
   color: #00ff00;
@@ -1114,36 +1114,3 @@ a.icq-status img { vertical-align: middle; }
   margin-top: 6px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ПИКСЕЛЬНЫЕ ШРИФТЫ (Press Start 2P + VT323) — кириллица OK
-   Применяем дозированно: лого, заголовки, кнопки, акценты.
-   ═══════════════════════════════════════════════════════════ */
-.logo,
-.block-title,
-.enter-welcome,
-.enter-btn,
-.megabtn,
-.big-red,
-.urgency-head,
-.popup-title,
-.side-head {
-  font-family: "Press Start 2P", "Tahoma", sans-serif;
-  letter-spacing: 0;
-}
-/* Press Start 2P очень широкий — уменьшаем размеры под него */
-.logo { font-size: clamp(20px, 6.5vw, 52px); line-height: 1.2; }
-.block-title { font-size: clamp(11px, 3vw, 18px); line-height: 1.4; }
-.enter-welcome { font-size: clamp(15px, 5vw, 34px); line-height: 1.3; }
-.enter-btn { font-size: clamp(13px, 3.6vw, 22px); line-height: 1.4; }
-.megabtn { font-size: clamp(12px, 3.2vw, 19px); line-height: 1.5; }
-.big-red { line-height: 1.5; }
-.urgency-head { font-size: clamp(13px, 3.6vw, 20px); line-height: 1.4; }
-.popup-title { font-size: clamp(15px, 4.5vw, 22px); line-height: 1.4; }
-.side-head { font-size: 11px; line-height: 1.4; }
-
-/* счётчики/таймер/одометр — терминальный VT323 (кириллица + цифры) */
-.timer, .odometer, .odo-digit, .side-counter, .counter, .proof-num {
-  font-family: "VT323", "Courier New", monospace;
-}
-.timer { font-size: clamp(34px, 11vw, 56px); }
-.proof-num { font-size: clamp(22px, 7vw, 38px); }
