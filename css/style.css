@@ -800,16 +800,17 @@ a { text-decoration: none; }
 }
 .enter-btn {
   font-family: "Comic Sans MS", sans-serif;
-  font-size: clamp(18px, 5.5vw, 30px);
+  font-size: clamp(15px, 4.6vw, 30px);
   font-weight: bold;
   color: #fff;
   background: linear-gradient(180deg, #ff0000, #800000);
   border: 5px outset #ff5555;
-  padding: 14px 34px;
+  padding: 14px 22px;
   cursor: pointer;
   text-shadow: 2px 2px 0 #000;
   box-shadow: 0 0 24px #ff0000;
   max-width: 100%;
+  white-space: nowrap;
 }
 .enter-btn:active { border-style: inset; }
 .enter-note { color: #00ffff; font-size: 12px; margin-top: 16px; }
@@ -990,7 +991,14 @@ body.entered .enter-splash { display: none; }
 /* на мобильных панель управления компактнее */
 @media (max-width: 640px) {
   .ctl-btn { font-size: 9px; padding: 3px 4px; }
-  .award { width: 90px; font-size: 9px; }
+  /* награды: ровная сетка 2x2 */
+  .awards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .award { width: auto; font-size: 9px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* заголовки блоков: гифки по бокам, не переносятся */
+  .block-head { flex-wrap: nowrap; gap: 5px; }
+  .block-head img { flex: 0 0 auto; max-width: 40px; height: auto; }
+  .block-head .block-title { flex: 0 1 auto; min-width: 0; }
 }
 
 /* ═══════════════════════════════════════════════════════════
