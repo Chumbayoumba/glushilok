@@ -155,10 +155,11 @@
     var page = 1;
 
     var seed = [
-      { n: "Серёга_2003", m: "Прокси спас когда инет глушили на МТС! Респектище!!!", d: "13.07.2026" },
-      { n: "kat_msk", m: "залетела с телефона, всё работает, спасибо!!! :)", d: "11.07.2026" },
-      { n: "ВованДеревня", m: "думал развод, а реально бесплатно. вернул ютуб!", d: "09.07.2026" },
-      { n: "xXx_HaCkEr_xXx", m: "Cool site!!! заходи на мой тоже =))) Netscape rulez", d: "05.07.2026" }
+      { n: "димон_тлт", m: "глушили инет на даче, думал всё. включил проксю — ютуб опять пашет, залипаю спасибо", d: "14.06.2026" },
+      { n: "БабаНина_87", m: "внучок настроил, смотрю рецепты в инсте снова. дай бог вам здоровья ребятки", d: "13.06.2026" },
+      { n: "Гена_Букин", m: "жена думала я инет сломал а это белые списки. теперь я герой семьи", d: "12.06.2026" },
+      { n: "Витёк", m: "РАБОТАЕТ КАРЛ РЕАЛЬНО РАБОТАЕТ Я НЕ ВЕРИЛ", d: "11.06.2026" },
+      { n: "xXx_HaCkEr_xXx", m: "Cool site!!! заходи на мой тоже =))) Netscape rulez", d: "10.06.2026" }
     ];
     var current = [];
 
@@ -433,10 +434,39 @@
     pop.addEventListener("click", function (e) { if (e.target === pop) hide(); });
   }
 
+  /* ---------- 17. ЦЕЛИ ЯНДЕКС.МЕТРИКИ (reachGoal) ---------- */
+  function ym_goal(goal) {
+    try { if (typeof window.ym === "function") window.ym(109844968, "reachGoal", goal); } catch (e) {}
+  }
+  function initGoals() {
+    // клик по прокси (любая ссылка на tg://proxy)
+    document.querySelectorAll('a[href^="tg://proxy"]').forEach(function (a) {
+      a.addEventListener("click", function () { ym_goal("proxy_click"); });
+    });
+    // клики по боту @vnespiskabot
+    document.querySelectorAll('a[href*="t.me/vnespiskabot"]').forEach(function (a) {
+      a.addEventListener("click", function () {
+        // финальная мегакнопка бота — отдельная цель
+        if (a.classList.contains("megabtn-bot")) ym_goal("cta_bot");
+        else ym_goal("bot_click");
+      });
+    });
+    // меню/гостевая (якорные ссылки сайдбара)
+    document.querySelectorAll('.side-link, .ring-link').forEach(function (a) {
+      a.addEventListener("click", function () { ym_goal("menu_click"); });
+    });
+    // музыка
+    var mb = document.getElementById("musicBtn");
+    if (mb) mb.addEventListener("click", function () {
+      if (mb.classList.contains("on")) ym_goal("music_on");
+    });
+  }
+
   /* ---------- ИНИЦИАЛИЗАЦИЯ ---------- */
   function init() {
     initEnter();
     initIcqJoke();
+    initGoals();
     initHitCounter();
     initOdometer();
     initOnlineCounter();

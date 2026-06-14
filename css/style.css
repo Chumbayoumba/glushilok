@@ -959,20 +959,20 @@ body.entered .enter-splash { display: none; }
   background: #ffff00;
   color: #cc0000;
   font-weight: bold;
-  font-size: clamp(12px, 3.4vw, 18px);
-  padding: 8px 12px;
+  font-size: clamp(10px, 3vw, 18px);
+  padding: 8px 10px;
   border: 3px dashed #cc0000;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   margin: 10px auto;
-  max-width: 94%;
-  line-height: 1.35;
+  max-width: 96%;
+  white-space: nowrap;
   animation: blink 1s ease-in-out infinite;
 }
 .enter-promise .gift { flex: 0 0 auto; }
-.enter-promise .gift-text { flex: 1 1 auto; }
+.enter-promise .gift-text { flex: 0 1 auto; white-space: nowrap; }
 .enter-point { animation: pulse 0.7s infinite alternate; }
 
 /* указатели-руки у мегакнопок */
