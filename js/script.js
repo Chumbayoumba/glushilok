@@ -305,115 +305,150 @@
   function initMusic() {
     var btn = document.getElementById("musicBtn");
     if (!btn) return;
-    var ctx = null, playing = false, timer = null, step = 0;
-    var master = null;
+    var ctx = null, master = null, playing = false, timer = null, pos = 0;
 
-    // === ПАРТИИ (16 шагов на цикл, темп ~ драм-н-бэйс/денс) ===
-    // мелодия (square, ведущая)
-    var melody = [659,0,587,523,0,587,659,784,659,587,523,0,587,523,494,0];
-    // басовая линия (низкие ноты, мощный саб)
-    var bass   = [82,82,82,98,65,65,65,73,82,82,82,98,110,98,82,73];
-    // паттерн бочки (kick) и хэта
-    var kick   = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0];
-    var hat    = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1];
+    // ===== НОТЫ (Гц) =====
+    var N = {
+      0:0,
+      A1:55.0, B1:61.74, C2:65.41, D2:73.42, E2:82.41, F2:87.31, G2:98.0, A2:110.0, B2:123.47,
+      C3:130.81, D3:146.83, E3:164.81, F3:174.61, G3:196.0, A3:220.0, B3:246.94,
+      C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.0, A4:440.0, B4:493.88,
+      C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99, A5:880.0, B5:987.77, C6:1046.5
+    };
 
-    function makeNoiseBuffer() {
+    // ===== СЮЖЕТ ТРЕКА (минор Am, 8 секций по 16 шагов) =====
+    // тревога(глушат) -> поиск -> надежда -> ПРОРЫВ(дроп) ->
+    // свобода -> бридж-затишье -> финальный гимн -> затухание
+    var seq = [
+      { name:"intro",
+        lead:["A4",0,0,0,"E4",0,0,0,"A4",0,"C5",0,"B4",0,0,0],
+        bass:["A1",0,0,0,"A1",0,0,0,"E2",0,0,0,"E2",0,0,0],
+        arp: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        kick:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        hat: [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0], lvl:0.6 },
+      { name:"build",
+        lead:["A4",0,"C5",0,"E5",0,"C5",0,"D5",0,"B4",0,"A4",0,"E4",0],
+        bass:["A1",0,"A1",0,"F2",0,"F2",0,"C2",0,"C2",0,"G2",0,"G2",0],
+        arp: ["A3","C4","E4","A4","A3","C4","E4","A4","F3","A3","C4","F4","G3","B3","D4","G4"],
+        kick:[1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+        hat: [0,0,1,0,0,0,1,0,0,0,1,0,0,1,1,0], lvl:0.75 },
+      { name:"predrop",
+        lead:["E5","D5","C5","B4","A4","B4","C5","D5","E5","E5","E5",0,"E5",0,"E5",0],
+        bass:["A1","A1","A1","A1","A1","A1","A1","A1","E2","E2","E2","E2","E2","E2","E2","E2"],
+        arp: ["A3","E4","A4","E4","A3","E4","A4","E4","E3","B3","E4","B3","E3","B3","E4","B3"],
+        kick:[1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1],
+        hat: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], lvl:0.85 },
+      { name:"drop",
+        lead:["A5",0,"E5","A5","C6",0,"A5",0,"G5",0,"E5","G5","A5",0,0,0],
+        bass:["A1","A1",0,"A1","A1","A1",0,"A1","F2","F2",0,"F2","G2","G2",0,"G2"],
+        arp: ["A4","C5","E5","A5","A4","C5","E5","A5","F4","A4","C5","F5","G4","B4","D5","G5"],
+        kick:[1,0,0,1,1,0,0,1,1,0,0,1,1,0,1,0],
+        hat: [0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1], lvl:1.0 },
+      { name:"groove",
+        lead:["C5",0,"D5","E5",0,"E5","D5",0,"C5",0,"A4","C5",0,"D5",0,0],
+        bass:["A1",0,"A1",0,"F2",0,"F2",0,"C2",0,"C2",0,"G2",0,"G2",0],
+        arp: ["A4","E5","C5","E5","F4","C5","A4","C5","C4","G4","E4","G4","G4","D5","B4","D5"],
+        kick:[1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+        hat: [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1], lvl:0.9 },
+      { name:"bridge",
+        lead:["E4",0,0,"G4",0,0,"A4",0,0,"C5",0,0,"B4",0,0,0],
+        bass:["A1",0,0,0,0,0,0,0,"F2",0,0,0,0,0,0,0],
+        arp: ["A3",0,"C4",0,"E4",0,"A4",0,"F3",0,"A3",0,"C4",0,"F4",0],
+        kick:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        hat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0], lvl:0.6 },
+      { name:"finale",
+        lead:["A4","C5","E5","A5","G5","E5","C5","G5","F5","C5","A4","F5","E5","B4","G4","E5"],
+        bass:["A1","A1","F2","F2","C2","C2","G2","G2","A1","A1","F2","F2","E2","E2","E2","E2"],
+        arp: ["A4","E5","A5","E5","F4","C5","F5","C5","C4","G4","C5","G4","E4","B4","E5","B4"],
+        kick:[1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1],
+        hat: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], lvl:1.0 },
+      { name:"outro",
+        lead:["A5",0,0,0,"E5",0,0,0,"C5",0,0,0,"A4",0,0,0],
+        bass:["A1",0,0,0,0,0,0,0,"A1",0,0,0,0,0,0,0],
+        arp: ["A4","C5","E5",0,0,0,0,0,"A3","C4","E4",0,0,0,0,0],
+        kick:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        hat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], lvl:0.5 }
+    ];
+    var STEPS = 16;
+    var TOTAL = seq.length * STEPS;
+
+    function noiseBuf() {
       var len = ctx.sampleRate * 0.2;
-      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      var d = buf.getChannelData(0);
-      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
-      return buf;
+      var b = ctx.createBuffer(1, len, ctx.sampleRate);
+      var d = b.getChannelData(0);
+      for (var i=0;i<len;i++) d[i]=Math.random()*2-1;
+      return b;
     }
-
-    // мелодический голос
-    function voice(freq, type, t, dur, vol, filterFreq) {
+    function tone(freq, type, t, dur, vol, filt) {
       if (!freq) return;
-      var osc = ctx.createOscillator();
-      var g = ctx.createGain();
-      osc.type = type;
-      osc.frequency.value = freq;
-      var node = osc;
-      if (filterFreq) {
-        var f = ctx.createBiquadFilter();
-        f.type = "lowpass";
-        f.frequency.value = filterFreq;
-        f.Q.value = 8;
-        osc.connect(f); node = f;
+      var o = ctx.createOscillator(), g = ctx.createGain(), node = o;
+      o.type = type; o.frequency.value = freq;
+      if (filt) {
+        var f = ctx.createBiquadFilter(); f.type="lowpass"; f.frequency.value=filt; f.Q.value=6;
+        o.connect(f); node = f;
       }
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol, t + 0.015);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      g.gain.exponentialRampToValueAtTime(vol, t+0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
       node.connect(g); g.connect(master);
-      osc.start(t); osc.stop(t + dur + 0.02);
+      o.start(t); o.stop(t+dur+0.02);
     }
-
-    // мощный саб-бас (saw через lowpass + лёгкий саб-осциллятор)
-    function bassNote(freq, t, dur) {
+    function bass(freq, t, dur, lvl) {
       if (!freq) return;
-      voice(freq, "sawtooth", t, dur, 0.22, 420); // тело баса
-      // суб-октава синусом — даёт "бас"
-      var sub = ctx.createOscillator();
-      var sg = ctx.createGain();
-      sub.type = "sine";
-      sub.frequency.value = freq / 2;
-      sg.gain.setValueAtTime(0.0001, t);
-      sg.gain.exponentialRampToValueAtTime(0.32, t + 0.02);
-      sg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      sub.connect(sg); sg.connect(master);
-      sub.start(t); sub.stop(t + dur + 0.02);
+      tone(freq, "sawtooth", t, dur, 0.20*lvl, 480);
+      var s=ctx.createOscillator(), sg=ctx.createGain();
+      s.type="sine"; s.frequency.value=freq/2;
+      sg.gain.setValueAtTime(0.0001,t);
+      sg.gain.exponentialRampToValueAtTime(0.30*lvl,t+0.02);
+      sg.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      s.connect(sg); sg.connect(master); s.start(t); s.stop(t+dur+0.02);
+    }
+    function kick(t, lvl) {
+      var o=ctx.createOscillator(), g=ctx.createGain();
+      o.type="sine";
+      o.frequency.setValueAtTime(155,t);
+      o.frequency.exponentialRampToValueAtTime(45,t+0.12);
+      g.gain.setValueAtTime(0.7*lvl,t);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.18);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t+0.2);
+    }
+    function hat(t, lvl) {
+      var s=ctx.createBufferSource(); s.buffer=noiseBuf();
+      var f=ctx.createBiquadFilter(); f.type="highpass"; f.frequency.value=7500;
+      var g=ctx.createGain();
+      g.gain.setValueAtTime(0.10*lvl,t);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.04);
+      s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t+0.05);
     }
 
-    // бочка (kick) — синус с питч-спадом
-    function kickHit(t) {
-      var osc = ctx.createOscillator();
-      var g = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(150, t);
-      osc.frequency.exponentialRampToValueAtTime(45, t + 0.12);
-      g.gain.setValueAtTime(0.6, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
-      osc.connect(g); g.connect(master);
-      osc.start(t); osc.stop(t + 0.2);
-    }
-
-    // хэт — шум через хайпасс
-    function hatHit(t) {
-      var src = ctx.createBufferSource();
-      src.buffer = makeNoiseBuffer();
-      var f = ctx.createBiquadFilter();
-      f.type = "highpass"; f.frequency.value = 7000;
-      var g = ctx.createGain();
-      g.gain.setValueAtTime(0.12, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-      src.connect(f); f.connect(g); g.connect(master);
-      src.start(t); src.stop(t + 0.06);
-    }
-
-    function tick() {
+    function step() {
       if (!ctx) return;
-      var t = ctx.currentTime + 0.02;
-      var i = step % 16;
-      voice(melody[i], "square", t, 0.18, 0.10, null);
-      bassNote(bass[i], t, 0.22);
-      if (kick[i]) kickHit(t);
-      if (hat[i]) hatHit(t);
-      step++;
+      var t = ctx.currentTime + 0.03;
+      var sec = seq[Math.floor(pos / STEPS) % seq.length];
+      var i = pos % STEPS;
+      var lvl = sec.lvl;
+      var lf = N[sec.lead[i]] || 0;
+      if (lf) { tone(lf, "square", t, 0.16, 0.09*lvl, null); tone(lf*1.005, "sawtooth", t, 0.16, 0.04*lvl, 2600); }
+      bass(N[sec.bass[i]]||0, t, 0.22, lvl);
+      var af = N[sec.arp[i]] || 0;
+      if (af) tone(af, "triangle", t, 0.13, 0.05*lvl, 3200);
+      if (sec.kick[i]) kick(t, lvl);
+      if (sec.hat[i]) hat(t, lvl);
+      pos = (pos + 1) % TOTAL;
     }
 
     function play() {
       ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
       if (ctx.state === "suspended") ctx.resume();
       if (!master) {
-        // мастер: компрессор + общий гейн (чтобы басы не перегружали)
         var comp = ctx.createDynamicsCompressor();
-        master = ctx.createGain();
-        master.gain.value = 0.5;
-        master.connect(comp);
-        comp.connect(ctx.destination);
+        comp.threshold.value=-18; comp.ratio.value=4;
+        master = ctx.createGain(); master.gain.value=0.5;
+        master.connect(comp); comp.connect(ctx.destination);
       }
-      playing = true; step = 0;
-      tick();
-      timer = setInterval(tick, 150); // ~100 BPM в 16-х
+      playing = true; pos = 0;
+      step();
+      timer = setInterval(step, 145); // ~103 BPM
       btn.textContent = "🔊 МУЗЫКА: ВКЛ"; btn.classList.add("on");
     }
     function stop() {
