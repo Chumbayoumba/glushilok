@@ -1,34 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Comic Sans MS, Arial Black, sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#000080"/>
-      <stop offset="50%" stop-color="#4b0082"/>
+      <stop offset="45%" stop-color="#4b0082"/>
       <stop offset="100%" stop-color="#05010f"/>
     </linearGradient>
     <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ff0000"/>
-      <stop offset="25%" stop-color="#ffff00"/>
-      <stop offset="50%" stop-color="#00ff00"/>
-      <stop offset="75%" stop-color="#00ffff"/>
-      <stop offset="100%" stop-color="#ff00ff"/>
+      <stop offset="0%" stop-color="#ff0000"/><stop offset="20%" stop-color="#ff7f00"/>
+      <stop offset="40%" stop-color="#ffff00"/><stop offset="60%" stop-color="#00ff00"/>
+      <stop offset="80%" stop-color="#00ffff"/><stop offset="100%" stop-color="#ff00ff"/>
     </linearGradient>
+    <pattern id="zig" width="40" height="40" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="none"/>
+      <rect width="20" height="40" fill="#ff00ff" opacity="0.07"/>
+    </pattern>
   </defs>
+
+  <!-- фон + диагональная плитка -->
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <g fill="#ffffff" opacity="0.7">
-    <circle cx="120" cy="90" r="2"/><circle cx="300" cy="160" r="2"/><circle cx="520" cy="70" r="2"/>
-    <circle cx="760" cy="130" r="2"/><circle cx="980" cy="80" r="2"/><circle cx="1080" cy="200" r="2"/>
-    <circle cx="200" cy="520" r="2"/><circle cx="450" cy="560" r="2"/><circle cx="850" cy="540" r="2"/>
-    <circle cx="1050" cy="500" r="2"/><circle cx="640" cy="500" r="2"/>
+  <rect width="1200" height="630" fill="url(#zig)"/>
+
+  <!-- звёзды -->
+  <g fill="#fff" opacity="0.8">
+    <circle cx="80" cy="70" r="2.5"/><circle cx="260" cy="120" r="2"/><circle cx="500" cy="60" r="2"/>
+    <circle cx="980" cy="70" r="2.5"/><circle cx="1120" cy="160" r="2"/><circle cx="160" cy="470" r="2"/>
+    <circle cx="430" cy="560" r="2.5"/><circle cx="900" cy="540" r="2"/><circle cx="1080" cy="470" r="2.5"/>
+    <text x="700" y="100" font-size="34" fill="#ffff00">✦</text>
+    <text x="120" y="300" font-size="30" fill="#00ffff">✧</text>
+    <text x="1060" cy="320" y="320" font-size="34" fill="#ff00ff">★</text>
   </g>
-  <text x="600" y="220" font-family="Arial Black, sans-serif" font-size="120" font-weight="bold"
-        text-anchor="middle" fill="#ffff00" stroke="#ff0000" stroke-width="3">ГЛУШИЛОК<tspan fill="#00ff00">.NET</tspan></text>
-  <text x="600" y="320" font-family="Arial, sans-serif" font-size="46" font-weight="bold"
-        text-anchor="middle" fill="url(#rb)">★ ГЛУШАТ ИНТЕРНЕТ? У НАС ГЛУШИЛОК НЕТ! ★</text>
-  <text x="600" y="410" font-family="Arial, sans-serif" font-size="38" text-anchor="middle" fill="#00ffff">
-    Бесплатный прокси для Telegram + VPN от 239 ₽</text>
-  <text x="600" y="470" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="#ffffff">
+
+  <!-- рамка ridge -->
+  <rect x="14" y="14" width="1172" height="602" fill="none" stroke="#ff00ff" stroke-width="6"/>
+  <rect x="26" y="26" width="1148" height="578" fill="none" stroke="#00ffff" stroke-width="3"/>
+
+  <!-- бегущая строка сверху (имитация) -->
+  <rect x="26" y="26" width="1148" height="48" fill="#ff0000"/>
+  <text x="600" y="60" font-size="26" font-weight="bold" text-anchor="middle" fill="#ffff00">
+    🔥🔥 ГЛУШАТ ИНТЕРНЕТ?! У НАС ГЛУШИЛОК НЕТ!!! ЖМИ И ОЖИВЁТ!!! 🔥🔥</text>
+
+  <!-- огонь по бокам -->
+  <text x="90" y="330" font-size="120">🔥</text>
+  <text x="1010" y="330" font-size="120">🔥</text>
+  <text x="200" y="540" font-size="70">📡</text>
+  <text x="950" y="545" font-size="70">💸</text>
+
+  <!-- главный заголовок -->
+  <text x="600" y="240" font-size="118" font-weight="bold" text-anchor="middle"
+        fill="#ffff00" stroke="#ff0000" stroke-width="4" paint-order="stroke">ГЛУШИЛОК<tspan fill="#00ff00">.NET</tspan></text>
+
+  <!-- радужный слоган -->
+  <text x="600" y="320" font-size="50" font-weight="bold" text-anchor="middle" fill="url(#rb)">
+    ★彡 ГЛУШИЛОК НЕТ! 彡★</text>
+
+  <!-- жёлтая плашка-обещание -->
+  <rect x="250" y="360" width="700" height="64" rx="6" fill="#ffff00" stroke="#cc0000" stroke-width="4" stroke-dasharray="10 6"/>
+  <text x="600" y="404" font-size="36" font-weight="bold" text-anchor="middle" fill="#cc0000">
+    БЕСПЛАТНЫЙ ПРОКСИ + VPN ОТ 239 ₽</text>
+
+  <!-- подпись операторы -->
+  <text x="600" y="468" font-size="28" text-anchor="middle" fill="#00ffff">
     Обход глушилок и белых списков · МТС МегаФон Tele2 Билайн Yota</text>
-  <rect x="380" y="520" width="440" height="70" rx="8" fill="#00cc00" stroke="#ffffff" stroke-width="4"/>
-  <text x="600" y="567" font-family="Arial Black, sans-serif" font-size="38" font-weight="bold"
-        text-anchor="middle" fill="#000000">🔥 ВЕРНУТЬ ИНТЕРНЕТ 🔥</text>
+
+  <!-- зелёная кнопка -->
+  <rect x="360" y="510" width="480" height="74" rx="8" fill="#00cc00" stroke="#ffffff" stroke-width="5"/>
+  <text x="600" y="560" font-size="38" font-weight="bold" text-anchor="middle" fill="#000000">
+    ▶ ВКЛЮЧИТЬ ПРОКСИ ◀</text>
 </svg>
