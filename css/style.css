@@ -507,14 +507,13 @@ a { text-decoration: none; }
     justify-items: center;
     gap: 4px;
   }
-  .cta-wrap .cta-point { width: 26px; height: auto; }
+  .cta-wrap .cta-point { width: 22px; height: auto; }
   .cta-wrap .megabtn {
     width: 100%;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: clamp(13px, 3.7vw, 20px);
-    padding: 14px 6px;
+    font-size: clamp(11px, 3.4vw, 20px);
+    padding: 13px 4px;
+    letter-spacing: -0.3px;
   }
   /* внутренние гифки-стрелки кнопки прячем на мобиле — дают место тексту */
   .cta-wrap .megabtn img { display: none; }
@@ -556,12 +555,13 @@ a { text-decoration: none; }
   .hero-fire { width: 38px; }
   .hero-fire img { max-width: 34px; }
   .big-red { font-size: 14px; }
-  /* cta пальчики совсем мелкие */
-  .cta-wrap .cta-point { width: 22px; }
-  .enter-point { width: 26px !important; }
+  /* на узких пальчики у CTA скрываем — кнопке вся ширина, текст влезает */
+  .cta-wrap { grid-template-columns: 1fr; }
+  .cta-wrap .cta-point { display: none; }
+  .enter-point { width: 24px !important; }
   /* кнопки компактнее по тексту */
-  .megabtn { font-size: 14px; padding: 12px 8px; }
-  .enter-btn { font-size: 16px; padding: 12px 16px; }
+  .megabtn { font-size: 13px; padding: 12px 6px; letter-spacing: -0.3px; }
+  .enter-btn { font-size: 15px; padding: 12px 14px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -999,7 +999,24 @@ body.entered .enter-splash { display: none; }
 
 /* на мобильных панель управления компактнее */
 @media (max-width: 640px) {
-  .ctl-btn { font-size: 9px; padding: 3px 4px; }
+  /* кнопки музыка/снег: в потоке горизонтально, НЕ перекрывают надписи */
+  .ctl-panel {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 4px;
+    background: rgba(0,0,0,0.5);
+  }
+  .ctl-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* предупреждение про графику — крупнее и читаемо, на всю ширину */
+  .graphics-warn {
+    font-size: 12px;
+    padding: 8px 10px;
+    line-height: 1.5;
+  }
   /* награды: ровная сетка 2x2 */
   .awards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .award { width: auto; font-size: 9px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
