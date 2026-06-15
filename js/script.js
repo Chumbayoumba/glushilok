@@ -301,9 +301,14 @@
     var splash = document.getElementById("enterSplash");
     var btn = document.getElementById("enterBtn");
     if (!splash || !btn) return;
+    // если уже входили в этой сессии — не показываем заставку снова
+    if (sessionStorage.getItem("glsh_entered")) {
+      document.body.classList.add("entered");
+      return;
+    }
     btn.addEventListener("click", function () {
       document.body.classList.add("entered");
-      // попап показываем только ПОСЛЕ входа
+      sessionStorage.setItem("glsh_entered", "1");
       sessionStorage.removeItem("glsh_popup_blocked");
     });
   }

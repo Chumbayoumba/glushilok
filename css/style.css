@@ -1211,3 +1211,34 @@ a.icq-status img { vertical-align: middle; }
   font-size: 11px;
   max-width: 100%;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   СТРАНИЦА /proxy/ — отдельный визуальный акцент (зелёный космос),
+   чтобы отличалась от фиолетовой главной
+   ═══════════════════════════════════════════════════════════ */
+body.proxy-page::before {
+  background-image:
+    repeating-linear-gradient(-45deg, rgba(0,255,128,0.06) 0 12px, transparent 12px 24px),
+    radial-gradient(circle at 50% 0%, #0a3a1a 0%, #04200f 45%, #010a05 100%) !important;
+}
+body.proxy-page .layout {
+  border-color: #00ff66;
+}
+body.proxy-page .top-marquee {
+  background: #006622;
+  border-bottom-color: #00ff66;
+}
+body.proxy-page .logo {
+  text-shadow: 3px 3px 0 #006622, -2px -2px 0 #00ffcc, 0 0 12px #00ff66;
+}
+
+/* ряд декоративных гифок (всратость) */
+.gif-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 2px;
+}
+.gif-strip img { vertical-align: middle; }
