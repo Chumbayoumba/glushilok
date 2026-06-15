@@ -1242,3 +1242,70 @@ body.proxy-page .logo {
   margin: 8px 0 2px;
 }
 .gif-strip img { vertical-align: middle; }
+
+/* ═══════════════════════════════════════════════════════════
+   РАЗДЕЛ /guides/ — карточки гайдов + синий акцент
+   ═══════════════════════════════════════════════════════════ */
+body.guides-page::before {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,128,255,0.06) 0 12px, transparent 12px 24px),
+    radial-gradient(circle at 50% 0%, #0a1a4a 0%, #050a25 45%, #01030f 100%) !important;
+}
+body.guides-page .layout { border-color: #00aaff; }
+body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccff; }
+
+.guide-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0,0,40,0.6);
+  border: 2px ridge #00ccff;
+  padding: 12px 10px;
+  margin: 10px 0;
+  text-align: left;
+  transition: background 0.15s;
+}
+.guide-card:hover { background: rgba(0,60,120,0.6); }
+.guide-card .guide-ico { flex: 0 0 auto; }
+.guide-txt { flex: 1 1 auto; min-width: 0; }
+.guide-title {
+  display: block;
+  color: #ffff00;
+  font-size: clamp(14px, 4vw, 19px);
+  text-shadow: 1px 1px 0 #ff0000;
+}
+.guide-desc {
+  display: block;
+  color: #cde;
+  font-size: clamp(11px, 3.2vw, 14px);
+  line-height: 1.4;
+  margin-top: 3px;
+}
+.guide-arrow { flex: 0 0 auto; font-size: 20px; }
+.guide-soon { opacity: 0.6; cursor: default; }
+.guide-soon:hover { background: rgba(0,0,40,0.6); }
+
+/* картинки-скриншоты Win95 в гайдах */
+.win95-shot {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 14px auto;
+  border: 3px ridge #c0c0c0;
+}
+.guide-step {
+  text-align: left;
+  max-width: 640px;
+  margin: 14px auto;
+}
+.guide-step-num {
+  display: inline-block;
+  background: #ff0000;
+  color: #ffff00;
+  font-weight: bold;
+  width: 28px; height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 8px;
+}
