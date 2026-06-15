@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AmneziaWG 2.0 настройка 2026 — стелс-VPN против DPI пошагово | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как настроить AmneziaWG 2.0 в 2026: установка AmneziaVPN на Android, iPhone, Windows, импорт конфигурации, подключение. Маскировка трафика под UDP, обход DPI, глушилок и белых списков. Пошагово с картинками.">
+<meta name="keywords" content="amneziawg настройка, amneziawg 2.0, amnezia vpn инструкция 2026, как настроить amneziawg, amnezia обход dpi, amneziawg android windows, импорт конфигурации amnezia, стелс vpn россия, amneziawg не подключается">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="AmneziaWG 2.0 настройка 2026 — стелс-VPN против DPI">
+<meta property="og:description" content="Установка и настройка AmneziaWG 2.0. Маскировка под UDP, обход DPI и белых списков.">
+<meta property="og:url" content="https://glushilok.net/guides/amneziawg/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-amnezia.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/amneziawg/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как настроить AmneziaWG 2.0 (стелс-VPN) в 2026",
+  "description": "Пошаговая установка и настройка AmneziaWG 2.0 для обхода DPI в России",
+  "step": [
+    { "@type": "HowToStep", "name": "Установить AmneziaVPN", "text": "Скачайте приложение AmneziaVPN из Google Play, App Store или с GitHub/сайта amnezia.org." },
+    { "@type": "HowToStep", "name": "Получить конфигурацию", "text": "Получите конфигурацию AmneziaWG 2.0 в боте @vnespiskabot." },
+    { "@type": "HowToStep", "name": "Импортировать конфиг", "text": "В AmneziaVPN нажмите '+' и импортируйте конфигурацию из файла, ссылки или QR-кода." },
+    { "@type": "HowToStep", "name": "Подключиться", "text": "Нажмите большую круглую кнопку — индикатор станет зелёным и появится статус Подключено." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "AmneziaWG", "item": "https://glushilok.net/guides/amneziawg/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/lock.gif" alt="" width="20" style="vertical-align:middle"> AMNEZIAWG 2.0 — СТЕЛС-VPN ПРОТИВ DPI!!! &nbsp;★&nbsp; МАСКИРУЕТСЯ ПОД ОБЫЧНЫЙ ТРАФИК &nbsp;★&nbsp; ANDROID · IPHONE · WINDOWS · MAC · LINUX &nbsp;★&nbsp; НОВАЯ ВЕРСИЯ 2026 <img src="../../assets/gif/padlock.gif" alt="" width="20" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<div class="page-shell">
+
+<aside class="side side-left">
+  <div class="side-box">
+    <div class="side-head">МЕНЮ</div>
+    <a href="../../" class="side-link"><img src="../../assets/gif/house.gif" alt="" width="18"> Главная</a>
+    <a href="../" class="side-link"><img src="../../assets/gif/news.gif" alt="" width="18"> Все гайды</a>
+    <a href="../../proxy/" class="side-link"><img src="../../assets/gif/cellphone_blink.gif" alt="" width="14"> Прокси</a>
+    <a href="https://t.me/vnespiskabot" class="side-link" rel="nofollow"><img src="../../assets/gif/devil.gif" alt="" width="16"> VPN-бот</a>
+  </div>
+  <div class="side-box">
+    <div class="side-head blink">2026</div>
+    <p class="side-status">Инструкция<br><b>актуальна</b></p>
+    <img src="../../assets/gif/new.gif" alt="" width="36">
+  </div>
+</aside>
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/lock.gif" alt="" class="hdr-torch" width="44">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow">AMNEZIAWG 2.0</h1>
+      <div class="tagline rainbow">★彡 СТЕЛС-VPN ПРОТИВ DPI 2026 彡★</div>
+      <p class="seo-subtitle">Пошаговая инструкция: установка AmneziaVPN и настройка AmneziaWG 2.0 для обхода DPI, глушилок и белых списков</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/padlock.gif" alt="" width="32">
+        <img src="../../assets/gif/key.gif" alt="" width="34">
+        <img src="../../assets/gif/safe.gif" alt="" width="36">
+      </div>
+    </div>
+    <img src="../../assets/gif/firewall.gif" alt="" class="hdr-torch" width="60">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЧТО ТАКОЕ AMNEZIAWG 2.0</span>
+    </div>
+    <p class="block-text">
+      <b>AmneziaWG</b> — это форк WireGuard со встроенной маскировкой трафика. Сохраняет скорость и
+      шифрование WireGuard, но прячет себя от DPI. <b class="green-glow">Версия 2.0</b> (2026) — серьёзный
+      апгрейд: вместо статичных значений использует <b>динамические диапазоны заголовков</b>, добавляет
+      <b>случайные байты-заполнители</b> ко всем типам сообщений и <b>имитирует настоящие UDP-протоколы</b>.
+      Это нужно потому, что DPI научился ловить старые обфускации по структуре пакетов. AmneziaWG 2.0 —
+      один из самых устойчивых способов обхода в России в 2026 году.
+    </p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <!-- ШАГИ -->
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ НАСТРОЙКА</span>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Установи приложение AmneziaVPN:</b></p>
+      <ul class="howto-list">
+        <li><b>Android:</b> Google Play → «AmneziaVPN», или APK с GitHub (amnezia-vpn/amnezia-client)</li>
+        <li><b>iPhone/iPad:</b> App Store → «AmneziaVPN»</li>
+        <li><b>Windows / Mac / Linux:</b> с сайта <b>amnezia.org</b> или из GitHub-релизов</li>
+      </ul>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Получи конфигурацию AmneziaWG 2.0:</b></p>
+      <ul class="howto-list">
+        <li>Открой нашего бота <a href="https://t.me/vnespiskabot" rel="nofollow" style="color:#0ff">@vnespiskabot</a></li>
+        <li>Нажми «Подключить VPN» → введи промокод <b class="promo-code">VNESPISKA</b> (−20%)</li>
+        <li>Выбери протокол <b>AmneziaWG</b> — бот выдаст файл конфигурации или ссылку <code>vpn://</code></li>
+        <li>Сохрани файл или скопируй ссылку</li>
+      </ul>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Импортируй конфигурацию:</b></p>
+      <ul class="howto-list">
+        <li>Открой AmneziaVPN → нажми <b>«+»</b> (добавить конфигурацию)</li>
+        <li>Выбери способ: <b>из файла</b>, <b>по ссылке</b> <code>vpn://</code> или <b>QR-код</b></li>
+        <li>Приложение определит протокол <b>AmneziaWG 2.0</b> автоматически</li>
+        <li>Сервер «ВнеСписка» появится на главном экране</li>
+      </ul>
+      <img src="../../assets/img/win95-import.png" alt="Импорт конфигурации AmneziaVPN" class="win95-shot" width="520" height="280" loading="lazy">
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Подключись:</b></p>
+      <ul class="howto-list">
+        <li>Нажми большую <b>круглую кнопку</b> в центре экрана</li>
+        <li>Разреши создание VPN-профиля (запросит система)</li>
+        <li>Индикатор загорится <b class="green-glow">зелёным</b>, статус «Подключено» = готово! </li>
+      </ul>
+      <img src="../../assets/img/win95-amnezia.png" alt="AmneziaVPN подключён — AmneziaWG 2.0" class="win95-shot" width="520" height="300" loading="lazy">
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <!-- Проблемы -->
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЕСЛИ НЕ ПОДКЛЮЧАЕТСЯ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> AmneziaWG не подключается на мобильном интернете</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Убедись, что используешь именно <b>AmneziaWG 2.0</b> (старая обфускация уже хуже работает). Параметры обфускации (Jc, Jmin, Jmax, H1–H4) должны совпадать с сервером — бери свежий конфиг в <a href="https://t.me/vnespiskabot" rel="nofollow" style="color:#0ff">@vnespiskabot</a>.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Подключается, но интернета нет</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Проверь, что выбран сервер «ВнеСписка» и включён режим VPN, а не Split Tunneling с исключениями. Перезапусти приложение.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> AmneziaWG или VLESS Reality — что лучше?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Оба отлично обходят DPI в 2026. VLESS Reality маскируется под HTTPS (TCP), AmneziaWG 2.0 — под UDP. Если один не идёт на твоём операторе — пробуй второй.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- CTA -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">ПОЛУЧИТЬ КОНФИГ</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">Нужна рабочая конфигурация AmneziaWG 2.0? Бот выдаст за 30 секунд. Промокод <b class="promo-code">VNESPISKA</b> = −20%.</p>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ПОЛУЧИТЬ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../hiddify/">[ Hiddify ]</a>
+      <a class="btn8831" href="../nekobox/">[ NekoBox ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Использование VPN для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+<aside class="side side-right">
+  <div class="side-box">
+    <div class="side-head blink-red">VPN</div>
+    <img src="../../assets/gif/hot1.gif" alt="" width="55">
+    <p class="side-price"><b class="big-red">−20%</b></p>
+    <a class="side-cta" href="https://t.me/vnespiskabot" rel="nofollow">ХОЧУ!</a>
+  </div>
+  <div class="side-box">
+    <div class="side-head">ГАЙДЫ</div>
+    <a class="side-cta" href="../hiddify/">Hiddify</a>
+    <a class="side-cta" href="../nekobox/">NekoBox</a>
+  </div>
+</aside>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow">ПОЛУЧИТЬ VPN В БОТЕ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

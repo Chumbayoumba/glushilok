@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="360" viewBox="0 0 520 360" font-family="'MS Sans Serif',Tahoma,sans-serif">
+  <!-- окно -->
+  <rect x="0" y="0" width="520" height="360" fill="#c0c0c0"/>
+  <rect x="0" y="0" width="520" height="360" fill="none" stroke="#000" stroke-width="2"/>
+  <rect x="2" y="2" width="516" height="356" fill="none" stroke="#dfdfdf" stroke-width="2"/>
+  <!-- титульная полоса -->
+  <rect x="5" y="5" width="510" height="28" fill="#000080"/>
+  <text x="14" y="24" fill="#fff" font-size="15" font-weight="bold">NekoBox — sing-box</text>
+  <!-- кнопки окна -->
+  <rect x="430" y="9" width="20" height="20" fill="#c0c0c0" stroke="#000"/><text x="435" y="24" font-size="13">_</text>
+  <rect x="452" y="9" width="20" height="20" fill="#c0c0c0" stroke="#000"/><text x="457" y="23" font-size="12">□</text>
+  <rect x="474" y="9" width="20" height="20" fill="#c0c0c0" stroke="#000"/><text x="479" y="24" font-size="13" font-weight="bold">×</text>
+  <!-- меню -->
+  <text x="14" y="52" font-size="13">Dashboard   Groups   Settings   Tools</text>
+  <line x1="5" y1="60" x2="515" y2="60" stroke="#808080"/>
+  <!-- список профилей (utopia вид) -->
+  <rect x="14" y="72" width="492" height="150" fill="#fff" stroke="#808080" stroke-width="2"/>
+  <!-- выбранный профиль -->
+  <rect x="16" y="74" width="488" height="40" fill="#000080"/>
+  <circle cx="36" cy="94" r="7" fill="#00e000" stroke="#006000"/>
+  <text x="54" y="90" fill="#fff" font-size="13" font-weight="bold">ВнеСписка — VLESS Reality</text>
+  <text x="54" y="106" fill="#c8c8ff" font-size="11">vless://...@server:443  ·  reality  ·  RU</text>
+  <text x="470" y="98" fill="#fff" font-size="12">38 ms</text>
+  <!-- другие строки -->
+  <text x="54" y="136" fill="#000" font-size="12">США — VLESS Reality                          112 ms</text>
+  <text x="54" y="160" fill="#000" font-size="12">Нидерланды — VLESS Reality              74 ms</text>
+  <text x="54" y="184" fill="#000" font-size="12">Германия — Trojan                                 91 ms</text>
+  <circle cx="36" cy="132" r="6" fill="#fff" stroke="#808080"/>
+  <circle cx="36" cy="156" r="6" fill="#fff" stroke="#808080"/>
+  <circle cx="36" cy="180" r="6" fill="#fff" stroke="#808080"/>
+  <!-- статусбар подключения -->
+  <text x="14" y="246" font-size="13" font-weight="bold" fill="#008000">● Connected — Реальность включена</text>
+  <!-- кнопка большая -->
+  <rect x="150" y="262" width="220" height="56" fill="#c0c0c0" stroke="#000" stroke-width="2"/>
+  <rect x="153" y="265" width="214" height="50" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="260" y="296" fill="#000" font-size="20" font-weight="bold" text-anchor="middle">▶ ПОДКЛЮЧИТЬ</text>
+  <!-- нижний статус -->
+  <rect x="5" y="330" width="510" height="24" fill="#c0c0c0" stroke="#808080"/>
+  <text x="14" y="346" font-size="11" fill="#000">↓ 4.2 MB/s   ↑ 0.6 MB/s   ·   sing-box 1.x</text>
+</svg>

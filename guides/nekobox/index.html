@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NekoBox настройка 2026 — VLESS Reality на Android пошагово | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как настроить NekoBox на Android в 2026: установка, импорт VLESS Reality подписки через Groups, подключение sing-box. Обход глушилок и белых списков. Пошаговая инструкция с картинками.">
+<meta name="keywords" content="nekobox настройка, nekobox android инструкция 2026, nekobox vless reality, как настроить nekobox, nekobox sing-box, импорт подписки nekobox, nekobox обход блокировок, nekobox не подключается, nekobox для андроид">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="NekoBox настройка 2026 — VLESS Reality на Android">
+<meta property="og:description" content="Установка и настройка NekoBox (sing-box) на Android. Импорт VLESS-подписки, обход белых списков.">
+<meta property="og:url" content="https://glushilok.net/guides/nekobox/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-nekobox.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/nekobox/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как настроить NekoBox (VLESS Reality) на Android в 2026",
+  "description": "Пошаговая установка и настройка NekoBox для обхода блокировок в России",
+  "step": [
+    { "@type": "HowToStep", "name": "Установить NekoBox", "text": "Скачайте NekoBox for Android (APK) из GitHub репозитория MatsuriDayo/NekoBoxForAndroid." },
+    { "@type": "HowToStep", "name": "Получить подписку", "text": "Получите ссылку-подписку VLESS Reality в боте @vnespiskabot." },
+    { "@type": "HowToStep", "name": "Импортировать профиль", "text": "В NekoBox откройте меню, выберите 'Add profile from clipboard' или создайте группу-подписку." },
+    { "@type": "HowToStep", "name": "Подключиться", "text": "Выберите сервер и нажмите кнопку подключения внизу — появится статус Connected." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "NekoBox", "item": "https://glushilok.net/guides/nekobox/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/gamepad.gif" alt="" width="22" style="vertical-align:middle"> NEKOBOX — МОЩНЫЙ КЛИЕНТ SING-BOX!!! &nbsp;★&nbsp; VLESS REALITY ОБХОДИТ DPI &nbsp;★&nbsp; ДЛЯ ANDROID &nbsp;★&nbsp; 20+ ПРОТОКОЛОВ &nbsp;★&nbsp; НАСТРОЙКА ЗА 5 МИНУТ <img src="../../assets/gif/gamepad.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<div class="page-shell">
+
+<aside class="side side-left">
+  <div class="side-box">
+    <div class="side-head">МЕНЮ</div>
+    <a href="../../" class="side-link"><img src="../../assets/gif/house.gif" alt="" width="18"> Главная</a>
+    <a href="../" class="side-link"><img src="../../assets/gif/news.gif" alt="" width="18"> Все гайды</a>
+    <a href="../../proxy/" class="side-link"><img src="../../assets/gif/cellphone_blink.gif" alt="" width="14"> Прокси</a>
+    <a href="https://t.me/vnespiskabot" class="side-link" rel="nofollow"><img src="../../assets/gif/devil.gif" alt="" width="16"> VPN-бот</a>
+  </div>
+  <div class="side-box">
+    <div class="side-head blink">2026</div>
+    <p class="side-status">Инструкция<br><b>актуальна</b></p>
+    <img src="../../assets/gif/new.gif" alt="" width="36">
+  </div>
+</aside>
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/gamepad.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow">NEKOBOX</h1>
+      <div class="tagline rainbow">★彡 НАСТРОЙКА VLESS REALITY 2026 彡★</div>
+      <p class="seo-subtitle">Пошаговая инструкция: установка NekoBox (sing-box) на Android и подключение для обхода глушилок и белых списков</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/joystick.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="32">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/cellguy_antenna.gif" alt="" class="hdr-torch" width="44">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЧТО ТАКОЕ NEKOBOX</span>
+    </div>
+    <p class="block-text">
+      <b>NekoBox for Android</b> (от MatsuriDayo) — бесплатный клиент с открытым кодом на движке
+      <b>sing-box</b>. Поддерживает <b class="green-glow">VLESS Reality</b>, Hysteria2, TUIC, Trojan,
+      Shadowsocks, WireGuard и 20+ протоколов. Мощный и гибкий — хороший выбор для обхода DPI, глушилок
+      и белых списков в России в 2026 году.
+    </p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <!-- ШАГИ -->
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ НАСТРОЙКА</span>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Установи NekoBox</b> на Android:</p>
+      <ul class="howto-list">
+        <li>Открой GitHub: репозиторий <b>MatsuriDayo/NekoBoxForAndroid</b> → раздел Releases</li>
+        <li>Скачай последний <b>APK</b> (файл вида <code>NekoBox-x.x.x-arm64-v8a.apk</code>)</li>
+        <li>Установи APK (разреши установку из неизвестных источников)</li>
+        <li>В Google Play приложения нет — только GitHub</li>
+      </ul>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Получи ссылку-подписку</b> (VLESS Reality):</p>
+      <ul class="howto-list">
+        <li>Открой нашего бота <a href="https://t.me/vnespiskabot" rel="nofollow" style="color:#0ff">@vnespiskabot</a></li>
+        <li>Нажми «Подключить VPN» → введи промокод <b class="promo-code">VNESPISKA</b> (−20%)</li>
+        <li>Бот выдаст ссылку <code>vless://...@server:443?security=reality...</code> или ссылку-подписку</li>
+        <li>Скопируй её</li>
+      </ul>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Импортируй профиль в NekoBox:</b></p>
+      <ul class="howto-list">
+        <li><b>Быстрый способ:</b> скопируй ссылку <code>vless://</code>, в NekoBox нажми меню (три точки вверху) → <b>«Add profile from clipboard»</b></li>
+        <li><b>Подписка:</b> меню → <b>Groups</b> → «+» → тип <b>«Subscription»</b> → вставь ссылку-подписку → включи <b>auto update</b> → сохрани</li>
+        <li>Профиль «ВнеСписка» появится в списке серверов</li>
+      </ul>
+      <img src="../../assets/img/win95-nekobox.png" alt="Список профилей NekoBox с VLESS Reality" class="win95-shot" width="520" height="300" loading="lazy">
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Подключись:</b></p>
+      <ul class="howto-list">
+        <li>Выбери сервер «ВнеСписка — VLESS Reality» (тапни по нему)</li>
+        <li>Нажми круглую кнопку <b>подключения</b> внизу справа</li>
+        <li>Разреши создание VPN-профиля (запросит система)</li>
+        <li>Статус сменится на <b class="green-glow">Connected</b> = подключено! </li>
+      </ul>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <!-- Проблемы -->
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЕСЛИ НЕ ПОДКЛЮЧАЕТСЯ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> NekoBox не подключается на мобильном интернете</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> В настройках профиля проверь, что включён <b>uTLS / fingerprint = chrome</b> и правильный SNI. На мобильных сетях РФ помогает свежая конфигурация — её всегда выдаёт <a href="https://t.me/vnespiskabot" rel="nofollow" style="color:#0ff">@vnespiskabot</a>.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Подключается, но интернета нет</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Проверь, что выбран нужный сервер и включён режим VPN (Settings → Service Mode → VPN). Перезапусти приложение.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Какой протокол выбрать?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> VLESS + Reality + Vision — самый устойчивый к DPI в 2026 году. Hysteria2 — быстрый запасной вариант.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- CTA -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">ПОЛУЧИТЬ ПОДПИСКУ</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">Нужна рабочая ссылка-подписка VLESS Reality для NekoBox? Бот выдаст за 30 секунд. Промокод <b class="promo-code">VNESPISKA</b> = −20%.</p>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ПОЛУЧИТЬ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../hiddify/">[ Hiddify ]</a>
+      <a class="btn8831" href="../v2rayng/">[ v2rayNG ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Использование VPN для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+<aside class="side side-right">
+  <div class="side-box">
+    <div class="side-head blink-red">VPN</div>
+    <img src="../../assets/gif/hot1.gif" alt="" width="55">
+    <p class="side-price"><b class="big-red">−20%</b></p>
+    <a class="side-cta" href="https://t.me/vnespiskabot" rel="nofollow">ХОЧУ!</a>
+  </div>
+  <div class="side-box">
+    <div class="side-head">ГАЙДЫ</div>
+    <a class="side-cta" href="../hiddify/">Hiddify</a>
+    <a class="side-cta" href="../amneziawg/">AmneziaWG</a>
+  </div>
+</aside>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow">ПОЛУЧИТЬ VPN В БОТЕ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>
