@@ -507,8 +507,17 @@ a { text-decoration: none; }
     justify-items: center;
     gap: 4px;
   }
-  .cta-wrap .cta-point { width: 30px; height: auto; }
-  .cta-wrap .megabtn { width: 100%; }
+  .cta-wrap .cta-point { width: 26px; height: auto; }
+  .cta-wrap .megabtn {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(13px, 3.7vw, 20px);
+    padding: 14px 6px;
+  }
+  /* внутренние гифки-стрелки кнопки прячем на мобиле — дают место тексту */
+  .cta-wrap .megabtn img { display: none; }
 
   /* ENTER: пальчики по бокам кнопки в одну строку */
   .enter-btnrow { flex-wrap: nowrap; gap: 6px; }
