@@ -1492,3 +1492,37 @@ body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccf
   -webkit-overflow-scrolling: touch;
 }
 .guide-step .codebox { max-width: 100%; }
+
+
+/* v15 — аккуратная лента новостей */
+.news-feed { list-style: none; padding: 0; margin: 8px 0; text-align: left; }
+.news-feed li {
+  background: rgba(0,0,40,0.5);
+  border-left: 4px solid #00ffff;
+  border-bottom: 1px dotted #335;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.news-date {
+  display: inline-block;
+  background: #b00000;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+  border: 1px solid #ff6666;
+  white-space: nowrap;
+}
+.news-text {
+  display: block;
+  color: #cde;
+  font-size: clamp(13px, 3.4vw, 15px);
+  line-height: 1.5;
+}
+.news-text a {
+  color: #ffff00;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.news-text a:hover { color: #00ff66; }
