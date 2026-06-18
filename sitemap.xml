@@ -3,6 +3,7 @@
   <url><loc>https://glushilok.net/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://glushilok.net/proxy/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://glushilok.net/free-proxy/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://glushilok.net/novosti/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://glushilok.net/belye-spiski/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://glushilok.net/roblox/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://glushilok.net/youtube/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>

@@ -72,11 +72,15 @@ a { text-decoration: none; }
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
+  table-layout: fixed;
   background: #000000;
   border: 4px ridge #ff00ff;
   background-image:
     repeating-linear-gradient(0deg, rgba(0,255,0,0.03) 0 2px, transparent 2px 4px);
 }
+.layout > tbody > tr > td { word-wrap: break-word; overflow-wrap: break-word; }
+/* длинные технические строки (vless://, конфиги) переносим жёстко */
+.layout code, .layout .proxy-meta { overflow-wrap: anywhere; word-break: break-all; }
 .layout > tbody > tr > td { padding: 8px 10px; }
 
 /* ---------- БЕГУЩАЯ СТРОКА ---------- */
@@ -428,6 +432,8 @@ a { text-decoration: none; }
   display: none;
   position: fixed;
   bottom: 0; left: 0; right: 0;
+  width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(180deg, #ff0000, #aa0000);
   color: #ffff00;
   font-weight: bold;
@@ -437,7 +443,11 @@ a { text-decoration: none; }
   border-top: 3px solid #ffff00;
   z-index: 200;
   text-shadow: 1px 1px 0 #000;
-  animation: pulse 0.9s infinite alternate;
+  animation: stickyglow 0.9s infinite alternate;
+}
+@keyframes stickyglow {
+  from { box-shadow: 0 0 8px #ff0000; }
+  to   { box-shadow: 0 -2px 22px #ffff00; }
 }
 
 /* ═══════════ АНИМАЦИИ ТЕКСТА ═══════════ */
