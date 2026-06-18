@@ -475,8 +475,7 @@
     initHitCounter();
     initOdometer();
     initOnlineCounter();
-    initCountdown();
-    initSeats();
+    /* initCountdown/initSeats удалены — отказ от фейковой scarcity ради доверия */
     initLastUpdate();
     initWhatsNew();
     initSideCounters();

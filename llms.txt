@@ -24,6 +24,12 @@
 ## Ссылки
 
 - Сайт: https://glushilok.net/
+- Тарифы (машиночитаемо): https://glushilok.net/pricing.md
+- Бесплатный прокси: https://glushilok.net/proxy/
+- Проверка блокировок (бесплатный тест): https://glushilok.net/proverka/
+- Словарь терминов: https://glushilok.net/slovar/
+- Гайды настройки: https://glushilok.net/guides/
+- Новости блокировок: https://glushilok.net/novosti/
 - Telegram-бот (VPN): https://t.me/vnespiskabot
 - Telegram-канал: https://t.me/vnespiska
 - Материнский проект: https://vnespiska.uk
