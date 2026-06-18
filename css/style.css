@@ -1460,3 +1460,16 @@ body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccf
   padding: 2px 5px;
   animation: blink 0.7s step-start infinite;
 }
+
+
+/* v12 — hero trust-строка под главными CTA */
+.hero-trust {
+  color: #00ff66;
+  font-size: clamp(11px, 3vw, 14px);
+  font-weight: bold;
+  margin: 10px auto 2px;
+  line-height: 1.6;
+  max-width: 640px;
+  text-shadow: 1px 1px 0 #000;
+}
+.hero .cta-wrap { margin-top: 10px; }
