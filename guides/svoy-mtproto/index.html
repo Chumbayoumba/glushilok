@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свой MTProto прокси для Telegram 2026 — как поднять на сервере | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как сделать свой MTProto прокси для Telegram в 2026: VPS, установка через Docker (mtg), маскировка FakeTLS, генерация ссылки. Обход блокировки Telegram. Пошагово с картинками.">
+<meta name="keywords" content="свой mtproto прокси, mtproto сервер telegram, как сделать прокси для телеграм, mtg docker, mtproxy установка 2026, свой прокси телеграм сервер, fake tls прокси">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Свой MTProto прокси для Telegram 2026 — на своём сервере">
+<meta property="og:description" content="Как сделать свой MTProto прокси для Telegram в 2026: VPS, установка через Docker (mtg), маскировка FakeTLS, генерация ссылки. Обход блокировки Telegram. Пошагово с картинками.">
+<meta property="og:url" content="https://glushilok.net/guides/svoy-mtproto/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/svoy-mtproto/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как поднять свой MTProto прокси для Telegram в 2026",
+  "description": "Как сделать свой MTProto прокси для Telegram в 2026: VPS, установка через Docker (mtg), маскировка FakeTLS, генерация ссылки. Обход блокировки Telegram. Пошагово с картинками.",
+  "step": [
+    { "@type": "HowToStep", "name": "Арендуй VPS вне России", "text": "Нужен дешёвый VPS (1 vCPU, 1 ГБ RAM хватит) в стране, где Telegram не заблокирован. Нидерланды, Германия, Финляндия — отличный выбор." },
+    { "@type": "HowToStep", "name": "Установи Docker", "text": "Проще всего поднять MTProto через Docker — не нужно компилировать вручную." },
+    { "@type": "HowToStep", "name": "Запусти MTProto-прокси (mtg) с FakeTLS", "text": "Сгенерируй секрет с маскировкой под крупный сайт и запусти контейнер. mtg — современная быстрая реализация на Go." },
+    { "@type": "HowToStep", "name": "Получи ссылку для подключения", "text": "mtg выводит готовую ссылку вида tg://proxy?server=...&amp;port=...&amp;secret=... Скопируй её." },
+    { "@type": "HowToStep", "name": "Подключись в Telegram", "text": "Открой ссылку tg://proxy на телефоне с установленным Telegram — мессенджер сам предложит подключить прокси. Подтверди." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "MTProto прокси открывает YouTube и другие сайты?", "acceptedAnswer": { "@type": "Answer", "text": "Нет. MTProto работает только для Telegram. Для YouTube, WhatsApp и всего интернета нужен VPN на VLESS Reality." } },
+    { "@type": "Question", "name": "Почему мой прокси быстро отваливается?", "acceptedAnswer": { "@type": "Answer", "text": "В 2026 ТСПУ распознают MTProto по TLS-рукопожатию и блокируют IP. Держи прокси на свежем IP, меняй сайт-маскировку FakeTLS, либо используй авто-выдачу свежих прокси в нашем боте." } },
+    { "@type": "Question", "name": "Нужен ли домен?", "acceptedAnswer": { "@type": "Answer", "text": "Нет, MTProto работает по IP. Домен нужен только для некоторых TLS-схем, но для базового FakeTLS достаточно IP сервера." } },
+    { "@type": "Question", "name": "Это законно?", "acceptedAnswer": { "@type": "Answer", "text": "Использование прокси для личного доступа к Telegram в России законно. Реклама средств обхода — отдельная история, её мы не касаемся." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Свой MTProto", "item": "https://glushilok.net/guides/svoy-mtproto/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle"> СВОЙ MTPROTO ПРОКСИ ДЛЯ TELEGRAM!!! ★ МАСКИРОВКА FAKETLS ★ DOCKER ЗА 5 МИНУТ ★ ОБХОД БЛОКИРОВКИ TG <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/cellphone_blink.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(26px,7vw,52px);">СВОЙ MTPROTO</h1>
+      <div class="tagline rainbow">★彡 ПРОКСИ ДЛЯ TELEGRAM НА СЕРВЕРЕ 彡★</div>
+      <p class="seo-subtitle">Как поднять собственный MTProto-прокси для Telegram на VPS через Docker с маскировкой FakeTLS — обход блокировки и глушилок</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/server.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="30">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/server.gif" alt="" class="hdr-torch" width="50">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЧТО ТАКОЕ MTPROTO ПРОКСИ</span>
+    </div>
+    <p class="block-text"><b>MTProto-прокси</b> — это родной прокси Telegram, который маскирует трафик мессенджера. В режиме <b class="green-glow">FakeTLS</b> он притворяется обычным HTTPS-сайтом, что усложняет блокировку. Свой прокси работает только для Telegram (не для всего интернета), подключается в один тап по ссылке и не требует приложений. Минус: в 2026 ТСПУ научились частично распознавать MTProto по «рукопожатию», поэтому прокси лучше держать на свежем IP и менять при блокировках.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ ИНСТРУКЦИЯ</span>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Арендуй VPS вне России</b></p>
+      <p class="block-text">Нужен дешёвый VPS (1 vCPU, 1 ГБ RAM хватит) в стране, где Telegram не заблокирован. Нидерланды, Германия, Финляндия — отличный выбор.</p>
+      <ul class="howto-list">
+        <li>Минимум: 1 ГБ RAM, Ubuntu 22.04 / Debian 12</li>
+        <li>Открой порт (например 443) в фаерволе провайдера</li>
+        <li>Цена ~200–300 ₽/мес</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Установи Docker</b></p>
+      <p class="block-text">Проще всего поднять MTProto через Docker — не нужно компилировать вручную.</p>
+      <pre class="codebox">apt update &amp;&amp; apt install -y docker.io
+systemctl enable --now docker</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Запусти MTProto-прокси (mtg) с FakeTLS</b></p>
+      <p class="block-text">Сгенерируй секрет с маскировкой под крупный сайт и запусти контейнер. mtg — современная быстрая реализация на Go.</p>
+      <pre class="codebox"># сгенерировать secret с FakeTLS под google.com
+docker run --rm nineseconds/mtg:2 generate-secret google.com
+# запустить прокси на порту 443
+docker run -d --name mtg --restart=always -p 443:3128 \
+  nineseconds/mtg:2 simple-run -n 1.1.1.1 0.0.0.0:3128 ТВОЙ_СЕКРЕТ</pre>
+      <img src="../../assets/img/win95-terminal.png" alt="Запусти MTProto-прокси (mtg) с FakeTLS" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Получи ссылку для подключения</b></p>
+      <p class="block-text">mtg выводит готовую ссылку вида tg://proxy?server=...&amp;port=...&amp;secret=... Скопируй её.</p>
+      <ul class="howto-list">
+        <li>Ссылка содержит IP сервера, порт и секрет с маскировкой</li>
+        <li>Можно сделать удобную ссылку через @MTProxybot в самом Telegram</li>
+      </ul>
+      <pre class="codebox">docker logs mtg
+# найди строку tg://proxy?server=IP&amp;port=443&amp;secret=ee...</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">5</span> <b>Подключись в Telegram</b></p>
+      <p class="block-text">Открой ссылку tg://proxy на телефоне с установленным Telegram — мессенджер сам предложит подключить прокси. Подтверди.</p>
+      <ul class="howto-list">
+        <li>Значок прокси загорится в Telegram = работает</li>
+        <li>Раздай ссылку друзьям — прокси общий</li>
+        <li>При блокировке IP пересоздай VPS и сгенерируй новый секрет</li>
+      </ul>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+  <div class="block block-proof">
+    <div class="block-head">
+      <img src="../../assets/gif/money100.gif" alt="" width="40">
+      <span class="block-title">MTPROTO ПРОКСИ — ПЛЮСЫ И МИНУСЫ</span>
+      <img src="../../assets/gif/money100.gif" alt="" width="40">
+    </div>
+    <table class="feat-tbl" border="0" cellpadding="5" cellspacing="0"><tr><td>Плюс / Минус</td><td>Деталь</td></tr><tr><td>✔ Только для Telegram</td><td>не грузит весь трафик, быстрый</td></tr><tr><td>✔ Без приложений</td><td>подключение в 1 тап по ссылке</td></tr><tr><td>✖ ТСПУ ловит FakeTLS</td><td>нужно менять IP при блокировке</td></tr><tr><td>✖ Не открывает YouTube/сайты</td><td>для всего интернета нужен VLESS-VPN</td></tr></table>
+    <p class="block-note">Для стабильного Telegram без возни используй наш готовый прокси (бесплатно, адреса обновляются автоматически).</p>
+  </div>
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЧАСТЫЕ ВОПРОСЫ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> MTProto прокси открывает YouTube и другие сайты?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Нет. MTProto работает только для Telegram. Для YouTube, WhatsApp и всего интернета нужен VPN на VLESS Reality.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Почему мой прокси быстро отваливается?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> В 2026 ТСПУ распознают MTProto по TLS-рукопожатию и блокируют IP. Держи прокси на свежем IP, меняй сайт-маскировку FakeTLS, либо используй авто-выдачу свежих прокси в нашем боте.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Нужен ли домен?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Нет, MTProto работает по IP. Домен нужен только для некоторых TLS-схем, но для базового FakeTLS достаточно IP сервера.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Это законно?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Использование прокси для личного доступа к Telegram в России законно. Реклама средств обхода — отдельная история, её мы не касаемся.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- ВОРОНКА: не хочешь возиться -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">НЕ ХОЧЕШЬ ВОЗИТЬСЯ С СЕРВЕРОМ?</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Свой сервер — это <b>VPS за деньги каждый месяц</b>, обновления, починка после блокировок и возня с конфигами.
+      Если нужен просто <b class="green-glow">рабочий интернет без головной боли</b> — возьми готовое:
+    </p>
+    <table class="feat-tbl" border="0" cellpadding="4" cellspacing="0">
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Прокси для Telegram — бесплатно</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> VPN на VLESS Reality — от 239 ₽</td></tr>
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Серверы в 15+ странах, не нужно ничего настраивать</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Свежие конфиги при блокировках — автоматически</td></tr>
+    </table>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../proxy/">&nbsp;БЕСПЛАТНЫЙ ПРОКСИ&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ГОТОВЫЙ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20% ★ дешевле, чем платить за VPS</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../svoy-vless-server/">[ VLESS ]</a>
+      <a class="btn8831" href="../vps-dlya-vpn/">[ VPS ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/server.gif" alt="" width="20" style="vertical-align:middle"> ГОТОВЫЙ VPN — БЕЗ ВОЗНИ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

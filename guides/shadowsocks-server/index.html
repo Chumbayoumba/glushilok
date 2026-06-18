@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свой Shadowsocks сервер 2026 — установка и настройка на VPS | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как поднять свой Shadowsocks сервер в 2026: установка на VPS, настройка шифрования, плагины обфускации, подключение клиента. Честно о том, почему ТСПУ его ловит. Пошагово.">
+<meta name="keywords" content="свой shadowsocks сервер, shadowsocks установка vps, ss сервер 2026, shadowsocks обфускация, outline сервер, shadowsocks настройка, прокси shadowsocks свой">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Свой Shadowsocks сервер 2026 — установка на VPS">
+<meta property="og:description" content="Как поднять свой Shadowsocks сервер в 2026: установка на VPS, настройка шифрования, плагины обфускации, подключение клиента. Честно о том, почему ТСПУ его ловит. Пошагово.">
+<meta property="og:url" content="https://glushilok.net/guides/shadowsocks-server/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/shadowsocks-server/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как поднять свой Shadowsocks сервер в 2026",
+  "description": "Как поднять свой Shadowsocks сервер в 2026: установка на VPS, настройка шифрования, плагины обфускации, подключение клиента. Честно о том, почему ТСПУ его ловит. Пошагово.",
+  "step": [
+    { "@type": "HowToStep", "name": "Поставь VPS вне России", "text": "Стандартно: 1 ГБ RAM, Ubuntu/Debian, root по SSH, локация Европа/соседи." },
+    { "@type": "HowToStep", "name": "Установи сервер Shadowsocks", "text": "Современная реализация — shadowsocks-rust или outline-ss-server. Поставим shadowsocks-libev для простоты." },
+    { "@type": "HowToStep", "name": "Настрой конфиг", "text": "Создай /etc/shadowsocks-libev/config.json: порт, надёжный пароль, современный шифр." },
+    { "@type": "HowToStep", "name": "Добавь обфускацию (обязательно для РФ!)", "text": "Голый SS ловится ТСПУ. Поставь плагин обфускации (v2ray-plugin / simple-obfs), маскирующий трафик под веб. Без него в России почти бесполезно." },
+    { "@type": "HowToStep", "name": "Запусти и подключи клиент", "text": "Запусти сервис, открой порт. Сгенерируй ссылку ss:// и импортируй в клиент (NekoBox, v2rayNG, Shadowrocket)." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Shadowsocks обходит ТСПУ в 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Голый — почти нет, его распознают по сигнатуре. С плагином обфускации (v2ray-plugin) шансы выше, но VLESS Reality надёжнее. Для РФ в 2026 рекомендуем Reality." } },
+    { "@type": "Question", "name": "Чем SS отличается от VPN?", "acceptedAnswer": { "@type": "Answer", "text": "Shadowsocks — выборочный прокси (selective): пускает через себя только выбранные приложения, остальное идёт напрямую. Это быстрее, но настраивается per-app." } },
+    { "@type": "Question", "name": "Какой шифр выбрать?", "acceptedAnswer": { "@type": "Answer", "text": "Современный AEAD: chacha20-ietf-poly1305 или aes-256-gcm. Старые шифры небезопасны." } },
+    { "@type": "Question", "name": "Стоит ли вообще с ним возиться?", "acceptedAnswer": { "@type": "Answer", "text": "Если нужен надёжный обход в РФ — лучше VLESS Reality. Если не хочешь настраивать — бери наш готовый прокси/VPN." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Свой Shadowsocks", "item": "https://glushilok.net/guides/shadowsocks-server/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle"> СВОЙ SHADOWSOCKS СЕРВЕР!!! ★ БЫСТРЫЙ SELECTIVE-ПРОКСИ ★ ЧЕСТНО ПРО ОБХОД ТСПУ ★ УСТАНОВКА НА VPS 2026 <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/server.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(26px,7vw,52px);">SHADOWSOCKS</h1>
+      <div class="tagline rainbow">★彡 СВОЙ СЕРВЕР НА VPS 2026 彡★</div>
+      <p class="seo-subtitle">Как поднять собственный Shadowsocks-сервер на VPS — быстрый выборочный прокси, обфускация и честный разбор, обходит ли он ТСПУ в 2026</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/server.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="30">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/lock.gif" alt="" class="hdr-torch" width="50">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЧТО ТАКОЕ SHADOWSOCKS</span>
+    </div>
+    <p class="block-text"><b>Shadowsocks</b> — лёгкий шифрующий прокси. В отличие от VPN он не заворачивает весь трафик, а работает как <b class="green-glow">выборочный прокси</b> (selective): можно пускать через него только нужные приложения. Был «золотым стандартом» обхода. Но честно: в 2026 голый Shadowsocks <b>ТСПУ распознаёт и блокирует</b> — нужна обфускация (плагин) или лучше сразу VLESS Reality. Разберём установку и где он ещё полезен.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ ИНСТРУКЦИЯ</span>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Поставь VPS вне России</b></p>
+      <p class="block-text">Стандартно: 1 ГБ RAM, Ubuntu/Debian, root по SSH, локация Европа/соседи.</p>
+      <pre class="codebox">ssh root@ТВОЙ_IP
+apt update &amp;&amp; apt upgrade -y</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Установи сервер Shadowsocks</b></p>
+      <p class="block-text">Современная реализация — shadowsocks-rust или outline-ss-server. Поставим shadowsocks-libev для простоты.</p>
+      <pre class="codebox">apt install -y shadowsocks-libev</pre>
+      <img src="../../assets/img/win95-terminal.png" alt="Установи сервер Shadowsocks" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Настрой конфиг</b></p>
+      <p class="block-text">Создай /etc/shadowsocks-libev/config.json: порт, надёжный пароль, современный шифр.</p>
+      <pre class="codebox">{
+  "server":"0.0.0.0",
+  "server_port":8388,
+  "password":"СЛОЖНЫЙ_ПАРОЛЬ",
+  "method":"chacha20-ietf-poly1305",
+  "mode":"tcp_and_udp"
+}</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Добавь обфускацию (обязательно для РФ!)</b></p>
+      <p class="block-text">Голый SS ловится ТСПУ. Поставь плагин обфускации (v2ray-plugin / simple-obfs), маскирующий трафик под веб. Без него в России почти бесполезно.</p>
+      <ul class="howto-list">
+        <li>v2ray-plugin — маскировка под websocket/TLS</li>
+        <li>Без плагина ТСПУ распознаёт SS по сигнатуре</li>
+        <li>Альтернатива — сразу VLESS Reality (надёжнее)</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">5</span> <b>Запусти и подключи клиент</b></p>
+      <p class="block-text">Запусти сервис, открой порт. Сгенерируй ссылку ss:// и импортируй в клиент (NekoBox, v2rayNG, Shadowrocket).</p>
+      <ul class="howto-list">
+        <li>Клиенты: NekoBox, v2rayNG, Shadowrocket (iOS)</li>
+        <li>Настрой выборочную маршрутизацию нужных приложений</li>
+      </ul>
+      <pre class="codebox">systemctl enable --now shadowsocks-libev
+# ссылка: ss://base64(method:password)@IP:port</pre>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЧАСТЫЕ ВОПРОСЫ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Shadowsocks обходит ТСПУ в 2026?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Голый — почти нет, его распознают по сигнатуре. С плагином обфускации (v2ray-plugin) шансы выше, но VLESS Reality надёжнее. Для РФ в 2026 рекомендуем Reality.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Чем SS отличается от VPN?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Shadowsocks — выборочный прокси (selective): пускает через себя только выбранные приложения, остальное идёт напрямую. Это быстрее, но настраивается per-app.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Какой шифр выбрать?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Современный AEAD: chacha20-ietf-poly1305 или aes-256-gcm. Старые шифры небезопасны.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Стоит ли вообще с ним возиться?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Если нужен надёжный обход в РФ — лучше VLESS Reality. Если не хочешь настраивать — бери наш готовый прокси/VPN.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- ВОРОНКА: не хочешь возиться -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">НЕ ХОЧЕШЬ ВОЗИТЬСЯ С СЕРВЕРОМ?</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Свой сервер — это <b>VPS за деньги каждый месяц</b>, обновления, починка после блокировок и возня с конфигами.
+      Если нужен просто <b class="green-glow">рабочий интернет без головной боли</b> — возьми готовое:
+    </p>
+    <table class="feat-tbl" border="0" cellpadding="4" cellspacing="0">
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Прокси для Telegram — бесплатно</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> VPN на VLESS Reality — от 239 ₽</td></tr>
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Серверы в 15+ странах, не нужно ничего настраивать</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Свежие конфиги при блокировках — автоматически</td></tr>
+    </table>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../proxy/">&nbsp;БЕСПЛАТНЫЙ ПРОКСИ&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ГОТОВЫЙ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20% ★ дешевле, чем платить за VPS</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../svoy-vless-server/">[ VLESS ]</a>
+      <a class="btn8831" href="../obhod-dpi/">[ Обход DPI ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/server.gif" alt="" width="20" style="vertical-align:middle"> ГОТОВЫЙ VPN — БЕЗ ВОЗНИ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

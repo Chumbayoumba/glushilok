@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="360" viewBox="0 0 540 360" font-family="'Courier New',monospace">
+  <rect x="0" y="0" width="540" height="360" fill="#c0c0c0"/>
+  <rect x="0" y="0" width="540" height="360" fill="none" stroke="#000" stroke-width="2"/>
+  <rect x="2" y="2" width="536" height="356" fill="none" stroke="#dfdfdf" stroke-width="2"/>
+  <!-- титул -->
+  <rect x="5" y="5" width="530" height="26" fill="#000080"/>
+  <text x="13" y="23" fill="#fff" font-size="14" font-weight="bold" font-family="'MS Sans Serif',sans-serif">root@vps: ~ — SSH</text>
+  <rect x="490" y="9" width="18" height="18" fill="#c0c0c0" stroke="#000"/><text x="495" y="23" font-size="12">_</text>
+  <rect x="510" y="9" width="18" height="18" fill="#c0c0c0" stroke="#000"/><text x="514" y="22" font-size="11">×</text>
+  <!-- чёрный экран терминала -->
+  <rect x="10" y="36" width="520" height="316" fill="#000"/>
+  <text x="20" y="58" fill="#00ff00" font-size="13">root@vps:~# <tspan fill="#fff">apt update &amp;&amp; apt upgrade -y</tspan></text>
+  <text x="20" y="78" fill="#aaa" font-size="12">Reading package lists... Done</text>
+  <text x="20" y="98" fill="#00ff00" font-size="13">root@vps:~# <tspan fill="#fff">bash &lt;(curl -Ls https://...x-ui...)</tspan></text>
+  <text x="20" y="118" fill="#aaa" font-size="12">Installing 3x-ui panel...</text>
+  <text x="20" y="138" fill="#0ff" font-size="12">  Downloading xray-core ......... [ OK ]</text>
+  <text x="20" y="158" fill="#0ff" font-size="12">  Generating REALITY keys ....... [ OK ]</text>
+  <text x="20" y="178" fill="#0ff" font-size="12">  Enabling BBR .................. [ OK ]</text>
+  <text x="20" y="198" fill="#ff0" font-size="12">  Panel URL : http://IP:2053/panel</text>
+  <text x="20" y="218" fill="#ff0" font-size="12">  Username  : admin</text>
+  <text x="20" y="238" fill="#ff0" font-size="12">  Password  : ************</text>
+  <text x="20" y="262" fill="#00ff00" font-size="13">root@vps:~# <tspan fill="#fff">systemctl status x-ui</tspan></text>
+  <text x="20" y="282" fill="#00ff00" font-size="12">  ● x-ui.service — active (running)</text>
+  <text x="20" y="306" fill="#00ff00" font-size="13">root@vps:~# <tspan fill="#fff">_</tspan><tspan fill="#00ff00">▋</tspan></text>
+  <text x="20" y="338" fill="#555" font-size="11">VLESS + REALITY готов к работе</text>
+</svg>

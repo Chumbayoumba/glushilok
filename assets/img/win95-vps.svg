@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="360" viewBox="0 0 540 360" font-family="'MS Sans Serif',Tahoma,sans-serif">
+  <rect x="0" y="0" width="540" height="360" fill="#c0c0c0"/>
+  <rect x="0" y="0" width="540" height="360" fill="none" stroke="#000" stroke-width="2"/>
+  <rect x="2" y="2" width="536" height="356" fill="none" stroke="#dfdfdf" stroke-width="2"/>
+  <rect x="5" y="5" width="530" height="26" fill="#000080"/>
+  <text x="13" y="23" fill="#fff" font-size="14" font-weight="bold">Выбор VPS для своего VPN</text>
+  <rect x="510" y="9" width="18" height="18" fill="#c0c0c0" stroke="#000"/><text x="514" y="22" font-size="11">×</text>
+  <text x="16" y="52" font-size="13" fill="#000" font-weight="bold">Сравнение тарифов VPS (зарубежная локация):</text>
+  <!-- таблица -->
+  <rect x="14" y="62" width="512" height="240" fill="#fff" stroke="#808080" stroke-width="2"/>
+  <rect x="16" y="64" width="508" height="26" fill="#000080"/>
+  <text x="24" y="82" fill="#fff" font-size="12">CPU / RAM / SSD       Локация        Цена/мес    Подходит</text>
+  <text x="24" y="112" fill="#000" font-size="12">1 vCPU / 1 GB / 15 GB   Нидерланды      ~200-300 ₽   VLESS на 1-5 чел</text>
+  <line x1="16" y1="122" x2="524" y2="122" stroke="#ddd"/>
+  <text x="24" y="142" fill="#000" font-size="12">1 vCPU / 2 GB / 25 GB   Германия        ~350-450 ₽   VLESS + панель</text>
+  <line x1="16" y1="152" x2="524" y2="152" stroke="#ddd"/>
+  <text x="24" y="172" fill="#000" font-size="12">2 vCPU / 4 GB / 50 GB   Финляндия       ~600-800 ₽   семья / друзья</text>
+  <line x1="16" y1="182" x2="524" y2="182" stroke="#ddd"/>
+  <text x="24" y="202" fill="#000" font-size="12">2 vCPU / 4 GB / 80 GB   Турция/Армения  ~800-1000 ₽  близкий пинг к РФ</text>
+  <line x1="16" y1="212" x2="524" y2="212" stroke="#ddd"/>
+  <text x="24" y="234" fill="#008000" font-size="12" font-weight="bold">✓ NVMe SSD   ✓ 1 Гбит/с порт   ✓ оплата картой/крипто</text>
+  <text x="24" y="258" fill="#b00000" font-size="12">✗ НЕ брать локацию «Россия» — заблокируют доступ к миру</text>
+  <text x="24" y="282" fill="#555" font-size="11">Подсказка: бери почасовую оплату — тестируй пинг, не понравилось — снёс.</text>
+  <!-- кнопки -->
+  <rect x="180" y="312" width="180" height="34" fill="#c0c0c0" stroke="#000" stroke-width="2"/>
+  <rect x="183" y="315" width="174" height="28" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="270" y="334" font-size="14" font-weight="bold" text-anchor="middle">▶ Создать сервер</text>
+</svg>

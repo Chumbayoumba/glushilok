@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свой VLESS Reality сервер 2026 — как поднять на VPS пошагово | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как поднять свой VLESS + Reality сервер на VPS в 2026: выбор хостинга, установка панели 3X-UI, настройка маскировки под HTTPS, подключение клиента. Обход DPI и ТСПУ. Пошагово с картинками.">
+<meta name="keywords" content="свой vless сервер, vless reality настройка сервера, поднять vpn сервер 2026, vless на vps, 3x-ui установка, свой vpn обход dpi, xray сервер reality, как сделать свой vpn">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Свой VLESS Reality сервер 2026 — пошагово на VPS">
+<meta property="og:description" content="Как поднять свой VLESS + Reality сервер на VPS в 2026: выбор хостинга, установка панели 3X-UI, настройка маскировки под HTTPS, подключение клиента. Обход DPI и ТСПУ. Пошагово с картинками.">
+<meta property="og:url" content="https://glushilok.net/guides/svoy-vless-server/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/svoy-vless-server/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как поднять свой VLESS + Reality сервер на VPS в 2026",
+  "description": "Как поднять свой VLESS + Reality сервер на VPS в 2026: выбор хостинга, установка панели 3X-UI, настройка маскировки под HTTPS, подключение клиента. Обход DPI и ТСПУ. Пошагово с картинками.",
+  "step": [
+    { "@type": "HowToStep", "name": "Арендуй VPS в зарубежной локации", "text": "Тебе нужен виртуальный сервер (VPS) <b>НЕ в России</b> — иначе он сам будет под ограничениями. Минимум для 1-5 человек: 1 vCPU, 1 ГБ RAM, 15 ГБ SSD, Ubuntu 22.04 или Debian 12." },
+    { "@type": "HowToStep", "name": "Подключись к серверу по SSH", "text": "После создания VPS провайдер пришлёт IP-адрес и пароль root. Подключись с компьютера (терминал / PowerShell) или с телефона (приложение Termius)." },
+    { "@type": "HowToStep", "name": "Установи панель 3X-UI одной командой", "text": "3X-UI — удобная веб-панель для управления Xray (ядро VLESS). Установка автоматическим скриптом. После установки она выдаст адрес панели, логин и пароль — сразу запиши их." },
+    { "@type": "HowToStep", "name": "Создай VLESS + Reality inbound в панели", "text": "Открой панель в браузере, войди. Перейди в Inbounds → Добавить. Выбери протокол <b>VLESS</b>, транспорт <b>Reality</b>. В поле маскировки (Dest/SNI) укажи крупный сайт — www.microsoft.com, www.apple.com или yahoo.com." },
+    { "@type": "HowToStep", "name": "Включи BBR и базовую защиту", "text": "BBR ускоряет соединение, fail2ban и отключение ICMP скрывают сервер от сканеров. Многие скрипты 3X-UI предлагают это в меню — включи." },
+    { "@type": "HowToStep", "name": "Подключи клиент (телефон/ПК)", "text": "В панели нажми на клиента → QR-код или ссылку vless://. Импортируй её в приложение Hiddify, v2rayNG или NekoBox. Подключайся — трафик пойдёт через твой сервер, замаскированный под HTTPS." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "VLESS Reality точно обходит ТСПУ в 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Да, это самый устойчивый метод. Reality маскирует трафик под чужой HTTPS-сайт, и DPI не отличает его от легального. Но в регионах ТСПУ иногда «замораживает» сессии — помогает смена SNI и включение fragment." } },
+    { "@type": "Question", "name": "Какой SNI (сайт-маскировку) выбрать?", "acceptedAnswer": { "@type": "Answer", "text": "Крупный живой HTTPS-сайт, который не заблокирован в РФ и поддерживает TLS 1.3: www.microsoft.com, www.apple.com, yahoo.com. Не используй сайты, которые сами под блокировкой." } },
+    { "@type": "Question", "name": "Сервер заблокировали — что делать?", "acceptedAnswer": { "@type": "Answer", "text": "Смени IP (пересоздай VPS у того же или другого провайдера), поменяй SNI-маскировку, включи fragment в клиенте. Иногда достаточно сменить порт." } },
+    { "@type": "Question", "name": "Это сложно для новичка?", "acceptedAnswer": { "@type": "Answer", "text": "Средне. Нужно уметь подключаться по SSH и копировать команды. Если не хочешь возиться — у нас есть готовый прокси (бесплатно) и VPN под ключ." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Свой VLESS сервер", "item": "https://glushilok.net/guides/svoy-vless-server/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle"> СВОЙ VLESS REALITY СЕРВЕР НА VPS!!! ★ САМЫЙ УСТОЙЧИВЫЙ ОБХОД DPI 2026 ★ МАСКИРОВКА ПОД HTTPS ★ ПОШАГОВО ЗА 15 МИНУТ <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/server.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(26px,7vw,52px);">СВОЙ VLESS СЕРВЕР</h1>
+      <div class="tagline rainbow">★彡 REALITY НА VPS ПОШАГОВО 2026 彡★</div>
+      <p class="seo-subtitle">Как поднять собственный VLESS + Reality сервер на VPS для обхода глушилок, DPI и белых списков — выбор хостинга, панель 3X-UI, маскировка под HTTPS</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/server.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="30">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/pctower.gif" alt="" class="hdr-torch" width="50">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЗАЧЕМ СВОЙ VLESS СЕРВЕР</span>
+    </div>
+    <p class="block-text"><b>VLESS + Reality</b> — самый устойчивый к DPI протокол в 2026 году. Reality маскирует твой трафик под обычный визит на крупный HTTPS-сайт (например microsoft.com), поэтому системы <b class="green-glow">ТСПУ и DPI</b> не могут отличить его от легального трафика и не блокируют. Свой сервер даёт полный контроль, отсутствие логов и максимальную скорость — но требует VPS за деньги и базовых навыков работы в терминале. Разберём пошагово через панель <b>3X-UI</b> — это проще всего.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ ИНСТРУКЦИЯ</span>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Арендуй VPS в зарубежной локации</b></p>
+      <p class="block-text">Тебе нужен виртуальный сервер (VPS) <b>НЕ в России</b> — иначе он сам будет под ограничениями. Минимум для 1-5 человек: 1 vCPU, 1 ГБ RAM, 15 ГБ SSD, Ubuntu 22.04 или Debian 12.</p>
+      <ul class="howto-list">
+        <li>Локации: Нидерланды, Германия, Финляндия (близкий пинг к РФ), Турция, Армения</li>
+        <li>Цена: примерно 200–500 ₽/мес, оплата картой или криптовалютой</li>
+        <li>Бери NVMe SSD и порт 1 Гбит/с. Почасовая оплата удобна для теста</li>
+      </ul>
+      <img src="../../assets/img/win95-vps.png" alt="Арендуй VPS в зарубежной локации" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Подключись к серверу по SSH</b></p>
+      <p class="block-text">После создания VPS провайдер пришлёт IP-адрес и пароль root. Подключись с компьютера (терминал / PowerShell) или с телефона (приложение Termius).</p>
+      <pre class="codebox">ssh root@ТВОЙ_IP_АДРЕС
+# вводишь пароль
+apt update &amp;&amp; apt upgrade -y</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Установи панель 3X-UI одной командой</b></p>
+      <p class="block-text">3X-UI — удобная веб-панель для управления Xray (ядро VLESS). Установка автоматическим скриптом. После установки она выдаст адрес панели, логин и пароль — сразу запиши их.</p>
+      <ul class="howto-list">
+        <li>Скрипт сам поставит Xray-core и настроит сервис</li>
+        <li>Запомни: адрес панели вида http://IP:порт/путь, логин и пароль</li>
+        <li>Сразу смени стандартный логин/пароль на сложные</li>
+      </ul>
+      <pre class="codebox">bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)</pre>
+      <img src="../../assets/img/win95-terminal.png" alt="Установи панель 3X-UI одной командой" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Создай VLESS + Reality inbound в панели</b></p>
+      <p class="block-text">Открой панель в браузере, войди. Перейди в Inbounds → Добавить. Выбери протокол <b>VLESS</b>, транспорт <b>Reality</b>. В поле маскировки (Dest/SNI) укажи крупный сайт — www.microsoft.com, www.apple.com или yahoo.com.</p>
+      <ul class="howto-list">
+        <li>Протокол: VLESS, Security: Reality, Flow: xtls-rprx-vision</li>
+        <li>SNI / Dest: www.microsoft.com:443 (или другой живой HTTPS-сайт)</li>
+        <li>Панель сама сгенерирует ключи Reality и UUID клиента</li>
+      </ul>
+      <img src="../../assets/img/win95-3xui.png" alt="Создай VLESS + Reality inbound в панели" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">5</span> <b>Включи BBR и базовую защиту</b></p>
+      <p class="block-text">BBR ускоряет соединение, fail2ban и отключение ICMP скрывают сервер от сканеров. Многие скрипты 3X-UI предлагают это в меню — включи.</p>
+      <pre class="codebox"># включить BBR
+echo 'net.core.default_qdisc=fq' &gt;&gt; /etc/sysctl.conf
+echo 'net.ipv4.tcp_congestion_control=bbr' &gt;&gt; /etc/sysctl.conf
+sysctl -p</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">6</span> <b>Подключи клиент (телефон/ПК)</b></p>
+      <p class="block-text">В панели нажми на клиента → QR-код или ссылку vless://. Импортируй её в приложение Hiddify, v2rayNG или NekoBox. Подключайся — трафик пойдёт через твой сервер, замаскированный под HTTPS.</p>
+      <ul class="howto-list">
+        <li>Android: v2rayNG или NekoBox — см. наши <a href="../v2rayng/" style="color:#0ff">гайды</a></li>
+        <li>iPhone/ПК: Hiddify — <a href="../hiddify/" style="color:#0ff">инструкция</a></li>
+        <li>Скопируй ссылку vless:// → «Добавить из буфера»</li>
+      </ul>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+  <div class="block block-proof">
+    <div class="block-head">
+      <img src="../../assets/gif/money100.gif" alt="" width="40">
+      <span class="block-title">СКОЛЬКО СТОИТ СВОЙ VLESS СЕРВЕР</span>
+      <img src="../../assets/gif/money100.gif" alt="" width="40">
+    </div>
+    <table class="feat-tbl" border="0" cellpadding="5" cellspacing="0"><tr><td>Что</td><td>Цена/мес</td></tr><tr><td>VPS 1 ГБ (1-5 чел)</td><td>~200–350 ₽</td></tr><tr><td>VPS 2 ГБ + панель</td><td>~350–500 ₽</td></tr><tr><td>Домен (необязательно для Reality)</td><td>~100 ₽/год</td></tr><tr><td>Готовый VPN ВнеСписка</td><td>от 239 ₽ (без возни)</td></tr></table>
+    <p class="block-note">Свой сервер дешевле только если ты технически подкован и готов его обслуживать. Иначе готовый VPN выходит проще и сопоставимо по цене.</p>
+  </div>
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЧАСТЫЕ ВОПРОСЫ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> VLESS Reality точно обходит ТСПУ в 2026?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Да, это самый устойчивый метод. Reality маскирует трафик под чужой HTTPS-сайт, и DPI не отличает его от легального. Но в регионах ТСПУ иногда «замораживает» сессии — помогает смена SNI и включение fragment.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Какой SNI (сайт-маскировку) выбрать?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Крупный живой HTTPS-сайт, который не заблокирован в РФ и поддерживает TLS 1.3: www.microsoft.com, www.apple.com, yahoo.com. Не используй сайты, которые сами под блокировкой.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Сервер заблокировали — что делать?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Смени IP (пересоздай VPS у того же или другого провайдера), поменяй SNI-маскировку, включи fragment в клиенте. Иногда достаточно сменить порт.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Это сложно для новичка?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Средне. Нужно уметь подключаться по SSH и копировать команды. Если не хочешь возиться — у нас есть готовый прокси (бесплатно) и VPN под ключ.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- ВОРОНКА: не хочешь возиться -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">НЕ ХОЧЕШЬ ВОЗИТЬСЯ С СЕРВЕРОМ?</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Свой сервер — это <b>VPS за деньги каждый месяц</b>, обновления, починка после блокировок и возня с конфигами.
+      Если нужен просто <b class="green-glow">рабочий интернет без головной боли</b> — возьми готовое:
+    </p>
+    <table class="feat-tbl" border="0" cellpadding="4" cellspacing="0">
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Прокси для Telegram — бесплатно</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> VPN на VLESS Reality — от 239 ₽</td></tr>
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Серверы в 15+ странах, не нужно ничего настраивать</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Свежие конфиги при блокировках — автоматически</td></tr>
+    </table>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../proxy/">&nbsp;БЕСПЛАТНЫЙ ПРОКСИ&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ГОТОВЫЙ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20% ★ дешевле, чем платить за VPS</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../3x-ui/">[ 3X-UI ]</a>
+      <a class="btn8831" href="../vps-dlya-vpn/">[ VPS ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/server.gif" alt="" width="20" style="vertical-align:middle"> ГОТОВЫЙ VPN — БЕЗ ВОЗНИ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

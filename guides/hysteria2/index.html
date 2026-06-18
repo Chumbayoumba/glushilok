@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hysteria2 сервер 2026 — быстрый VPN на QUIC, установка пошагово | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как поднять свой Hysteria2 сервер в 2026: установка на VPS, настройка QUIC/UDP, порт-хоппинг, подключение клиента. Очень быстрый протокол для нестабильных сетей. Пошагово.">
+<meta name="keywords" content="hysteria2 сервер, hysteria2 настройка, hysteria2 установка vps, быстрый vpn quic, hysteria2 порт хоппинг, hy2 сервер 2026, hysteria обход блокировок">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Hysteria2 сервер 2026 — быстрый VPN на QUIC">
+<meta property="og:description" content="Как поднять свой Hysteria2 сервер в 2026: установка на VPS, настройка QUIC/UDP, порт-хоппинг, подключение клиента. Очень быстрый протокол для нестабильных сетей. Пошагово.">
+<meta property="og:url" content="https://glushilok.net/guides/hysteria2/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/hysteria2/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как поднять свой Hysteria2 сервер в 2026",
+  "description": "Как поднять свой Hysteria2 сервер в 2026: установка на VPS, настройка QUIC/UDP, порт-хоппинг, подключение клиента. Очень быстрый протокол для нестабильных сетей. Пошагово.",
+  "step": [
+    { "@type": "HowToStep", "name": "Поставь VPS вне России", "text": "1 ГБ RAM достаточно. Важно: у провайдера должен быть открыт диапазон UDP-портов (для порт-хоппинга)." },
+    { "@type": "HowToStep", "name": "Установи Hysteria2 официальным скриптом", "text": "Проект предоставляет установщик одной командой." },
+    { "@type": "HowToStep", "name": "Настрой конфиг сервера", "text": "Создай /etc/hysteria/config.yaml: порт, пароль, и self-signed TLS или маскировку под сайт." },
+    { "@type": "HowToStep", "name": "Включи порт-хоппинг (опционально)", "text": "Чтобы усложнить блокировку, настрой диапазон портов через iptables — клиент будет прыгать по портам." },
+    { "@type": "HowToStep", "name": "Запусти и подключи клиент", "text": "Запусти сервис, собери ссылку hysteria2:// и импортируй в клиент (NekoBox, v2rayNG, Hiddify поддерживают hy2)." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Hysteria2 лучше VLESS Reality?", "acceptedAnswer": { "@type": "Answer", "text": "По скорости на плохих сетях — часто да. По незаметности — нет: UDP-трафик Hysteria заметнее для ТСПУ, чем Reality под HTTPS. Идеально держать оба и переключаться." } },
+    { "@type": "Question", "name": "Зачем порт-хоппинг?", "acceptedAnswer": { "@type": "Answer", "text": "Постоянная смена портов мешает ТСПУ заблокировать соединение по конкретному порту. Усложняет анализ трафика." } },
+    { "@type": "Question", "name": "Почему Hysteria иногда не подключается?", "acceptedAnswer": { "@type": "Answer", "text": "Некоторые операторы режут или замедляют UDP. Тогда помогает VLESS Reality (TCP под HTTPS). Держи запасной протокол." } },
+    { "@type": "Question", "name": "Не хочу настраивать сервер", "acceptedAnswer": { "@type": "Answer", "text": "Возьми готовый VPN — у нас несколько протоколов (VLESS, Hysteria2) уже настроены, переключайся в приложении одним тапом." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Свой Hysteria2", "item": "https://glushilok.net/guides/hysteria2/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle"> СВОЙ HYSTERIA2 СЕРВЕР!!! ★ ОЧЕНЬ БЫСТРЫЙ QUIC/UDP ★ ПОРТ-ХОППИНГ ★ ДЛЯ НЕСТАБИЛЬНЫХ СЕТЕЙ 2026 <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/server.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(26px,7vw,52px);">HYSTERIA2</h1>
+      <div class="tagline rainbow">★彡 БЫСТРЫЙ VPN НА QUIC 2026 彡★</div>
+      <p class="seo-subtitle">Как поднять собственный Hysteria2 сервер на VPS — очень быстрый протокол на QUIC/UDP с порт-хоппингом, отлично работает на нестабильных мобильных сетях</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/server.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="30">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/fire2.gif" alt="" class="hdr-torch" width="50">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <span class="block-title">ЧТО ТАКОЕ HYSTERIA2</span>
+    </div>
+    <p class="block-text"><b>Hysteria2</b> (hy2) — современный протокол на базе <b>QUIC/UDP</b>, заточенный под <b class="green-glow">скорость и нестабильные сети</b>. На плохом мобильном интернете он часто быстрее VLESS, потому что QUIC лучше переживает потери пакетов. Фишка — порт-хоппинг (постоянная смена портов), что усложняет блокировку. Минус: UDP-трафик заметнее для ТСПУ, чем замаскированный под HTTPS Reality. Хорош как быстрый запасной протокол.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <span class="block-title">ПОШАГОВАЯ ИНСТРУКЦИЯ</span>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Поставь VPS вне России</b></p>
+      <p class="block-text">1 ГБ RAM достаточно. Важно: у провайдера должен быть открыт диапазон UDP-портов (для порт-хоппинга).</p>
+      <ul class="howto-list">
+        <li>Ubuntu 22.04 / Debian 12, root по SSH</li>
+        <li>Открой диапазон UDP-портов в фаерволе</li>
+        <li>Локация — Европа/соседние страны</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Установи Hysteria2 официальным скриптом</b></p>
+      <p class="block-text">Проект предоставляет установщик одной командой.</p>
+      <pre class="codebox">bash &lt;(curl -fsSL https://get.hy2.sh/)</pre>
+      <img src="../../assets/img/win95-terminal.png" alt="Установи Hysteria2 официальным скриптом" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Настрой конфиг сервера</b></p>
+      <p class="block-text">Создай /etc/hysteria/config.yaml: порт, пароль, и self-signed TLS или маскировку под сайт.</p>
+      <pre class="codebox">listen: :36712
+tls:
+  cert: /etc/hysteria/cert.pem
+  key: /etc/hysteria/key.pem
+auth:
+  type: password
+  password: СЛОЖНЫЙ_ПАРОЛЬ
+masquerade:
+  type: proxy
+  proxy:
+    url: https://news.ycombinator.com</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Включи порт-хоппинг (опционально)</b></p>
+      <p class="block-text">Чтобы усложнить блокировку, настрой диапазон портов через iptables — клиент будет прыгать по портам.</p>
+      <pre class="codebox"># перенаправить диапазон UDP-портов на порт Hysteria
+iptables -t nat -A PREROUTING -p udp --dport 20000:50000 -j REDIRECT --to-ports 36712</pre>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">5</span> <b>Запусти и подключи клиент</b></p>
+      <p class="block-text">Запусти сервис, собери ссылку hysteria2:// и импортируй в клиент (NekoBox, v2rayNG, Hiddify поддерживают hy2).</p>
+      <ul class="howto-list">
+        <li>Клиенты: NekoBox, v2rayNG, Hiddify</li>
+        <li>Укажи пароль, IP, порт и SNI</li>
+        <li>На нестабильной сети hy2 часто шустрее VLESS</li>
+      </ul>
+      <pre class="codebox">systemctl enable --now hysteria-server
+# ссылка: hysteria2://пароль@IP:36712?sni=...</pre>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+      <span class="block-title">ЧАСТЫЕ ВОПРОСЫ</span>
+      <img src="../../assets/gif/danger.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Hysteria2 лучше VLESS Reality?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> По скорости на плохих сетях — часто да. По незаметности — нет: UDP-трафик Hysteria заметнее для ТСПУ, чем Reality под HTTPS. Идеально держать оба и переключаться.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Зачем порт-хоппинг?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Постоянная смена портов мешает ТСПУ заблокировать соединение по конкретному порту. Усложняет анализ трафика.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Почему Hysteria иногда не подключается?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Некоторые операторы режут или замедляют UDP. Тогда помогает VLESS Reality (TCP под HTTPS). Держи запасной протокол.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Не хочу настраивать сервер</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Возьми готовый VPN — у нас несколько протоколов (VLESS, Hysteria2) уже настроены, переключайся в приложении одним тапом.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <!-- ВОРОНКА: не хочешь возиться -->
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">НЕ ХОЧЕШЬ ВОЗИТЬСЯ С СЕРВЕРОМ?</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Свой сервер — это <b>VPS за деньги каждый месяц</b>, обновления, починка после блокировок и возня с конфигами.
+      Если нужен просто <b class="green-glow">рабочий интернет без головной боли</b> — возьми готовое:
+    </p>
+    <table class="feat-tbl" border="0" cellpadding="4" cellspacing="0">
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Прокси для Telegram — бесплатно</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> VPN на VLESS Reality — от 239 ₽</td></tr>
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Серверы в 15+ странах, не нужно ничего настраивать</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Свежие конфиги при блокировках — автоматически</td></tr>
+    </table>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../proxy/">&nbsp;БЕСПЛАТНЫЙ ПРОКСИ&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ГОТОВЫЙ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20% ★ дешевле, чем платить за VPS</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../svoy-vless-server/">[ VLESS ]</a>
+      <a class="btn8831" href="../3x-ui/">[ 3X-UI ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/server.gif" alt="" width="20" style="vertical-align:middle"> ГОТОВЫЙ VPN — БЕЗ ВОЗНИ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>
