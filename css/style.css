@@ -1473,3 +1473,22 @@ body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccf
   text-shadow: 1px 1px 0 #000;
 }
 .hero .cta-wrap { margin-top: 10px; }
+
+
+/* v13 — блоки кода в технических гайдах */
+.codebox {
+  background: #000;
+  color: #00ff66;
+  border: 2px inset #00aa55;
+  border-left: 4px solid #00ff66;
+  padding: 10px 12px;
+  margin: 10px 0;
+  font-family: "Courier New", monospace;
+  font-size: clamp(11px, 2.8vw, 13px);
+  line-height: 1.5;
+  text-align: left;
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.guide-step .codebox { max-width: 100%; }
