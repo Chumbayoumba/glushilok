@@ -1528,3 +1528,56 @@ body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccf
   white-space: nowrap;
 }
 .news-text a:hover { color: #00ff66; }
+/* ================= ЧЕБУРНЕТ КОННЕКТ (проверка блокировок) ================= */
+.chk-btn {
+  display:inline-block; background:linear-gradient(180deg,#00ff66,#009933);
+  color:#000; font-weight:bold; padding:14px 26px; border:3px outset #fff;
+  font-size:clamp(15px,4vw,20px); margin:10px 0; cursor:pointer; font-family:inherit;
+  text-shadow:1px 1px 0 #fff;
+}
+.chk-btn:hover { background:#ffff00; }
+.chk-btn:active { border-style:inset; }
+.chk-btn:disabled { background:#888; cursor:wait; }
+
+/* Вердикт */
+.verdict { border:3px ridge #00ffff; background:#001018; padding:12px 14px; margin:12px auto; max-width:560px; font-size:15px; color:#fff; }
+.verdict.good { border-color:#00ff66; background:#001a0d; }
+.verdict.bad  { border-color:#ff3344; background:#1a0405; }
+.verdict-title { display:block; font-size:clamp(17px,5vw,24px); font-weight:bold; margin-bottom:6px; }
+.verdict.good .verdict-title { color:#00ff66; text-shadow:0 0 6px #00ff66; }
+.verdict.bad  .verdict-title { color:#ff4455; text-shadow:0 0 6px #ff0000; }
+
+/* Подключение */
+#conn table.data { width:100%; max-width:520px; margin:8px auto; border-collapse:collapse; font-size:14px; }
+#conn table.data th { background:#222; color:#0ff; border:1px solid #00ffff; padding:6px 9px; text-align:left; width:38%; }
+#conn table.data td { border:1px solid #00ffff; padding:6px 9px; color:#fff; }
+
+/* Сводка-проценты */
+table.sumtbl { width:100%; max-width:560px; margin:6px auto; border-collapse:collapse; }
+table.sumtbl td.sc { width:25%; border:2px ridge #00ffff; text-align:center; padding:8px 4px; background:#001018; }
+table.sumtbl td.sc b { display:block; font-size:26px; line-height:1.1; }
+table.sumtbl td.sc span { display:block; font-size:11px; color:#aaccff; }
+table.sumtbl td.sc i { font-style:normal; font-size:11px; color:#88aacc; }
+table.sumtbl td.sc.ok b { color:#00ff66; } table.sumtbl td.sc.block b { color:#ff4455; }
+table.sumtbl td.sc.dpi b { color:#ffaa00; } table.sumtbl td.sc.geo b { color:#cc66ff; }
+
+/* Категории */
+.cat { margin:14px auto; max-width:620px; }
+.cat h3 { background:#222; border:2px ridge #ff00ff; color:#ffff00; margin:0; padding:6px 10px; font-size:14px; text-shadow:1px 1px 0 #000; }
+table.check { width:100%; border-collapse:collapse; font-size:13px; margin:0 0 6px 0; }
+table.check tr { background:#000814; }
+table.check td { border:1px solid #225; padding:5px 8px; color:#fff; vertical-align:middle; }
+.svc-name { font-weight:bold; color:#fff; }
+.svc-cat { color:#88aacc; font-size:12px; }
+img.favi { width:16px; height:16px; vertical-align:-3px; }
+img.flag { width:18px; height:13px; vertical-align:-1px; border:1px solid #335; }
+
+/* Статусы */
+.status { font-weight:bold; white-space:nowrap; text-align:center; }
+.st-idle  { color:#888; font-weight:normal; }
+.st-wait  { color:#ffaa00; }
+.st-ok    { color:#00ff66; }
+.st-block { color:#ff4455; }
+.st-slow  { color:#ffcc00; }
+.st-dpi   { color:#ff8800; }
+.st-geo   { color:#cc66ff; }
