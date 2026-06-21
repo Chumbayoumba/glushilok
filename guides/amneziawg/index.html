@@ -51,6 +51,38 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AmneziaWG не подключается на мобильном интернете",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Убедись, что используешь именно AmneziaWG 2.0 (старая обфускация уже хуже работает). Параметры обфускации (Jc, Jmin, Jmax, H1–H4) должны совпадать с сервером — бери свежий конфиг в @vnespiskabot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Подключается, но интернета нет",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Проверь, что выбран сервер «ВнеСписка» и включён режим VPN, а не Split Tunneling с исключениями. Перезапусти приложение."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AmneziaWG или VLESS Reality — что лучше?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Оба отлично обходят DPI в 2026. VLESS Reality маскируется под HTTPS (TCP), AmneziaWG 2.0 — под UDP. Если один не идёт на твоём операторе — пробуй второй."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="guides-page">
 
