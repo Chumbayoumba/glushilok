@@ -189,6 +189,17 @@ opkg install sing-box
     </dl>
   </div>
 
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-seo">
+    <h2 class="block-title">VLESS на Keenetic — подробно</h2>
+    <p class="seo-text">На роутерах <b class="green-glow">Keenetic</b> обход блокировок настраивается проще всего. Есть два пути: готовый скрипт <b>KVAS</b> (автоматизирует установку и маршрутизацию) или ручная установка <b>Entware + sing-box/xray</b> с вводом ссылки <code>vless://</code>. Подходят модели с поддержкой Entware (нужен USB-порт или встроенная память), включая 4G/LTE-модели Keenetic — обход работает и на мобильном интернете.</p>
+    <h3 class="seo-h3">Как сделать VPN в роутер Keenetic (в т.ч. 4G)</h3>
+    <p class="seo-text">1. Вставь USB-флешку и включи Entware в веб-интерфейсе Keenetic. 2. Установи sing-box или xray через <code>opkg</code>, либо запусти скрипт KVAS. 3. Пропиши свою VLESS-ссылку (Reality: SNI, public key, short id, flow). 4. Включи раздельную маршрутизацию, чтобы Госуслуги и банки шли напрямую. На 4G-моделях Keenetic шаги те же — обход блокировок работает поверх мобильного оператора.</p>
+    <h3 class="seo-h3">Keenetic или OpenWrt?</h3>
+    <p class="seo-text">Keenetic — проще для новичка (KVAS, графический интерфейс). OpenWrt — гибче и полностью бесплатен. Если у тебя роутер с OpenWrt — смотри отдельный гайд: <a href="../vless-openwrt/" style="color:#0ff">VLESS на OpenWrt через sing-box/homeproxy</a>.</p>
+  </div>
+
   <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
 
   <!-- ВОРОНКА: не хочешь возиться -->

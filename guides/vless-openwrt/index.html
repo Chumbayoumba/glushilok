@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VLESS на OpenWrt 2026 — настройка sing-box и homeproxy пошагово | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Как настроить VLESS Reality на OpenWrt в 2026: установка sing-box / homeproxy / passwall, конфиг vless://, smart-маршрутизация и обход блокировок для всех устройств дома. Пошаговая инструкция.">
+<meta name="keywords" content="vless openwrt, openwrt vless, vless на openwrt, sing-box openwrt, homeproxy openwrt, passwall vless, openwrt обход блокировок, vless reality роутер">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="VLESS на OpenWrt 2026 — sing-box и homeproxy пошагово">
+<meta property="og:description" content="Как настроить VLESS Reality на OpenWrt: sing-box / homeproxy / passwall, конфиг vless://, smart-маршрутизация. Обход блокировок для всего дома.">
+<meta property="og:url" content="https://glushilok.net/guides/vless-openwrt/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/vless-openwrt/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как настроить VLESS Reality на OpenWrt в 2026",
+  "description": "Установка sing-box / homeproxy на OpenWrt, ввод ссылки vless://, smart-маршрутизация для обхода блокировок на всех устройствах дома.",
+  "step": [
+    { "@type": "HowToStep", "name": "Проверь роутер и прошивку OpenWrt", "text": "Нужен роутер с OpenWrt 23.05+ и хотя бы 128 МБ ОЗУ и 32+ МБ флеш-памяти. VLESS Reality шифрует трафик и нагружает процессор, поэтому слабые роутеры будут резать скорость." },
+    { "@type": "HowToStep", "name": "Установи sing-box и homeproxy", "text": "Обнови списки пакетов и установи sing-box с веб-интерфейсом homeproxy через opkg или из меню System → Software в LuCI." },
+    { "@type": "HowToStep", "name": "Добавь свою VLESS-ссылку", "text": "В homeproxy импортируй ссылку vless:// со своего сервера или из подписки. Параметры Reality (SNI, public key, short id, flow) подставятся автоматически." },
+    { "@type": "HowToStep", "name": "Настрой smart-маршрутизацию", "text": "Российские домены и IP (банки, Госуслуги) пусти напрямую, а зарубежные — через VLESS. Так YouTube работает, а Госуслуги не блокируют VPN-адрес." },
+    { "@type": "HowToStep", "name": "Проверь обход", "text": "Перезапусти homeproxy, открой заблокированный сайт с любого устройства в сети. Если открылся — VLESS на OpenWrt работает для всего дома." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Что лучше на OpenWrt: sing-box (homeproxy), passwall или nikki?", "acceptedAnswer": { "@type": "Answer", "text": "Для VLESS Reality в 2026 удобнее всего homeproxy на движке sing-box — простой веб-интерфейс и актуальная поддержка Reality. Passwall2 тоже работает, но настраивается сложнее. Nikki (бывш. mihomo) — альтернатива на ядре Clash." } },
+    { "@type": "Question", "name": "Сколько нужно ОЗУ и флеша на роутере для VLESS?", "acceptedAnswer": { "@type": "Answer", "text": "Минимум 128 МБ ОЗУ и 32 МБ флеш. На роутерах с 64 МБ sing-box может не поместиться или будет нестабилен. Чем мощнее CPU, тем выше скорость через VLESS." } },
+    { "@type": "Question", "name": "Скорость через VLESS на OpenWrt низкая, что делать?", "acceptedAnswer": { "@type": "Answer", "text": "VLESS Reality шифрует трафик и грузит процессор роутера. На слабом железе скорость падает. Решение: роутер помощнее, либо смарт-маршрутизация (через VPN только нужные сайты), либо подключение VLESS только на части устройств." } },
+    { "@type": "Question", "name": "Госуслуги и банки не открываются через VLESS на OpenWrt", "acceptedAnswer": { "@type": "Answer", "text": "Включи раздельную маршрутизацию: российские домены и IP — напрямую, зарубежные — через VLESS. В homeproxy это настраивается списками. Подробнее — в нашем гайде про раздельный туннель." } }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "VLESS на OpenWrt", "item": "https://glushilok.net/guides/vless-openwrt/" }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle"> VLESS НА OPENWRT!!! ★ SING-BOX · HOMEPROXY · PASSWALL ★ ОБХОД ДЛЯ ВСЕГО ДОМА ★ REALITY 2026 <img src="../../assets/gif/server.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/firewall.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(24px,7vw,48px);">VLESS НА OPENWRT</h1>
+      <div class="tagline rainbow">★彡 SING-BOX · HOMEPROXY · PASSWALL 彡★</div>
+      <p class="seo-subtitle">Как настроить VLESS Reality на роутере с OpenWrt в 2026 — обход блокировок через sing-box/homeproxy сразу для всех устройств дома</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/server.gif" alt="" width="40">
+        <img src="../../assets/gif/lock.gif" alt="" width="30">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/pctower.gif" alt="" class="hdr-torch" width="50">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <h2 class="block-title">ЗАЧЕМ VLESS НА OPENWRT</h2>
+    </div>
+    <p class="block-text">VLESS Reality на роутере с <b class="green-glow">OpenWrt</b> — это обход блокировок сразу для всех устройств дома: Smart TV, телефоны, ноутбуки, приставки. Настраиваешь один раз на роутере — приложения на каждом устройстве не нужны. Протокол VLESS Reality маскирует трафик под обычный HTTPS и устойчив к DPI и ТСПУ. Ниже — пошаговая настройка через <b>sing-box / homeproxy</b> (самый удобный способ в 2026) с раздельной маршрутизацией, чтобы Госуслуги и банки работали напрямую.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <h2 class="block-title">НАСТРОЙКА ПОШАГОВО</h2>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Проверь роутер и прошивку OpenWrt</b></p>
+      <p class="block-text">Нужен роутер с OpenWrt 23.05 или новее, минимум 128 МБ ОЗУ и 32+ МБ флеш-памяти. VLESS Reality шифрует трафик и нагружает процессор — на слабом железе скорость будет резаться.</p>
+      <ul class="howto-list">
+        <li>OpenWrt 23.05+ (проверь в LuCI → Status → Overview)</li>
+        <li>ОЗУ ≥ 128 МБ, флеш ≥ 32 МБ</li>
+        <li>Чем мощнее CPU — тем выше скорость через VLESS</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">2</span> <b>Установи sing-box и homeproxy</b></p>
+      <p class="block-text">Обнови списки пакетов и поставь sing-box с веб-интерфейсом homeproxy. Можно через терминал (SSH) или в LuCI: System → Software.</p>
+      <pre class="codebox">opkg update
+opkg install sing-box luci-app-homeproxy
+# перезайди в LuCI — появится раздел Services → HomeProxy</pre>
+      <img src="../../assets/img/win95-terminal.png" alt="OpenWrt: установка sing-box и homeproxy через opkg" class="win95-shot" width="540" height="360" loading="lazy">
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Добавь свою VLESS-ссылку</b></p>
+      <p class="block-text">В LuCI открой Services → HomeProxy → Node, нажми «Import share links» и вставь ссылку <code>vless://</code> со своего сервера или из подписки. Reality-параметры (SNI, public key, short id, flow=xtls-rprx-vision) подставятся автоматически.</p>
+      <ul class="howto-list">
+        <li>Своя ссылка с <a href="../svoy-vless-server/" style="color:#0ff">VLESS-сервера</a></li>
+        <li>Или подписка из готового VPN</li>
+        <li>Проверь, что flow = xtls-rprx-vision и security = reality</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Настрой smart-маршрутизацию</b></p>
+      <p class="block-text">Чтобы российские сайты (банки, Госуслуги) работали напрямую, а зарубежные — через VLESS, включи раздельную маршрутизацию по спискам доменов и IP.</p>
+      <ul class="howto-list">
+        <li>Зарубежные домены/IP → через VLESS (proxy)</li>
+        <li>Российские домены/IP → напрямую (direct)</li>
+        <li>В homeproxy: Routing Settings → правила по geoip/geosite</li>
+      </ul>
+    </div>
+    <div class="guide-step">
+      <p><span class="guide-step-num">5</span> <b>Проверь обход</b></p>
+      <p class="block-text">Сохрани настройки, перезапусти homeproxy и открой заблокированный сайт с любого устройства сети. Если открылся — VLESS на OpenWrt работает для всего дома.</p>
+      <ul class="howto-list">
+        <li>Проверить, что заблокировано: наш <a href="../../proverka/" style="color:#0ff">тест блокировок</a></li>
+        <li>Не открывается рос-сайт → проверь smart-маршрутизацию</li>
+      </ul>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-seo">
+    <h2 class="block-title">sing-box, passwall или nikki — что выбрать на OpenWrt</h2>
+    <p class="seo-text"><b>homeproxy (sing-box)</b> — рекомендуем для VLESS Reality: простой веб-интерфейс в LuCI, актуальная поддержка Reality и flow xtls-rprx-vision. <b>Passwall2</b> — мощный, но настраивается сложнее и требует больше пакетов. <b>Nikki</b> (на ядре mihomo/Clash) — альтернатива, если привык к формату Clash. Для большинства пользователей в 2026 проще всего homeproxy.</p>
+    <h3 class="seo-h3">Чем OpenWrt отличается от Keenetic</h3>
+    <p class="seo-text">На <a href="../vpn-na-routere/" style="color:#0ff">Keenetic</a> VLESS ставится через Entware или скрипт KVAS, на OpenWrt — через sing-box/homeproxy. OpenWrt гибче и бесплатен, но требует совместимого роутера. Если у тебя Keenetic — смотри <a href="../vpn-na-routere/" style="color:#0ff">отдельный гайд по роутерам</a>.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/quest.gif" alt="" width="40">
+      <span class="block-title">ЧАСТЫЕ ВОПРОСЫ</span>
+      <img src="../../assets/gif/quest.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Что лучше: homeproxy, passwall или nikki?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Для VLESS Reality удобнее всего homeproxy на sing-box — простой интерфейс и актуальная поддержка Reality. Passwall2 сложнее, nikki — на ядре Clash.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Сколько нужно ОЗУ и флеша?</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Минимум 128 МБ ОЗУ и 32 МБ флеш. На 64 МБ sing-box может не поместиться. Чем мощнее CPU, тем выше скорость.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Низкая скорость через VLESS на OpenWrt</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Reality грузит процессор. Решение: роутер помощнее, smart-маршрутизация (через VPN только нужное) или VLESS только на части устройств.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="20"> Госуслуги не открываются через VLESS</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="16"> Включи раздельную маршрутизацию: российские домены/IP — напрямую, зарубежные — через VLESS. См. гайд про <a href="../../sajt-ne-rabotaet-vpn/" style="color:#0ff">раздельный туннель</a>.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">НЕ ХОЧЕШЬ ВОЗИТЬСЯ С КОНФИГАМИ?</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Свой VLESS на OpenWrt — это <b>VPS за деньги каждый месяц</b>, возня с конфигами и починка после блокировок.
+      Если нужен просто <b class="green-glow">рабочий интернет без головной боли</b> — возьми готовое:
+    </p>
+    <table class="feat-tbl" border="0" cellpadding="4" cellspacing="0">
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Прокси для Telegram — бесплатно</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> VPN на VLESS Reality — от 239 ₽</td></tr>
+      <tr><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Готовые конфиги — импортируй в homeproxy</td><td><img src="../../assets/gif/star.gif" alt="" width="16" style="vertical-align:middle"> Свежие ссылки при блокировках — автоматически</td></tr>
+    </table>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../proxy/">&nbsp;БЕСПЛАТНЫЙ ПРОКСИ&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ГОТОВЫЙ VPN В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20% ★ дешевле, чем платить за VPS</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ Все гайды ]</a>
+      <a class="btn8831" href="../vpn-na-routere/">[ VPN на роутере ]</a>
+      <a class="btn8831" href="../svoy-vless-server/">[ VLESS сервер ]</a>
+      <a class="btn8831" href="../../proxy/">[ Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на 2026 год</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/server.gif" alt="" width="20" style="vertical-align:middle"> ГОТОВЫЙ VPN — БЕЗ ВОЗНИ »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>
