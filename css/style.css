@@ -1559,7 +1559,7 @@ table.sumtbl td.sc b { display:block; font-size:26px; line-height:1.1; }
 table.sumtbl td.sc span { display:block; font-size:11px; color:#aaccff; }
 table.sumtbl td.sc i { font-style:normal; font-size:11px; color:#88aacc; }
 table.sumtbl td.sc.ok b { color:#00ff66; } table.sumtbl td.sc.block b { color:#ff4455; }
-table.sumtbl td.sc.dpi b { color:#ffaa00; } table.sumtbl td.sc.geo b { color:#cc66ff; }
+table.sumtbl td.sc.dpi b { color:#ffdd00; } table.sumtbl td.sc.geo b { color:#cc66ff; }
 
 /* Категории */
 .cat { margin:14px auto; max-width:620px; }
@@ -1578,6 +1578,7 @@ img.flag { width:18px; height:13px; vertical-align:-1px; border:1px solid #335; 
 .st-wait  { color:#ffaa00; }
 .st-ok    { color:#00ff66; }
 .st-block { color:#ff4455; }
-.st-slow  { color:#ffcc00; }
-.st-dpi   { color:#ff8800; }
+.st-slow  { color:#ff8800; }
+.st-dpi   { color:#ffdd00; }
 .st-geo   { color:#cc66ff; }
+#connHint, #summaryHint { text-align:center; }
