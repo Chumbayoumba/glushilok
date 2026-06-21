@@ -51,6 +51,38 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "NekoBox не подключается на мобильном интернете",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В настройках профиля проверь, что включён uTLS / fingerprint = chrome и правильный SNI. На мобильных сетях РФ помогает свежая конфигурация — её всегда выдаёт @vnespiskabot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Подключается, но интернета нет",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Проверь, что выбран нужный сервер и включён режим VPN (Settings → Service Mode → VPN). Перезапусти приложение."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какой протокол выбрать?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "VLESS + Reality + Vision — самый устойчивый к DPI в 2026 году. Hysteria2 — быстрый запасной вариант."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="guides-page">
 

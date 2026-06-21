@@ -218,6 +218,7 @@ a { text-decoration: none; }
   color: #ffff00;
   text-shadow: 2px 2px 0 #ff0000;
 }
+h2.block-title, h3.block-title { margin: 0; display: inline; line-height: inherit; }
 .block-text {
   font-size: clamp(13px, 3.6vw, 18px);
   color: #ffffff;
