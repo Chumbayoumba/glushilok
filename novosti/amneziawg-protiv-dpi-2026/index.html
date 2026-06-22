@@ -32,7 +32,7 @@
 <script type="application/ld+json">
 { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AmneziaWG лучше VLESS?","acceptedAnswer":{"@type":"Answer","text":"Это разные подходы. VLESS Reality маскируется под HTTPS, AmneziaWG — обфусцированный WireGuard. Оба обходят DPI."}},{"@type":"Question","name":"Нужен свой сервер?","acceptedAnswer":{"@type":"Answer","text":"Можно свой или готовый. Настройка — в наших гайдах."}},{"@type":"Question","name":"Это бесплатно?","acceptedAnswer":{"@type":"Answer","text":"Клиент Amnezia бесплатный и с открытым кодом."}}]}
 </script>
-</head>
+<!-- newsgif-done --></head>
 <body class="proxy-page">
 
 <div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
@@ -75,11 +75,12 @@
   <div class="block block-seo">
     <p class="block-text" style="font-size:clamp(15px,4vw,19px);"><b>Обычный WireGuard быстрый, но легко определяется системами DPI и блокируется. AmneziaWG 2.0 решает это, добавляя обфускацию — маскировку трафика под обычные данные.</b></p>
     <img src="../../assets/img/win95-amnezia.png" alt="AmneziaWG 2.0 против DPI: стелс-протокол для России" class="win95-shot" width="540" height="360" loading="lazy" style="max-width:100%;height:auto;">
-    <h2 class="block-title" style="text-align:left;">В чём проблема обычного WireGuard</h2>
+    <div class="gif-strip" style="text-align:center;margin:10px 0;"><img src="../../assets/gif/fire1.gif" alt="" width="34" style="margin:0 4px;"><img src="../../assets/gif/rocket.gif" alt="" width="34" style="margin:0 4px;"><img src="../../assets/gif/star.gif" alt="" width="34" style="margin:0 4px;"><img src="../../assets/gif/hot1.gif" alt="" width="34" style="margin:0 4px;"><img src="../../assets/gif/fire3.gif" alt="" width="34" style="margin:0 4px;"></div>
+    <img src="../../assets/gif/fire2.gif" alt="" width="26" style="vertical-align:-5px;margin-right:6px;"><h2 class="block-title" style="text-align:left;">В чём проблема обычного WireGuard</h2>
     <p class="seo-text">У классического WireGuard и OpenVPN есть узнаваемые сигнатуры рукопожатия. Оборудование ТСПУ научилось их распознавать и блокировать или резать скорость.</p>
     <p class="seo-text">Поэтому «голый» WireGuard в России работает нестабильно.</p>
     <img src="../../assets/img/win95-terminal.png" alt="AmneziaWG 2.0 против DPI: стелс-протокол для России" class="win95-shot" width="540" height="360" loading="lazy" style="max-width:100%;height:auto;">
-    <h2 class="block-title" style="text-align:left;">Что делает AmneziaWG 2.0</h2>
+    <img src="../../assets/gif/rocket.gif" alt="" width="26" style="vertical-align:-5px;margin-right:6px;"><h2 class="block-title" style="text-align:left;">Что делает AmneziaWG 2.0</h2>
     <p class="seo-text">AmneziaWG добавляет случайные параметры и обфускацию, из-за чего трафик перестаёт быть похожим на WireGuard. Для DPI он выглядит как непонятный поток данных, который сложно классифицировать.</p>
     <p class="seo-text">Это делает протокол устойчивым к фильтрации, сохраняя при этом скорость WireGuard.</p>
     <p class="seo-text">Проверить, что заблокировано именно у вас, можно бесплатным тестом <a href="../../proverka/" style="color:#0ff">Чебурнет Коннект</a>.</p>
