@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="360" viewBox="0 0 540 360" font-family="'MS Sans Serif',sans-serif">
+  <rect x="0" y="0" width="540" height="360" fill="#c0c0c0"/>
+  <rect x="2" y="2" width="536" height="356" fill="none" stroke="#dfdfdf" stroke-width="2"/>
+  <rect x="0" y="0" width="540" height="360" fill="none" stroke="#000" stroke-width="2"/>
+  <rect x="5" y="5" width="530" height="26" fill="#000080"/>
+  <text x="13" y="23" fill="#fff" font-size="14" font-weight="bold">Чебурнет Коннект — Проверка блокировок</text>
+  <rect x="490" y="9" width="18" height="18" fill="#c0c0c0" stroke="#000"/><text x="495" y="23" font-size="12">_</text>
+  <rect x="510" y="9" width="18" height="18" fill="#c0c0c0" stroke="#000"/><text x="514" y="22" font-size="11">×</text>
+  <!-- сводка -->
+  <rect x="16" y="42" width="120" height="50" fill="#fff" stroke="#008000" stroke-width="2"/>
+  <text x="76" y="64" fill="#008000" font-size="20" font-weight="bold" text-anchor="middle">207</text>
+  <text x="76" y="82" fill="#555" font-size="11" text-anchor="middle">доступно</text>
+  <rect x="146" y="42" width="120" height="50" fill="#fff" stroke="#c00000" stroke-width="2"/>
+  <text x="206" y="64" fill="#c00000" font-size="20" font-weight="bold" text-anchor="middle">13</text>
+  <text x="206" y="82" fill="#555" font-size="11" text-anchor="middle">недоступно</text>
+  <rect x="276" y="42" width="120" height="50" fill="#fff" stroke="#d08000" stroke-width="2"/>
+  <text x="336" y="64" fill="#d08000" font-size="20" font-weight="bold" text-anchor="middle">1</text>
+  <text x="336" y="82" fill="#555" font-size="11" text-anchor="middle">DPI</text>
+  <rect x="406" y="42" width="118" height="50" fill="#fff" stroke="#8000a0" stroke-width="2"/>
+  <text x="465" y="64" fill="#8000a0" font-size="20" font-weight="bold" text-anchor="middle">0</text>
+  <text x="465" y="82" fill="#555" font-size="11" text-anchor="middle">гео-блок</text>
+  <!-- список сервисов -->
+  <rect x="16" y="104" width="508" height="180" fill="#fff" stroke="#808080"/>
+  <text x="26" y="124" font-size="13">YouTube</text><text x="500" y="124" fill="#d08000" font-size="13" font-weight="bold" text-anchor="end">замедление</text>
+  <text x="26" y="148" font-size="13">Telegram</text><text x="500" y="148" fill="#008000" font-size="13" font-weight="bold" text-anchor="end">доступен</text>
+  <text x="26" y="172" font-size="13">WhatsApp</text><text x="500" y="172" fill="#c00000" font-size="13" font-weight="bold" text-anchor="end">недоступен</text>
+  <text x="26" y="196" font-size="13">Instagram</text><text x="500" y="196" fill="#c00000" font-size="13" font-weight="bold" text-anchor="end">недоступен</text>
+  <text x="26" y="220" font-size="13">Discord</text><text x="500" y="220" fill="#c00000" font-size="13" font-weight="bold" text-anchor="end">недоступен</text>
+  <text x="26" y="244" font-size="13">ВКонтакте</text><text x="500" y="244" fill="#008000" font-size="13" font-weight="bold" text-anchor="end">доступен</text>
+  <text x="26" y="268" font-size="13">Госуслуги</text><text x="500" y="268" fill="#008000" font-size="13" font-weight="bold" text-anchor="end">доступен</text>
+  <!-- статус-бар -->
+  <rect x="10" y="292" width="520" height="58" fill="#c0c0c0" stroke="#808080"/>
+  <text x="22" y="312" fill="#000" font-size="13" font-weight="bold">⚠ Похоже, ты уже в Чебурнете</text>
+  <text x="22" y="332" fill="#000080" font-size="12">Проверка идёт прямо в браузере · 221 сервис · твой провайдер</text>
+</svg>

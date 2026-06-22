@@ -1582,3 +1582,13 @@ img.flag { width:18px; height:13px; vertical-align:-1px; border:1px solid #335; 
 .st-dpi   { color:#ffdd00; }
 .st-geo   { color:#cc66ff; }
 #connHint, #summaryHint { text-align:center; }
+
+/* ===== Компактная лента новостей (хаб) ===== */
+.news-day-head { background:#000080; color:#ffff66; font-weight:bold; font-size:13px; padding:5px 10px; margin:12px 0 0 0; border:2px ridge #00ffff; text-shadow:1px 1px 0 #000; }
+ul.news-compact { list-style:none; margin:0 0 4px 0; padding:0; border:1px solid #4060a0; }
+ul.news-compact li { padding:5px 10px; border-bottom:1px dotted #335; font-size:13px; line-height:1.4; background:#000814; }
+ul.news-compact li:nth-child(even) { background:#001020; }
+ul.news-compact li:last-child { border-bottom:none; }
+ul.news-compact .ncat { display:inline-block; min-width:78px; font-size:10px; font-weight:bold; color:#000; background:#00e0a0; padding:1px 6px; margin-right:8px; text-align:center; text-transform:uppercase; }
+ul.news-compact a { color:#7fdfff; text-decoration:none; }
+ul.news-compact a:hover { color:#ffff00; text-decoration:underline; }
