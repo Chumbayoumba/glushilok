@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hysteria2: быстрый протокол для нестабильных сетей | ГЛУШИЛОК.NET</title>
+<meta name="description" content="Hysteria2 на QUIC/UDP с порт-хоппингом отлично работает на плохом и мобильном интернете. Когда он лучше VLESS и как поднять сервер.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Hysteria2: быстрый протокол для нестабильных сетей">
+<meta property="og:description" content="Hysteria2 на QUIC/UDP с порт-хоппингом отлично работает на плохом и мобильном интернете. Когда он лучше VLESS и как поднять сервер.">
+<meta property="og:url" content="https://glushilok.net/novosti/hysteria2-dlya-plohih-setey-2026/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-terminal.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/novosti/hysteria2-dlya-plohih-setey-2026/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "Hysteria2: быстрый протокол для нестабильных сетей",
+  "description": "Hysteria2 на QUIC/UDP с порт-хоппингом отлично работает на плохом и мобильном интернете. Когда он лучше VLESS и как поднять сервер.",
+  "image": ["https://glushilok.net/assets/img/win95-terminal.png"],
+  "datePublished": "2026-06-21T09:00:00+03:00",
+  "dateModified": "2026-06-21T09:00:00+03:00",
+  "inLanguage": "ru-RU",
+  "author": { "@type": "Organization", "name": "ГЛУШИЛОК.NET", "url": "https://glushilok.net/" },
+  "publisher": { "@type": "Organization", "name": "ГЛУШИЛОК.NET", "logo": { "@type": "ImageObject", "url": "https://glushilok.net/assets/img/og-cover.png" } },
+  "mainEntityOfPage": "https://glushilok.net/novosti/hysteria2-dlya-plohih-setey-2026/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Новости", "item": "https://glushilok.net/novosti/" },
+    { "@type": "ListItem", "position": 3, "name": "Hysteria2: быстрый протокол для нестабильных сетей", "item": "https://glushilok.net/novosti/hysteria2-dlya-plohih-setey-2026/" }
+  ]
+}
+</script>
+</head>
+<body class="proxy-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/news.gif" alt="" width="22" style="vertical-align:middle"> НОВОСТИ БЛОКИРОВОК И ОБХОДА ★ Протоколы ★ 21 июня 2026 ★ ГЛУШАТ? — У НАС ГЛУШИЛОК НЕТ! <img src="../../assets/gif/news.gif" alt="" width="22" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../proverka/">Проверка блокировок</a>
+<a href="../../guides/">Гайды</a>
+<a href="../">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+</nav>
+
+<div class="page-shell">
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/fire2.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow" style="font-size:clamp(20px,5.5vw,38px);">Hysteria2: быстрый протокол для нестабильных сетей</h1>
+      <div class="tagline rainbow">★彡 Протоколы · 21 июня 2026 彡★</div>
+    </div>
+    <img src="../../assets/gif/news.gif" alt="" class="hdr-torch" width="44">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-seo">
+    <p class="block-text" style="font-size:clamp(15px,4vw,19px);"><b>Hysteria2 — протокол на базе QUIC/UDP, который показывает высокую скорость даже на нестабильных и мобильных сетях.</b></p>
+    <img src="../../assets/img/win95-terminal.png" alt="Hysteria2: быстрый протокол для нестабильных сетей" class="win95-shot" width="540" height="360" loading="lazy" style="max-width:100%;height:auto;">
+    <p class="block-text">Порт-хоппинг помогает обходить блокировки портов, а UDP-основа даёт скорость на каналах с потерями пакетов.</p>
+    <p class="block-text">Как поднять свой Hysteria2 сервер — в нашем гайде.</p>
+    
+    <p class="block-text">Проверить, что заблокировано именно у вас, можно бесплатным тестом <a href="../../proverka/" style="color:#0ff">Чебурнет Коннект</a>.</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">ВЕРНУТЬ ДОСТУП — ПРОКСИ И VPN</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">Прокси вернёт Telegram бесплатно, а VPN на VLESS Reality — весь интернет и обходит DPI/ТСПУ.</p>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="40" class="cta-point">
+      <a class="megabtn megabtn-proxy" href="../../guides/hysteria2/">&nbsp;Hysteria2 — гайд&nbsp;</a>
+      <img src="../../assets/gif/point_left.gif" alt="" width="40" class="cta-point">
+    </div>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/devil.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;VPN В TELEGRAM-БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-note">Промокод <b class="promo-code">VNESPISKA</b> = −20%</p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-seo">
+    <h2 class="block-title">Другие новости</h2>
+    <div class="webring">
+      <a class="btn8831" href="../kak-rabotaet-obhod-dpi-reality-2026/">[ DPI ]</a>
+      <a class="btn8831" href="../max-messenger-stoit-li-perehodit-2026/">[ Мессенджеры ]</a>
+      <a class="btn8831" href="../shtraf-za-vpn-pravda-ili-mif-2026/">[ Закон ]</a>
+      
+      <a class="btn8831" href="../">[ Все новости ]</a>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ ГЛУШАТ? — У НАС ГЛУШИЛОК НЕТ!</p>
+    <p class="footer-disclaimer">Материал информационный. Использование VPN и прокси для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/news.gif" alt="" width="20" style="vertical-align:middle"> ВЕРНУТЬ ДОСТУП »</a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>
