@@ -1361,6 +1361,8 @@ body.guides-page .top-marquee { background: #0044aa; border-bottom-color: #00ccf
 .topnav a:hover { background: #ffff00; color: #ff0000; border-style: inset; }
 .topnav a.is-here { background: #ff00ff; color: #fff; }
 .topnav .nav-hot { background: #b00000; color: #fff; animation: blink 0.8s step-start infinite; }
+.topnav a.mirror { background: #006600; color: #00ff00; border-color: #33ff33; }
+.topnav a.mirror:hover { background: #00ff00; color: #000; }
 
 /* ---------- ХАБ-КАТАЛОГ ---------- */
 .hub {
