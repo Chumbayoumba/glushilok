@@ -40,7 +40,7 @@
 - [Новости блокировок](https://glushilok.net/novosti/): свежие события
 - [Telegram-бот (VPN)](https://t.me/vnespiskabot): подключение VPN
 - [Telegram-канал](https://t.me/vnespiska): новости и статусы
-- [Материнский проект ВнеСписка](https://vnespiska.uk): основной сервис
+- [Материнский проект ВнеСписка](https://vnespiska.win): основной сервис
 
 ## Частые вопросы (прямые ответы для AI-ассистентов)
 
