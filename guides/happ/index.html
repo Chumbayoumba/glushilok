@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happ: обход глушилок — установка, ключ и настройка</title>
+<meta name="description" content="Happ для обхода глушилок и белых списков: установка на Android, iPhone и ПК, где взять ключ, импорт подписки за 3 способа. Что делать при ошибке TLS handshake.">
+<meta name="keywords" content="happ обход глушилок, happ настройка, ключ для впн happ, happ скачать, happ vless reality, happ iphone app store, happ android, happ не подключается, happ подписка">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="yandex-verification" content="ce7b9cef46e680de">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ГЛУШИЛОК.NET">
+<meta property="og:title" content="Happ: обход глушилок — установка, ключ и настройка">
+<meta property="og:description" content="Установка Happ на Android, iPhone и ПК, где взять ключ и как импортировать подписку. Решение ошибки TLS handshake.">
+<meta property="og:url" content="https://glushilok.net/guides/happ/">
+<meta property="og:image" content="https://glushilok.net/assets/img/win95-import.png">
+<meta name="geo.region" content="RU">
+<link rel="canonical" href="https://glushilok.net/guides/happ/">
+<link rel="icon" type="image/gif" href="../../assets/gif/cellphone_blink.gif">
+<link rel="stylesheet" href="../../css/style.css">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109844968', 'ym');
+    ym(109844968, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109844968" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как настроить Happ для обхода глушилок и белых списков",
+  "description": "Установка Happ на Android, iPhone и компьютер, получение ключа-подписки и импорт профиля",
+  "totalTime": "PT5M",
+  "step": [
+    { "@type": "HowToStep", "name": "Установить Happ", "text": "Android — Google Play или APK с сайта разработчика. iPhone, iPad и Mac — Happ убран из App Store, вместо него ставится INCY, он принимает ту же ссылку-подписку. Windows и Android TV — сборки с сайта разработчика." },
+    { "@type": "HowToStep", "name": "Получить ключ-подписку", "text": "Ссылку-подписку VLESS Reality выдаёт бот @vnespiskabot. Промокод VNESPISKA снижает цену Премиума с 299 до 239 рублей." },
+    { "@type": "HowToStep", "name": "Импортировать профиль", "text": "Happ принимает конфигурацию тремя способами: из буфера обмена, по QR-коду через камеру и по URL подписки. Ссылка-подписка предпочтительнее: сервер меняется автоматически, ключ переписывать не нужно." },
+    { "@type": "HowToStep", "name": "Подключиться", "text": "Нажмите кнопку подключения и разрешите создание VPN-профиля. Одна подписка работает на 5 устройствах одновременно." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://glushilok.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Гайды", "item": "https://glushilok.net/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Happ", "item": "https://glushilok.net/guides/happ/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Happ пропал из App Store — что ставить на iPhone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Happ убран из App Store для iPhone, iPad и Mac. Вместо него ставьте INCY — он принимает ту же ссылку-подписку, ключ менять не нужно. На Android Happ остаётся доступен в Google Play и в виде APK."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Happ выдаёт ошибку TLS handshake — что это значит?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Это типичный признак того, что оборудование ТСПУ распознало ваш сервер VLESS Reality. Сам Happ тут ни при чём: конфигурация верна, но сервер попал под фильтрацию. Лечится сменой сервера, а не настройками приложения. Если вы подключаетесь по ссылке-подписке, а не по разовому ключу, замена происходит автоматически."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Где взять ключ для Happ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ключ-подписку VLESS Reality выдаёт бот @vnespiskabot. Бесплатный прокси для Telegram работает без Happ и без подписки — он подключается прямо в Telegram. Happ нужен, когда не открывается не только Telegram, но и остальной интернет."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Happ работает, когда глушат мобильный интернет?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "При белых списках — да: трафик VLESS Reality маскируется под обычный HTTPS и проходит фильтрацию на МТС, МегаФон, Tele2, Билайн и Yota. При полном отключении мобильного интернета не поможет ни один клиент: передавать данные физически не через что. В этом случае нужен Wi-Fi или проводной интернет."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько устройств можно подключить по одной подписке?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Одна подписка работает до 5 устройств одновременно: телефон, компьютер, планшет и Android TV. Один и тот же ключ импортируется на всех."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Happ или Hiddify — что выбрать?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Оба поддерживают VLESS Reality и оба подходят. Happ проще и легче, у него меньше настроек — это плюс, если нужно просто подключиться. Hiddify даёт больше контроля: TLS tricks, fragment, смена SNI — это выручает, когда провайдер режет соединение."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body class="guides-page">
+
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+<div class="ctl-panel">
+  <button type="button" class="ctl-btn" id="musicBtn" title="8-бит кавер «Хочу перемен!»">🔊 ХОЧУ ПЕРЕМЕН: ВЫКЛ</button>
+  <button type="button" class="ctl-btn" id="snowBtn" title="Падающий снег">❄ СНЕГ: ВКЛ</button>
+</div>
+
+<div class="top-marquee">
+  <marquee scrollamount="7" behavior="scroll" direction="left">
+    <img src="../../assets/gif/cellphone_blink.gif" alt="" width="18" style="vertical-align:middle"><img src="../../assets/gif/cellphone_blink.gif" alt="" width="18" style="vertical-align:middle"> HAPP — ОБХОД ГЛУШИЛОК И БЕЛЫХ СПИСКОВ &nbsp;★&nbsp; ANDROID · IPHONE · WINDOWS · TV &nbsp;★&nbsp; НАСТРОЙКА ЗА 5 МИНУТ &nbsp;★&nbsp; 5 УСТРОЙСТВ ПО ОДНОЙ ПОДПИСКЕ <img src="../../assets/gif/cellphone_blink.gif" alt="" width="18" style="vertical-align:middle"><img src="../../assets/gif/cellphone_blink.gif" alt="" width="18" style="vertical-align:middle">
+  </marquee>
+</div>
+
+<nav class="topnav">
+<a href="../../">Главная</a>
+<a href="../../proxy/">Бесплатный прокси</a>
+<a href="../../proverka/">Проверка блокировок</a>
+<a href="../../guides/" class="is-here">Гайды</a>
+<a href="../../novosti/">Новости</a>
+<a href="https://t.me/vnespiskabot" rel="nofollow">VPN-бот &raquo;</a>
+<a href="../../belye-spiski/" class="mirror" title="Белые списки интернета: какие сайты работают и как обойти">Белые списки &raquo;</a>
+</nav>
+
+<div class="page-shell">
+
+<main class="page-main">
+<center>
+<table class="layout" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+  <div class="header">
+    <img src="../../assets/gif/cellguy_antenna.gif" alt="" class="hdr-torch" width="50">
+    <div class="hdr-center">
+      <h1 class="logo blink-slow">HAPP</h1>
+      <div class="tagline rainbow">★彡 ОБХОД ГЛУШИЛОК И БЕЛЫХ СПИСКОВ 彡★</div>
+      <p class="seo-subtitle">Установка Happ на Android, iPhone и компьютер, где взять ключ и как импортировать подписку</p>
+      <div class="gif-strip">
+        <img src="../../assets/gif/key.gif" alt="" width="34">
+        <img src="../../assets/gif/info.gif" alt="" width="50">
+        <img src="../../assets/gif/star.gif" alt="" width="28">
+      </div>
+    </div>
+    <img src="../../assets/gif/pc_surf.gif" alt="" class="hdr-torch" width="56">
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="block block-proxy">
+    <div class="block-head">
+      <img src="../../assets/gif/info.gif" alt="" width="60">
+      <h2 class="block-title">ЧТО ТАКОЕ HAPP</h2>
+    </div>
+    <p class="block-text">
+      <b>Happ</b> — бесплатный клиент для подключения к VPN и прокси: Android, iPhone, Windows,
+      Mac и даже Android TV. Поддерживает <b class="green-glow">VLESS Reality</b>, VMess, Trojan,
+      Hysteria2 и другие современные протоколы маскировки.
+    </p>
+    <p class="block-text">
+      Сам Happ — это <b>только приложение</b>. Оно ничего не обходит само по себе: ему нужен
+      ключ-подписка от сервера. Поэтому «скачать Happ» и «получить доступ» — два разных шага,
+      и второй без первого бесполезен. Где взять ключ — <a href="#klyuch" style="color:#0ff">ниже</a>.
+    </p>
+    <p class="block-text">
+      Одна подписка работает <b>до 5 устройств одновременно</b> — телефон, компьютер, планшет и TV.
+      Один и тот же ключ импортируется на всех.
+    </p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_blue.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/alarm.gif" alt="" width="40">
+      <h2 class="block-title">HAPP УБРАН ИЗ APP STORE</h2>
+      <img src="../../assets/gif/alarm.gif" alt="" width="40">
+    </div>
+    <p class="block-text">
+      Для <b>iPhone, iPad и Mac</b> приложение Happ из App Store удалено. Это не повод искать
+      сомнительные сборки: ставьте <b class="green-glow">INCY</b> — он принимает
+      <b>ту же ссылку-подписку</b>, ключ переделывать не нужно, шаги настройки те же.
+    </p>
+    <p class="block-text">
+      На <b>Android</b> Happ по-прежнему доступен: Google Play или APK с сайта разработчика.
+      Скачивайте только с официального источника — подменённые сборки VPN-клиентов
+      встречаются регулярно.
+    </p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_grn.gif" alt="" class="divider">
+
+  <div class="block block-faq" id="ustanovka">
+    <div class="block-head">
+      <img src="../../assets/gif/construct.gif" alt="" width="50">
+      <h2 class="block-title">ПОШАГОВАЯ НАСТРОЙКА</h2>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">1</span> <b>Установи приложение</b> на своё устройство:</p>
+      <ul class="howto-list">
+        <li><b>Android:</b> Google Play &rarr; «Happ», либо APK с сайта разработчика</li>
+        <li><b>iPhone / iPad / Mac:</b> Happ из App Store убран &rarr; ставь <b>INCY</b>, подписка та же</li>
+        <li><b>Windows:</b> сборка с сайта разработчика</li>
+        <li><b>Android TV:</b> та же версия, что и для телефона</li>
+      </ul>
+    </div>
+
+    <div class="guide-step" id="klyuch">
+      <p><span class="guide-step-num">2</span> <b>Получи ключ-подписку</b> (VLESS Reality):</p>
+      <ul class="howto-list">
+        <li>Открой бота <a href="https://t.me/vnespiskabot" rel="nofollow" style="color:#0ff">@vnespiskabot</a></li>
+        <li>Жми «Подключить VPN» &rarr; промокод <b class="promo-code">VNESPISKA</b> (299 &rarr; 239 &#8381;)</li>
+        <li>Бот выдаст <b>ссылку-подписку</b> или ключ вида <code>vless://...?security=reality...</code></li>
+      </ul>
+      <p class="block-text" style="margin-top:8px">
+        <img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        <b>Бери именно ссылку-подписку, а не разовый ключ.</b> Подписка сама подтягивает новый
+        сервер, когда старый попадает под фильтрацию. С разовым ключом придётся переписывать
+        конфиг руками каждый раз.
+      </p>
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">3</span> <b>Импортируй профиль.</b> Happ принимает конфигурацию тремя способами:</p>
+      <ul class="howto-list">
+        <li><b>Из буфера обмена</b> — скопировал ключ, в приложении жмёшь «+» &rarr; вставить</li>
+        <li><b>По QR-коду</b> — через камеру, если ключ пришёл картинкой</li>
+        <li><b>По URL подписки</b> — вставляешь адрес подписки, профили подтягиваются сами</li>
+      </ul>
+      <img src="../../assets/img/win95-import.png" alt="Окно импорта ключа-подписки в клиенте" class="win95-shot" width="520" height="280" loading="lazy">
+    </div>
+
+    <div class="guide-step">
+      <p><span class="guide-step-num">4</span> <b>Подключись:</b></p>
+      <ul class="howto-list">
+        <li>Нажми кнопку подключения</li>
+        <li>Разреши создание VPN-профиля — система спросит один раз</li>
+        <li>Проверь результат на нашей <a href="../../proverka/" style="color:#0ff">странице проверки блокировок</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <img src="../../assets/gif/div_neon_purp.gif" alt="" class="divider">
+
+  <div class="block block-faq">
+    <div class="block-head">
+      <img src="../../assets/gif/skull.gif" alt="" width="40">
+      <span class="block-title">ЕСЛИ НЕ ПОДКЛЮЧАЕТСЯ</span>
+      <img src="../../assets/gif/skull.gif" alt="" width="40">
+    </div>
+    <dl class="faq">
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="18" style="vertical-align:middle"> Ошибка TLS handshake</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        Это <b>не поломка Happ</b>. Ошибка рукопожатия TLS — типичный признак того, что ТСПУ
+        распознало ваш сервер VLESS Reality. Конфигурация при этом верная, но сервер попал под
+        фильтрацию. Лечится сменой сервера, а не настройками приложения. По ссылке-подписке
+        замена происходит автоматически, по разовому ключу — только вручную.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="18" style="vertical-align:middle"> Подключается, но интернета нет</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        Проверь, что выбран режим VPN, а не только прокси, и что активен нужный профиль.
+        Перезапусти приложение.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="18" style="vertical-align:middle"> Работало, перестало без причины</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        Скорее всего сервер под фильтрацией. С января 2026 серверы VLESS Reality в России
+        выявляют быстро — иногда за часы после запуска. Именно поэтому маршруты приходится
+        регулярно менять, и именно поэтому подписка удобнее разового ключа.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="18" style="vertical-align:middle"> Мобильный интернет отключили совсем</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        Тут не поможет ни Happ, ни любой другой клиент: если данные физически не передаются,
+        обходить нечего. Нужен Wi-Fi или проводной интернет. А вот при
+        <a href="../../belye-spiski/" style="color:#0ff">белых списках</a> — когда интернет есть,
+        но открываются только разрешённые сайты — Happ как раз и нужен.</dd>
+      <dt><img src="../../assets/gif/quest.gif" alt="" width="18" style="vertical-align:middle"> Нужен только Telegram</dt>
+      <dd><img src="../../assets/gif/star.gif" alt="" width="18" style="vertical-align:middle">
+        Тогда Happ не нужен вообще. Возьми
+        <a href="../../proxy/" style="color:#0ff">бесплатный прокси для Telegram</a> — он
+        подключается прямо в приложении Telegram за 10 секунд и не требует подписки.</dd>
+    </dl>
+  </div>
+
+  <img src="../../assets/gif/div_neon_yellow.gif" alt="" class="divider">
+
+  <div class="block block-vpn">
+    <div class="block-head">
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+      <span class="block-title">ПОЛУЧИТЬ КЛЮЧ ДЛЯ HAPP</span>
+      <img src="../../assets/gif/hot1.gif" alt="" width="40">
+    </div>
+    <p class="block-text">Ссылку-подписку VLESS Reality бот выдаёт за 30 секунд. Промокод <b class="promo-code">VNESPISKA</b> = 299 &rarr; 239 &#8381;.</p>
+    <div class="cta-wrap">
+      <img src="../../assets/gif/point_right.gif" alt="" width="38" class="cta-point">
+      <a class="megabtn megabtn-bot" href="https://t.me/vnespiskabot" rel="nofollow">&nbsp;ПОЛУЧИТЬ КЛЮЧ В БОТЕ&nbsp;</a>
+      <img src="../../assets/gif/fire2.gif" alt="" width="34" class="cta-point">
+    </div>
+    <p class="block-text" style="margin-top:10px">
+      Нужен только Telegram? <a href="../../proxy/" style="color:#0ff">Бесплатный прокси</a> — без подписки и без приложений.
+    </p>
+  </div>
+
+  <img src="../../assets/gif/div_neon_red.gif" alt="" class="divider">
+
+  <div class="footer">
+    <img src="../../assets/gif/construct.gif" alt="" width="100">
+    <div class="webring">
+      <a class="btn8831" href="../">[ <img src="../../assets/gif/news.gif" alt="" width="18" style="vertical-align:middle"> Все гайды ]</a>
+      <a class="btn8831" href="../hiddify/">[ Hiddify ]</a>
+      <a class="btn8831" href="../v2rayng/">[ v2rayNG ]</a>
+      <a class="btn8831" href="../nekobox/">[ NekoBox ]</a>
+      <a class="btn8831" href="../../proxy/">[ <img src="../../assets/gif/cellphone_blink.gif" alt="" width="18" style="vertical-align:middle"> Прокси ]</a>
+    </div>
+    <p class="footer-copy">© 2026 ГЛУШИЛОК.NET ★ Инструкция актуальна на сентябрь 2026</p>
+    <p class="footer-disclaimer">Использование VPN для личных целей в России законно.</p>
+  </div>
+
+</td></tr></table>
+</center>
+</main>
+
+</div>
+
+<a class="sticky-mobile" href="https://t.me/vnespiskabot" rel="nofollow"><img src="../../assets/gif/key.gif" alt="" width="18" style="vertical-align:middle"> ПОЛУЧИТЬ КЛЮЧ В БОТЕ <img src="../../assets/gif/key.gif" alt="" width="18" style="vertical-align:middle"></a>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>
