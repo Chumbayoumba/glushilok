@@ -3,6 +3,7 @@
 [![Site](https://img.shields.io/badge/site-glushilok.net-brightgreen)](https://glushilok.net/)
 [![Telegram Bot](https://img.shields.io/badge/VPN_bot-@vnespiskabot-blue?logo=telegram)](https://t.me/vnespiskabot)
 [![Free Proxy](https://img.shields.io/badge/Telegram_proxy-FREE-success?logo=telegram)](tg://proxy?server=free.glushilok.net&port=9443&secret=ee5b1977cd65b2b90aeea9a53a8d1120867461736b666c6f772e65676f722d6465762e7275)
+[![WEB Proxy](https://img.shields.io/badge/NEW-WEB%20Proxy-7c3aed?logo=telegram)](https://vnespiska.win/webproxy/)
 [![Made with](https://img.shields.io/badge/made%20with-Notepad-yellow)](https://glushilok.net/)
 
 > **[glushilok.net](https://glushilok.net/)** — бесплатный прокси для Telegram и VPN для обхода глушилок интернета, блокировок и белых списков в России. Возвращает доступ к Telegram, YouTube, WhatsApp, Instagram, ChatGPT, Discord, банкам и Госуслугам. Работает на МТС, МегаФон, Tele2, Билайн, Yota, Ростелеком.
@@ -17,6 +18,7 @@
 |-----|--------|
 | 🌐 Сайт | **[glushilok.net](https://glushilok.net/)** |
 | 📡 Бесплатный прокси Telegram | **[подключить в 1 клик](tg://proxy?server=free.glushilok.net&port=9443&secret=ee5b1977cd65b2b90aeea9a53a8d1120867461736b666c6f772e65676f722d6465762e7275)** |
+| 🖥 WEB-прокси для Telegram Desktop 7.1.1+ (новинка) | **[подключить](https://vnespiska.win/webproxy/)** · `free.vnespiska.win` · секрет `9fc8d7d1aeee614bd5fa3b760da44dd3` |
 | 🤖 VPN-бот (обход белых списков) | **[@vnespiskabot](https://t.me/vnespiskabot)** |
 | 📢 Telegram-канал | **[@vnespiska](https://t.me/vnespiska)** |
 | 📋 Прокси-листы для скраперов | [free-telegram-proxy-russia-2026](https://github.com/Chumbayoumba/free-telegram-proxy-russia-2026) |
