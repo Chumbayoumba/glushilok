@@ -18,7 +18,7 @@
 |-----|--------|
 | 🌐 Сайт | **[glushilok.net](https://glushilok.net/)** |
 | 📡 Бесплатные MTProto-прокси (проверка из России) | **[список, обновляется каждые 2 часа](https://github.com/Chumbayoumba/free-telegram-proxy-russia-2026)** · новые каждый час в **[@vnespiska](https://t.me/vnespiska)** |
-| 🖥 WEB-прокси для Telegram Desktop 7.1.2+ (новинка) | **[подключить](https://vnespiska.win/webproxy/)** · `free.vnespiska.win` · секрет `9fc8d7d1aeee614bd5fa3b760da44dd3` |
+| 🖥 WEB-прокси для ПК, Android и iPhone (новинка) | **[подключить](https://vnespiska.win/webproxy/)** · `webproxy.stream` · секрет `9fc8d7d1aeee614bd5fa3b760da44dd3` · Адрес сменился: старый free.vnespiska.win заблокирован РКН — если подключал его, добавь новый. |
 | 🤖 VPN-бот (обход белых списков) | **[@vnespiskabot](https://t.me/vnespiskabot)** |
 | 📢 Telegram-канал | **[@vnespiska](https://t.me/vnespiska)** |
 | 📋 Прокси-листы для скраперов | [free-telegram-proxy-russia-2026](https://github.com/Chumbayoumba/free-telegram-proxy-russia-2026) |
